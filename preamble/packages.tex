@@ -1,0 +1,93 @@
+% --- CODIFICACIÓN Y FUENTES ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}       % Fuente Times New Roman
+
+% --- IDIOMA ---
+\usepackage[english,spanish,es-nodecimaldot]{babel}
+
+% --- GEOMETRÍA DE PÁGINA ---
+\usepackage[a4paper,
+            top=3cm,
+            bottom=3cm,
+            left=3.5cm,
+            right=2.5cm,
+            headheight=15pt
+           ]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Limpia todo
+\fancyhead[LE,RO]{\thepage} % Número de página a los lados externos
+\fancyhead[LO]{\nouppercase{\rightmark}} % Sección a la izquierda en impares
+\fancyhead[RE]{\nouppercase{\leftmark}}  % Capítulo a la derecha en pares
+\renewcommand{\headrulewidth}{0.4pt} % Línea decorativa
+
+% --- MATEMÁTICAS ---
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+% \usepackage{physics} % ELIMINADO POR AHORA (Evita conflicto con siunitx)
+
+% --- UNIDADES ---
+\usepackage{siunitx}
+\sisetup{
+    range-phrase = {--},
+    range-units = single,
+    separate-uncertainty=true,
+    detect-all
+}
+
+% --- IMÁGENES Y FIGURAS ---
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage{caption}
+\usepackage[font=small,labelfont=bf,labelsep=colon]{caption}
+\usepackage{subcaption}
+\usepackage{float}      
+\usepackage{eso-pic}    
+
+% --- TABLAS ---
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+
+% --- LISTAS Y FORMATO ---
+\usepackage{enumitem}
+\usepackage{setspace}
+% \usepackage{parskip}    
+\usepackage{microtype}
+\usepackage{titlesec}
+
+% Configuración de Títulos de Capítulos
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{50pt}{40pt}
+
+% --- CITAS Y BIBLIOGRAFÍA ---
+\usepackage[square,numbers,sort&compress]{natbib}
+
+% --- HIPERVÍNCULOS (Al final) ---
+\usepackage{xcolor}
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=darkblue,
+    citecolor=darkblue,
+    urlcolor=darkblue,
+    filecolor=magenta,
+    pdfauthor={Juan Sebastian Rojas Rodriguez},
+    pdftitle={Ultrafast laser parameters optimization through machine learning techniques},
+    pdfsubject={Master Thesis},
+    pdfkeywords={Quantum Optics, Ultrafast optics, Machine Learning}
+}
+
+% --- INTERLINEADO ---
+\onehalfspacing
+
+% Permite que las páginas no terminen exactamente alineadas abajo
+% Esto elimina los avisos de "Underfull \vbox"
+\raggedbottom

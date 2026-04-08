@@ -1,0 +1,84 @@
+% --- Document Class ---
+\documentclass[12pt,a4paper,twoside]{book}
+
+% --- Preámbulo: Cargar Paquetes y Definiciones ---
+% La carpeta 'preamble' contiene los archivos de configuración
+\input{preamble/packages.tex}
+\input{preamble/definitions.tex}
+
+% --- INICIO DEL DOCUMENTO ---
+\begin{document}
+
+% --- Portada ---
+\input{sections/titlepage.tex}
+\null\thispagestyle{empty}\newpage
+
+\input{sections/cover_picture_citation.tex}
+
+\null\thispagestyle{empty}\newpage
+
+% --- Secciones Preliminares (con numeración romana y sin capítulo) ---
+\frontmatter
+
+% --- Dedicación ---
+\input{sections/dedication.tex}
+\null\thispagestyle{empty}\newpage
+
+% Agradecimientos
+\input{sections/acknowledgements.tex}
+\null\thispagestyle{empty}\newpage
+
+% Abstract
+\input{sections/abstract.tex}
+
+% Resumen (Español)
+\input{sections/resumen.tex}
+\null\thispagestyle{empty}\newpage
+
+% Índice de Contenido
+\tableofcontents
+
+
+% Lista de Figuras
+\listoffigures
+
+% Lista de Tablas
+\listoftables
+
+% --- Cuerpo Principal de la Tesis (con numeración arábiga y capítulos) ---
+\mainmatter
+
+% Incluir Capítulos
+% Cada archivo en la carpeta 'chapters' debe contener el contenido del capítulo,
+% empezando con \chapter{Mi Capítulo}
+
+
+\input{chapters/ch1_introduccion}
+\input{chapters/ch2_revision_literatura}
+\input{chapters/ch3_marco_teorico}
+\input{chapters/ch4_metodologia}
+
+
+% \chapter{Resultados}
+% \input{chapters/results.tex}
+% \cleardoublepage
+
+% \chapter{Discusión}
+% \input{chapters/discussion.tex}
+% \cleardoublepage
+
+% \chapter{Conclusiones}
+% \input{chapters/conclusions.tex}
+% \cleardoublepage
+
+% --- Bibliografía ---
+% Asegúrate de que el archivo references.bib esté en la raíz del proyecto
+% --- Bibliografía ---
+\bibliographystyle{unsrtnat}
+{
+  \raggedright % Alinea a la izquierda y deja el borde derecho irregular
+  \bibliography{references}
+}
+
+% --- Fin del Documento ---
+\end{document}

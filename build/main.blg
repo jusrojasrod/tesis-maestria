@@ -1,0 +1,54 @@
+This is BibTeX, Version 0.99d (TeX Live 2025)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: unsrtnat.bst
+Database file #1: references.bib
+Warning--string name "june" is undefined
+--line 46 of file references.bib
+Warning--I didn't find a database entry for "Cavalieri_2007"
+Warning--I didn't find a database entry for "Goulielmakis_2010"
+Warning--I didn't find a database entry for "Weiner_2000"
+Warning--I didn't find a database entry for "Dudovich_2002"
+Warning--empty year in Nobel_2023
+You've used 6 entries,
+            2481 wiz_defined-function locations,
+            612 strings with 6366 characters,
+and the built_in function-call counts, 3211 in all, are:
+= -- 207
+> -- 301
+< -- 2
++ -- 108
+- -- 96
+* -- 337
+:= -- 573
+add.period$ -- 28
+call.type$ -- 6
+change.case$ -- 11
+chr.to.int$ -- 6
+cite$ -- 8
+duplicate$ -- 104
+empty$ -- 219
+format.name$ -- 103
+if$ -- 629
+int.to.chr$ -- 1
+int.to.str$ -- 7
+missing$ -- 4
+newline$ -- 48
+num.names$ -- 15
+pop$ -- 40
+preamble$ -- 1
+purify$ -- 6
+quote$ -- 0
+skip$ -- 68
+stack$ -- 0
+substring$ -- 109
+swap$ -- 15
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 42
+warning$ -- 1
+while$ -- 14
+width$ -- 0
+write$ -- 102
+(There were 6 warnings)

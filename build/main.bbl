@@ -1,0 +1,48 @@
+\begin{thebibliography}{6}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Ciappina et~al.(2017)Ciappina, Pérez-Hernández, Landsman, Okell, Zherebtsov, Förg, Schötz, Seiffert, Fennel, Shaaran, Zimmermann, Chacón, Guichard, Zaïr, Tisch, Marangos, Witting, Braun, Maier, Roso, Krüger, Hommelhoff, Kling, Krausz, and Lewenstein]{Ciappina_2017}
+M~F Ciappina, J~A Pérez-Hernández, A~S Landsman, W~A Okell, S~Zherebtsov, B~Förg, J~Schötz, L~Seiffert, T~Fennel, T~Shaaran, T~Zimmermann, A~Chacón, R~Guichard, A~Zaïr, J~W~G Tisch, J~P Marangos, T~Witting, A~Braun, S~A Maier, L~Roso, M~Krüger, P~Hommelhoff, M~F Kling, F~Krausz, and M~Lewenstein.
+\newblock Attosecond physics at the nanoscale.
+\newblock \emph{Reports on Progress in Physics}, 80\penalty0 (5):\penalty0 054401, March 2017.
+\newblock ISSN 1361-6633.
+\newblock \doi{10.1088/1361-6633/aa574e}.
+\newblock URL \url{http://dx.doi.org/10.1088/1361-6633/aa574e}.
+
+\bibitem[Krausz and Ivanov(2009)]{Krausz_Ivanov_2009}
+Ferenc Krausz and Misha Ivanov.
+\newblock Attosecond physics.
+\newblock \emph{Reviews of Modern Physics}, 81\penalty0 (1):\penalty0 163–234, February 2009.
+\newblock ISSN 0034-6861, 1539-0756.
+\newblock \doi{10.1103/RevModPhys.81.163}.
+\newblock URL \url{https://link.aps.org/doi/10.1103/RevModPhys.81.163}.
+
+\bibitem[Lewenstein et~al.(2022)Lewenstein, Baldelli, Bhattacharya, Biegert, Ciappina, Elu, Grass, Grochowski, Johnson, Lamprou, Maxwell, Ordóñez, Pisanty, Rivera-Dean, Stammer, Tyulnev, and Tzallas]{lewenstein2022}
+M.~Lewenstein, N.~Baldelli, U.~Bhattacharya, J.~Biegert, M.~F. Ciappina, U.~Elu, T.~Grass, P.~T. Grochowski, A.~Johnson, Th. Lamprou, A.~S. Maxwell, A.~Ordóñez, E.~Pisanty, J.~Rivera-Dean, P.~Stammer, I.~Tyulnev, and P.~Tzallas.
+\newblock Attosecond physics and quantum information science, 2022.
+\newblock URL \url{https://arxiv.org/abs/2208.14769}.
+
+\bibitem[Borrego-Varillas et~al.(2022)Borrego-Varillas, Lucchini, and Nisoli]{Borrego-Varillas_Lucchini_Nisoli_2022}
+Rocío Borrego-Varillas, Matteo Lucchini, and Mauro Nisoli.
+\newblock Attosecond spectroscopy for the investigation of ultrafast dynamics in atomic, molecular and solid-state physics.
+\newblock \emph{Reports on Progress in Physics}, 85\penalty0 (6):\penalty0 066401, 2022.
+\newblock ISSN 0034-4885, 1361-6633.
+\newblock \doi{10.1088/1361-6633/ac5e7f}.
+\newblock URL \url{https://iopscience.iop.org/article/10.1088/1361-6633/ac5e7f}.
+
+\bibitem[Nob()]{Nobel_2023}
+URL \url{https://www.nobelprize.org/prizes/physics/2023/summary/}.
+
+\bibitem[Haus(2000)]{Haus_2000}
+H.A. Haus.
+\newblock Mode-locking of lasers.
+\newblock \emph{IEEE Journal of Selected Topics in Quantum Electronics}, 6\penalty0 (6):\penalty0 1173–1185, November 2000.
+\newblock ISSN 1077-260X, 1558-4542.
+\newblock \doi{10.1109/2944.902165}.
+\newblock URL \url{http://ieeexplore.ieee.org/document/902165/}.
+
+\end{thebibliography}

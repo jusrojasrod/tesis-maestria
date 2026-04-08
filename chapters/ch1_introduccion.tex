@@ -1,0 +1,218 @@
+\chapter{Introducción}
+\label{ch:introduccion}
+
+En este capítulo introductorio se discutirán los fundamentos físicos de la dinámica de pulsos ultrarrápidos, a
+un nivel general, para luego introducir el problema de optimización multidimensional que plantea el
+control de pulsos, y finalmente se presentará el enfoque de aprendizaje automático como una herramienta
+superior para abordar este problema, dando un panorama del estado del arte. Esta introducción es parte de un
+artículo de revisión, actualmente en preparación.
+
+
+\section{Dinámica y control de pulsos en láseres ultrarrápidos}
+
+La física del attosegundo es el campo de estudio de fenómenos ultrarrápidos, que se manifiestan en la
+interacción de pulsos láser ultracortos con la materia a escalas de tiempo extremadamente cortas
+\cite{Ciappina_2017, Krausz_Ivanov_2009}. En este régimen, los pulsos de luz pueden tener duraciones del orden
+de los femtosegundos ($10^{-15}$ segundos) o incluso attosegundos ($10^{-18}$ segundos), lo que permite explorar
+procesos dinámicos en átomos, moléculas y materiales con una resolución temporal sin precedentes
+\cite{lewenstein2022, Borrego-Varillas_Lucchini_Nisoli_2022}.
+
+Ha sido uno de los campos de investigación más activos en la física moderna. Reconociéndole así en 2023 el Premio
+Nobel de Física a Pierre Agostini, Ferenc Krausz y Anne L'Huiller por el desarrollo de técnicas para generar pulsos 
+de luz de attosegundos para el estudio de la dinámica electrónica en la materia \cite{Nobel_2023}. La estructura y 
+dinámica en el régimen de los attosegundos están gobernados por la interacción de la luz con los electrones,
+conexión que se describe mediante las leyes de la mecánica cuántica. 
+
+
+
+
+Los pulsos ultrarrápidos tienen varias características que los hacen ideales para aplicaciones. Entre estas
+características se encuentran su gran resolución temporal. Esta se refiere a que la duración del pulso esta en el 
+rango de los picosegundos o femtosegundos (o menos). Esto permite obtener grandes resoluciones temporales en 
+mediciones y procesos de excitaciones de procesos ultrarrápidos en el estado solido, química y materiales biológicos.
+Por ejemplo, en espectroscopía de fotoemisión, la resolución temporal de los pulsos ultrarrápidos permite estudiar 
+la dinámica electrónica en materiales con una resolución temporal sin precedentes, revelando procesos como la 
+relajación electrónica, la transferencia de carga y las transiciones de fase ultrarrápidas 
+\cite{Cavalieri_2007, Goulielmakis_2010}.
+
+Una gran resolución espacial, debido a su gran extensión espacial dada por la duración del pulso y la velocidad de la
+luz, lo que conlleva a una longitud espacial del pulso del orden de los micrómetros, permitiendo obtener grandes 
+resoluciones espaciales en aplicaciones de imagen y espectroscopía.
+
+Por otra parte, un gran ancho de banda espectral, que por el 
+principio de incertidumbre donde la duración del pulso y el ancho de banda espectral deben ser de un orden 
+unitario (o mayor). En tanto, se alcanzan duraciones temporales más cortas, el ancho de banda espectral se vuelve
+más amplio. Pulsos de $100 fs$ pueden tener anchos de banda espectrales del orden de Tera hercios (THz), mientras
+que los pulsos de luz más cortos, como los pulsos de attosegundos, pueden tener anchos de banda espectrales que 
+se extienden a lo largo de todo el espectro electromagnético, pareciendo más a un pulso de luz blanca que a un
+pulso monocromático. Esta característica de ancho de banda espectral amplio es fundamental para aplicaciones en
+comunicación óptica, espectroscopía no lineal, generación de armónicos de orden alto, entre otras.
+
+
+Finalmente,
+una gran intensidad pico, en donde para una energía de pulso dada, el pico de potencia y el pico de intensidad
+son inversamente proporcionales a la duración del pulso. Los láseres ultrarrápidos pueden alcanzar intensidades
+muy altas con moderados niveles de energía de pulso. Pulsos del orden de femtosegundos amplificados pueden
+producir potencias pico de hasta petawatts ($10^{15}$ vatios) y alcanzar intensidades de hasta $10^{20} W/cm^2$
+en el foco.
+
+AGREGAR APLICACIONES
+
+
+AGREGAR FORMAS DE GENERACIÓN DE PULSOS ULTRARRÁPIDOS
+
+Los primeros láseres pulsados, como el láser de rubí de Maiman (1960), tenían duraciones de varios cientos de 
+microsegundos. Sin embargo, con la invención del Q-switch por Hellwarth (1961), se logró reducir la duración del 
+pulso a 10 ns, lo que representó una disminución de cuatro órdenes de magnitud. Posteriormente, el modo-locking 
+(DeMaria et al 1966) acompañado por medios láser de amplio ancho de banda como los láseres de tintura 
+(Shank e Ippen 1974) redujo aún más la duración a menos de 1 ps, lo que supuso otra reducción de cuatro órdenes 
+de magnitud. La siguiente reducción de tres órdenes de magnitud tomó otros 10-15 años para lograrse, alcanzando 
+finalmente duraciones en el rango de los femtosegundos y attosegundos \cite{Krausz_Ivanov_2009}.
+
+
+
+En regímenes de tiempo de tan cortas duraciones, las técnicas de generación de pulsos ultrarrápidos son varias y
+dependen del tipo de laser y la aplicación especifica. Existen técnicas como la generación de pulsos por 
+modulación de amplitud, modulación de fase, generación de pulsos por modulación de frecuencia, entre otras. 
+Sin embargo, en el contexto de los láseres de estado sólido y de fibra, que son los más comunes, la
+técnica de generación de pulsos ultrarrápidos más utilizada es el bloqueo de modos, que se basa en la
+superposición constructiva de múltiples modos longitudinales para formas pulsos coherentes \cite{Haus_2000} 
+
+
+AGRAGAR MODELADO FUNDAMENTAL
+
+
+
+
+
+
+
+
+Gran reconocimiento ha recibido el control coherente de pulsos ultrarrápidos, que se refiere a la capacidad de 
+manipular la forma temporal y espectral de los pulsos para influir en los procesos físicos que desencadenan. 
+Este control se ha convertido en una herramienta fundamental para aplicaciones en espectroscopía no lineal, 
+procesamiento de materiales, metrología de precisión, entre otras \cite{Weiner_2000, Dudovich_2002}.
+
+
+
+
+
+
+
+
+
+
+    Enfoque: Esta sección establece el piso físico. No empiezas hablando de tesis, empiezas hablando de óptica.
+
+    Contenido: * Breve descripción de los regímenes de picosegundos y femtosegundos (modelado fundamental, 
+    ej. bloqueo de modos).
+
+        La importancia del control coherente del pulso y cómo la forma temporal y espectral del pulso 
+        determina el éxito en aplicaciones críticas (espectroscopía no lineal, procesamiento de materiales, 
+        metrología de precisión).
+
+        Se introduce la idea de que el pulso es el resultado de un equilibrio dinámico gobernado por 
+        ecuaciones diferenciales (como la Ecuación No Lineal de Schrödinger).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+% \section{Multidimensionalidad y el colapso de la optimización clásica}
+
+%     Enfoque: Aquí presentas al "villano" de la historia. Es la sección más crítica para justificar tu maestría.
+
+%     Contenido:
+
+%         Explicas la complejidad del espacio de fase. Un pulso deseado depende de una red acoplada de variables físicas: dispersión de velocidad de grupo (GVD), auto-modulación de fase (SPM), ancho de banda de la ganancia, profundidad de modulación del absorbente saturable, etc.
+
+%         Detallas cómo una pequeña perturbación en un parámetro exige reajustar los demás para mantener la estabilidad del pulso.
+
+%         Argumentas por qué los enfoques tradicionales (ajuste manual heurístico en el laboratorio o barridos de cuadrícula numéricos) son computacionalmente prohibitivos y escalan de forma ineficiente ante un espacio de parámetros N-dimensional.
+
+% \section{Aprendizaje automático como paradigma de optimización no lineal}
+
+
+%     Enfoque: Presentas el aprendizaje de maquina estrictamente como una herramienta matemática superior para la optimización y el reconocimiento de patrones, no como un concepto informático abstracto.
+
+%     Contenido:
+
+%         Cómo las arquitecturas de ML (redes neuronales, algoritmos genéticos, optimización bayesiana, etc.) son capaces de mapear eficientemente este espacio multidimensional complejo.
+
+%         La ventaja del modelado inverso o la optimización directa: en lugar de resolver las ecuaciones diferenciales paso a paso para cada posible configuración, el algoritmo aprende la topología del espacio de parámetros y converge hacia el pulso óptimo de manera robusta y en una fracción del tiempo computacional.
+
+%         Breve mención de cómo este enfoque está redefiniendo el estado del arte en la fotónica moderna.
+
+% \section{Objetivos y alcance de la tesis}
+
+%     Enfoque: El aterrizaje de la narrativa. Una vez demostrado que el ML es la solución lógica al problema físico de la multidimensionalidad, declaras exactamente qué vas a hacer tú al respecto.
+
+%     Contenido:
+
+%         Presentación directa de tu objetivo general: la optimización de esos parámetros específicos mediante ML.
+
+%         Los pasos formales (objetivos específicos) que seguirás: desde la generación o estructuración de los datos de entrenamiento hasta la evaluación de la convergencia y precisión del modelo sobre la física del láser.
