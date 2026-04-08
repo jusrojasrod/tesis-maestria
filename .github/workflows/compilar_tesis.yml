@@ -2,7 +2,11 @@ name: Compilar Tesis LaTeX
 
 on:
   push:
-    branches: [ "main" ] # Se ejecuta cada vez que subes a la rama main
+    branches: [ "main" ]
+
+# ¡Esto es crucial! Le da permiso al servidor para crear la página de descarga.
+permissions:
+  contents: write 
 
 jobs:
   build_latex:
@@ -14,14 +18,22 @@ jobs:
       - name: Compilar documento LaTeX
         uses: xu-cheng/latex-action@v3
         with:
-          # Si tu archivo .tex principal está en una subcarpeta, descomenta y ajusta esta línea:
-          # working_directory: "Tesis/Latex/" 
           root_file: "main.tex"
-          compiler: latexmk # latexmk es ideal porque maneja bibliografía e índices automáticamente
+          compiler: latexmk
 
-      - name: Guardar el PDF como Artefacto
+      - name: Guardar el PDF como Artefacto (Copia de seguridad de 90 días)
         uses: actions/upload-artifact@v4
         with:
           name: Tesis-PDF
-          # Ajusta la ruta si usaste working_directory arriba
           path: "main.pdf"
+
+      - name: Actualizar Enlace Permanente (Release)
+        uses: ncipollo/release-action@v1
+        with:
+          tag: "latest"
+          name: "Borrador Actual"
+          body: "Esta es la versión más reciente de la tesis, compilada automáticamente desde la rama main."
+          artifacts: "main.pdf"
+          allowUpdates: true
+          replacesArtifacts: true
+          token: ${{ secrets.GITHUB_TOKEN }}
