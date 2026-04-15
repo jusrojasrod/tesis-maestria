@@ -1,9 +1,13 @@
-\begin{thebibliography}{6}
+\begin{thebibliography}{14}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Nob(2023)]{Nobel_2023}
+2023.
+\newblock URL \url{https://www.nobelprize.org/prizes/physics/2023/summary/}.
 
 \bibitem[Ciappina et~al.(2017)Ciappina, Pérez-Hernández, Landsman, Okell, Zherebtsov, Förg, Schötz, Seiffert, Fennel, Shaaran, Zimmermann, Chacón, Guichard, Zaïr, Tisch, Marangos, Witting, Braun, Maier, Roso, Krüger, Hommelhoff, Kling, Krausz, and Lewenstein]{Ciappina_2017}
 M~F Ciappina, J~A Pérez-Hernández, A~S Landsman, W~A Okell, S~Zherebtsov, B~Förg, J~Schötz, L~Seiffert, T~Fennel, T~Shaaran, T~Zimmermann, A~Chacón, R~Guichard, A~Zaïr, J~W~G Tisch, J~P Marangos, T~Witting, A~Braun, S~A Maier, L~Roso, M~Krüger, P~Hommelhoff, M~F Kling, F~Krausz, and M~Lewenstein.
@@ -29,13 +33,55 @@ M.~Lewenstein, N.~Baldelli, U.~Bhattacharya, J.~Biegert, M.~F. Ciappina, U.~Elu,
 \bibitem[Borrego-Varillas et~al.(2022)Borrego-Varillas, Lucchini, and Nisoli]{Borrego-Varillas_Lucchini_Nisoli_2022}
 Rocío Borrego-Varillas, Matteo Lucchini, and Mauro Nisoli.
 \newblock Attosecond spectroscopy for the investigation of ultrafast dynamics in atomic, molecular and solid-state physics.
-\newblock \emph{Reports on Progress in Physics}, 85\penalty0 (6):\penalty0 066401, 2022.
+\newblock \emph{Reports on Progress in Physics}, 85\penalty0 (6):\penalty0 066401, June 2022.
 \newblock ISSN 0034-4885, 1361-6633.
 \newblock \doi{10.1088/1361-6633/ac5e7f}.
 \newblock URL \url{https://iopscience.iop.org/article/10.1088/1361-6633/ac5e7f}.
 
-\bibitem[Nob()]{Nobel_2023}
-URL \url{https://www.nobelprize.org/prizes/physics/2023/summary/}.
+\bibitem[Maiuri et~al.(2020)Maiuri, Garavelli, and Cerullo]{Maiuri_2020}
+Margherita Maiuri, Marco Garavelli, and Giulio Cerullo.
+\newblock Ultrafast spectroscopy: State of the art and open challenges.
+\newblock \emph{Journal of the American Chemical Society}, 142\penalty0 (1):\penalty0 3–15, January 2020.
+\newblock ISSN 0002-7863, 1520-5126.
+\newblock \doi{10.1021/jacs.9b10533}.
+\newblock URL \url{https://pubs.acs.org/doi/10.1021/jacs.9b10533}.
+
+\bibitem[Denk et~al.(1990)Denk, Strickler, and Webb]{Denk_1990}
+W.~Denk, J.~H. Strickler, and W.~W. Webb.
+\newblock Two-photon laser scanning fluorescence microscopy.
+\newblock \emph{Science (New York, N.Y.)}, 248\penalty0 (4951):\penalty0 73–76, April 1990.
+\newblock ISSN 0036-8075.
+\newblock \doi{10.1126/science.2321027}.
+
+\bibitem[Zipfel et~al.(2003)Zipfel, Williams, and Webb]{Zipfel_2003}
+Warren~R. Zipfel, Rebecca~M. Williams, and Watt~W. Webb.
+\newblock Nonlinear magic: multiphoton microscopy in the biosciences.
+\newblock \emph{Nature Biotechnology}, 21\penalty0 (11):\penalty0 1369–1377, November 2003.
+\newblock ISSN 1087-0156.
+\newblock \doi{10.1038/nbt899}.
+
+\bibitem[Udem et~al.(2002)Udem, Holzwarth, and Hänsch]{Udem_2002}
+Th~Udem, R.~Holzwarth, and T.~W. Hänsch.
+\newblock Optical frequency metrology.
+\newblock \emph{Nature}, 416\penalty0 (6877):\penalty0 233–237, March 2002.
+\newblock ISSN 0028-0836.
+\newblock \doi{10.1038/416233a}.
+
+\bibitem[Corkum(1993)]{Corkum_1993}
+P.~B. Corkum.
+\newblock Plasma perspective on strong field multiphoton ionization.
+\newblock \emph{Physical Review Letters}, 71\penalty0 (13):\penalty0 1994–1997, September 1993.
+\newblock ISSN 0031-9007.
+\newblock \doi{10.1103/PhysRevLett.71.1994}.
+\newblock URL \url{https://link.aps.org/doi/10.1103/PhysRevLett.71.1994}.
+
+\bibitem[Strickland and Mourou(1985)]{Strickland_1985}
+Donna Strickland and Gerard Mourou.
+\newblock Compression of amplified chirped optical pulses.
+\newblock \emph{Optics Communications}, 56\penalty0 (3):\penalty0 219–221, December 1985.
+\newblock ISSN 0030-4018.
+\newblock \doi{10.1016/0030-4018(85)90120-8}.
+\newblock URL \url{https://www.sciencedirect.com/science/article/pii/0030401885901208}.
 
 \bibitem[Haus(2000)]{Haus_2000}
 H.A. Haus.
@@ -44,5 +90,21 @@ H.A. Haus.
 \newblock ISSN 1077-260X, 1558-4542.
 \newblock \doi{10.1109/2944.902165}.
 \newblock URL \url{http://ieeexplore.ieee.org/document/902165/}.
+
+\bibitem[Agrawal(2012)]{Agrawal_2012}
+Govind Agrawal.
+\newblock \emph{Nonlinear Fiber Optics}.
+\newblock Academic Press, October 2012.
+\newblock ISBN 9780123970237.
+\newblock \doi{10.1016/C2011-0-00045-5}.
+\newblock URL \url{https://www.sciencedirect.com/book/monograph/9780123970237/nonlinear-fiber-optics}.
+
+\bibitem[Genty et~al.(2021)Genty, Salmela, Dudley, Brunner, Kokhanovskiy, Kobtsev, and Turitsyn]{Genty_2021}
+Goëry Genty, Lauri Salmela, John~M. Dudley, Daniel Brunner, Alexey Kokhanovskiy, Sergei Kobtsev, and Sergei~K. Turitsyn.
+\newblock Machine learning and applications in ultrafast photonics.
+\newblock \emph{Nature Photonics}, 15\penalty0 (2):\penalty0 91–101, February 2021.
+\newblock ISSN 1749-4893.
+\newblock \doi{10.1038/s41566-020-00716-4}.
+\newblock URL \url{https://www.nature.com/articles/s41566-020-00716-4}.
 
 \end{thebibliography}

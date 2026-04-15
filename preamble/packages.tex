@@ -1,7 +1,7 @@
 % --- CODIFICACIÓN Y FUENTES ---
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{mathptmx}       % Fuente Times New Roman
+\usepackage{mathptmx}       
 
 % --- IDIOMA ---
 \usepackage[english,spanish,es-nodecimaldot]{babel}
@@ -23,11 +23,12 @@
 \fancyhead[RE]{\nouppercase{\leftmark}}  % Capítulo a la derecha en pares
 \renewcommand{\headrulewidth}{0.4pt} % Línea decorativa
 
+\setlength{\headheight}{15.2pt}
+
 % --- MATEMÁTICAS ---
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-% \usepackage{physics} % ELIMINADO POR AHORA (Evita conflicto con siunitx)
 
 % --- UNIDADES ---
 \usepackage{siunitx}
@@ -89,5 +90,4 @@
 \onehalfspacing
 
 % Permite que las páginas no terminen exactamente alineadas abajo
-% Esto elimina los avisos de "Underfull \vbox"
 \raggedbottom
