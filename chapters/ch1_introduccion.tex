@@ -1,19 +1,11 @@
 \chapter{Introducción}
 \label{ch:introduccion}
 
-El presente capítulo establece los fundamentos físicos que rigen la dinámica de los pulsos láser ultrarrápidos. A partir 
-de estos conceptos, se formaliza el problema de optimización multidimensional inherente al control coherente de dichos 
-pulsos. Finalmente, se introduce el aprendizaje automático (machine learning) como un marco computacional avanzado para 
-abordar esta complejidad, ofreciendo una perspectiva actualizada del estado del arte. Este documento forma parte de un 
-artículo de revisión actualmente en preparación.
+El presente capítulo establece los fundamentos físicos que rigen la dinámica de los pulsos láser ultrarrápidos. A partir de estos conceptos, se formaliza el problema de optimización multidimensional inherente al control coherente de dichos pulsos. Finalmente, se introduce el aprendizaje automático (machine learning) como un marco computacional avanzado para abordar esta complejidad, ofreciendo una perspectiva actualizada del estado del arte. Este documento forma parte de un artículo de revisión actualmente en preparación.
 
 \section{Dinámica y control de pulsos en láseres ultrarrápidos}
 
-La física de attosegundos y la óptica ultrarrápida constituyen el marco fundamental para el estudio de la interacción 
-luz-materia en escalas temporales extremas \cite{Ciappina_2017, Krausz_Ivanov_2009}. La capacidad de confinar la 
-radiación electromagnética en ventanas temporales del orden de los femtosegundos ($10^{-15}$ segundo) y attosegundos 
-($10^{-18}$ segundos) permite resolver la dinámica electrónica y nuclear en átomos, moléculas y materia condensada con 
-una resolución temporal sin precedentes \cite{lewenstein2022, Borrego-Varillas_Lucchini_Nisoli_2022}.
+La física de attosegundos y la óptica ultrarrápida constituyen el marco fundamental para el estudio de la interacción luz-materia en escalas temporales extremas \cite{Ciappina_2017, Krausz_Ivanov_2009}. La capacidad de confinar la radiación electromagnética en ventanas temporales del orden de los femtosegundos ($10^{-15}$ segundo) y attosegundos ($10^{-18}$ segundos) permite resolver la dinámica electrónica y nuclear en átomos, moléculas y materia condensada con una resolución temporal sin precedentes \cite{lewenstein2022, Borrego-Varillas_Lucchini_Nisoli_2022}.
 
 \begin{figure}
 \centering
@@ -23,83 +15,61 @@ universo \cite{Nobel_2023}.}
 \label{fig:time_scales}
 \end{figure}
 
-La trascendencia de este campo fue reconocida con el Premio Nobel de Física 2023, otorgado a Pierre Agostini, Ferenc 
-Krausz y Anne L'Huillier por el desarrollo de métodos experimentales para la generación de pulsos de luz de attosegundos, 
-un hito que posibilitó la observación directa de la dinámica electrónica de la materia \cite{Nobel_2023}. En este 
-régimen, la evolución estructural e interaccional está intrínsecamente gobernada por las leyes de la mecánica cuántica, 
-exploradas mediante la excitación con estos pulsos de duraciones extremas.
+La trascendencia de este campo fue reconocida con el Premio Nobel de Física 2023, otorgado a Pierre Agostini, Ferenc Krausz y Anne L'Huillier por el desarrollo de métodos experimentales para la generación de pulsos de luz de attosegundos, un hito que posibilitó la observación directa de la dinámica electrónica de la materia \cite{Nobel_2023}. En este régimen, la evolución estructural e interaccional está intrínsecamente gobernada por las leyes de la mecánica cuántica, exploradas mediante la excitación con estos pulsos de duraciones extremas.
 
-El impacto transversal de los láseres ultrarrápidos en la ciencia y la tecnología radica en cuatro propiedades físicas 
-fundamentales:
+El impacto transversal de los láseres ultrarrápidos en la ciencia y la tecnología radica en cuatro propiedades físicas fundamentales:
 
 \begin{itemize}
 
-    \item Resolución temporal extrema: La brevedad de estos pulsos permite que actúen como un estroboscopio óptico, 
-    habilitando el estudio de fenómenos transitorios mediante técnicas de espectroscopía bomba-sonda (pump-probe). Esto 
-    facilita la observación en tiempo real de la relajación electrónica, la transferencia de carga y las transiciones de 
-    fase ultrarrápidas \cite{Maiuri_2020}.
+    \item Resolución temporal extrema: La brevedad de estos pulsos permite que actúen como un estroboscopio óptico, habilitando el estudio de fenómenos transitorios mediante técnicas de espectroscopía bomba-sonda (pump-probe). Esto facilita la observación en tiempo real de la relajación electrónica, la transferencia de carga y las transiciones de fase ultrarrápidas \cite{Maiuri_2020}.
 
-    \item Confinamiento espacial y resolución tridimensional: Acoplados a lentes de alta apertura numérica, la duración 
-    ultracorta y las altas intensidades pico confinan la excitación óptica a volúmenes focales microscópicos mediante 
-    procesos de absorción no lineal. Esto constituye la base de técnicas de biofotónica como la microscopía de excitación 
-    multifotónica, que permite el seccionamiento óptico tridimensional en tejidos in vivo minimizando la fototoxicidad 
-    \cite{Denk_1990, Zipfel_2003}.
+    \item Confinamiento espacial y resolución tridimensional: Acoplados a lentes de alta apertura numérica, la duración ultracorta y las altas intensidades pico confinan la excitación óptica a volúmenes focales microscópicos mediante procesos de absorción no lineal. Esto constituye la base de técnicas de biofotónica como la microscopía de excitación multifotónica, que permite el seccionamiento óptico tridimensional en tejidos in vivo minimizando la fototoxicidad \cite{Denk_1990, Zipfel_2003}.
 
-    \item Ancho de banda espectral ultra-amplio: Como consecuencia directa de la relación de incertidumbre de Fourier 
-    (límite de ancho de banda), la duración temporal del pulso y su extensión espectral son inversamente proporcionales. 
-    Pulsos en el régimen de los 100 fs presentan anchos de banda del orden de terahercios (THz), mientras que los pulsos 
-    de attosegundos abarcan un supercontinuo que se extiende desde el infrarrojo hasta los rayos X blandos. Esta 
-    propiedad es esencial para el desarrollo de los peines de frecuencias ópticas (optical frequency combs), que conectan 
-    los dominios del tiempo y la frecuencia con precisión metrológica \cite{Udem_2002}, y para la generación de armónicos 
-    de alto orden (HHG) \cite{Corkum_1993}.
+    \item Ancho de banda espectral ultra-amplio: Como consecuencia directa de la relación de incertidumbre de Fourier (límite de ancho de banda), la duración temporal del pulso y su extensión espectral son inversamente proporcionales. Pulsos en el régimen de los 100 fs presentan anchos de banda del orden de terahercios (THz), mientras que los pulsos de attosegundos abarcan un supercontinuo que se extiende desde el infrarrojo hasta los rayos X blandos. Esta propiedad es esencial para el desarrollo de los peines de frecuencias ópticas (optical frequency combs), que conectan los dominios del tiempo y la frecuencia con precisión metrológica \cite{Udem_2002}, y para la generación de armónicos de alto orden (HHG) \cite{Corkum_1993}.
 
-    \item Intensidad pico ultra-elevada: Dado que la potencia pico es inversamente proporcional a la duración del pulso 
-    para una energía fija, es posible alcanzar intensidades masivas. Mediante la técnica de amplificación de pulso 
-    chirpeado (Chirped Pulse Amplification, CPA) \cite{Strickland_1985}, sistemas láser de mesa logran potencias del 
-    orden de los petavatios (1015 W) e intensidades focales superiores a 1020 W/cm2. A niveles de energía más moderados, 
-    esta característica permite el procesamiento micrométrico de materiales mediante ablación en régimen "frío", 
-    vaporizando el material antes de que ocurra la difusión térmica hacia la red de fonones, evitando así daños 
-    residuales en el área circundante.
+    \item Intensidad pico ultra-elevada: Dado que la potencia pico es inversamente proporcional a la duración del pulso para una energía fija, es posible alcanzar intensidades masivas. Mediante la técnica de amplificación de pulso chirpeado (Chirped Pulse Amplification, CPA) \cite{Strickland_1985}, sistemas láser de mesa logran potencias del orden de los petavatios (1015 W) e intensidades focales superiores a 1020 W/cm2. A niveles de energía más moderados, esta característica permite el procesamiento micrométrico de materiales mediante ablación en régimen "frío", vaporizando el material antes de que ocurra la difusión térmica hacia la red de fonones, evitando así daños residuales en el área circundante.
     
 \end{itemize}
 
-El desarrollo de la óptica ultrarrápida ha seguido una trayectoria de sucesivos hitos tecnológicos. Desde el láser 
-pulsado de rubí (Maiman, 1960), la invención del Q-switching (Hellwarth, 1961) redujo las duraciones a la escala de los 
-nanosegundos. Posteriormente, la demostración del bloqueo de modos o mode-locking (DeMaria et al., 1966), y la 
-integración de medios de ganancia de banda ancha (Shank e Ippen, 1974), rompieron la barrera del picosegundo. La 
-consolidación definitiva del régimen de femtosegundos requirió el desarrollo de nuevas arquitecturas y esquemas 
-rigurosos de compensación de dispersión \cite{Krausz_Ivanov_2009}.
+El desarrollo de la óptica ultrarrápida ha seguido una trayectoria de sucesivos hitos tecnológicos. Desde el láser pulsado de rubí (Maiman, 1960), la invención del Q-switching (Hellwarth, 1961) redujo las duraciones a la escala de los nanosegundos. Posteriormente, la demostración del bloqueo de modos o mode-locking (DeMaria et al., 1966), y la integración de medios de ganancia de banda ancha (Shank e Ippen, 1974), rompieron la barrera del picosegundo. La consolidación definitiva del régimen de femtosegundos requirió el desarrollo de nuevas arquitecturas y esquemas rigurosos de compensación de dispersión \cite{Krausz_Ivanov_2009}.
 
-En los sistemas modernos de estado sólido y fibra, el mecanismo fundamental para la generación de pulsos ultracortos es 
-el bloqueo de modos pasivo. Este proceso induce una relación de fase coherente y estable entre miles de modos 
-longitudinales que oscilan dentro de la cavidad láser \cite{Haus_2000}. A través de componentes ópticos no lineales, como
- espejos absorbedores saturables semiconductores (SESAM) o medios con efecto de lente Kerr, el sistema modula las 
- pérdidas intracavidad dependientes de la intensidad. Dado que las altas intensidades pico experimentan menor absorción 
- neta, la dinámica del oscilador favorece energéticamente la formación de un pulso solitario frente a la emisión en onda 
- continua (CW).
+En los sistemas modernos de estado sólido y fibra, el mecanismo fundamental para la generación de pulsos ultracortos es el bloqueo de modos pasivo. Este proceso induce una relación de fase coherente y estable entre miles de modos longitudinales que oscilan dentro de la cavidad láser \cite{Haus_2000}. A través de componentes ópticos no lineales, como espejos absorbedores saturables semiconductores (SESAM) o medios con efecto de lente Kerr, el sistema modula las pérdidas intracavidad dependientes de la intensidad. Dado que las altas intensidades pico experimentan menor absorción neta, la dinámica del oscilador favorece energéticamente la formación de un pulso solitario frente a la emisión en onda continua (CW).
 
-Físicamente, la propagación de estos pulsos en un medio óptico dispersivo y no lineal requiere un delicado equilibrio. La 
-evolución espacio-temporal de la envolvente compleja del pulso, A(z,t), se describe clásicamente mediante la Ecuación No 
-Lineal de Schrödinger (NLSE):
-% i∂z∂A​−2β2​​∂t2∂2A​+γ∣A∣2A=0
+Físicamente, la propagación de estos pulsos en un medio óptico dispersivo y no lineal requiere un delicado equilibrio. La evolución espacio-temporal de la envolvente compleja del pulso, A(z,t), se describe clásicamente mediante la Ecuación No Lineal de Schrödinger (NLSE):
 
 \begin{equation}
     i\frac{\partial A}{\partial z} - \frac{\beta_2}{2}\frac{\partial^2 A}{\partial t^2} + \gamma |A|^2 A = 0
 \end{equation}
 
-En este modelo, el segundo término cuantifica la dispersión de la velocidad de grupo (GVD, regida por el parámetro 
-$\beta_2$), responsable del ensanchamiento temporal debido a las diferencias en la velocidad de fase de las componentes 
-espectrales. El tercer término caracteriza la modulación de autofase (SPM, gobernada por el coeficiente no lineal 
-$\gamma$), un fenómeno derivado de la dependencia del índice de refracción con la intensidad que genera nuevas 
-frecuencias y ensancha el pulso espectralmente. En un diseño óptimo, la dispersión anómala se ajusta meticulosamente para 
-compensar el "chirp" inducido por la no linealidad, posibilitando la propagación de solitones ópticos estables a lo largo 
-de la cavidad \cite{Agrawal_2012}.
+En este modelo, el segundo término cuantifica la dispersión de la velocidad de grupo (GVD, regida por el parámetro $\beta_2$), responsable del ensanchamiento temporal debido a las diferencias en la velocidad de fase de las componentes espectrales. El tercer término caracteriza la modulación de autofase (SPM, gobernada por el coeficiente no lineal $\gamma$), un fenómeno derivado de la dependencia del índice de refracción con la intensidad que genera nuevas frecuencias y ensancha el pulso espectralmente. En un diseño óptimo, la dispersión anómala se ajusta meticulosamente para compensar el "chirp" inducido por la no linealidad, posibilitando la propagación de solitones ópticos estables a lo largo de la cavidad \cite{Agrawal_2012}.
 
-La capacidad de manipular determinísticamente la fase y amplitud de estos pulsos se conoce como control coherente, un 
-paradigma indispensable para dirigir rutas fotofísicas y fotoquímicas complejas. Sin 
-embargo, dado que la dinámica del pulso resulta de un sistema acoplado y altamente no lineal, su forma final es 
-extremadamente sensible a múltiples variables del oscilador (potencia de bombeo, dispersión neta, espectro de ganancia 
-y pérdidas). La optimización simultánea de estos parámetros conforma un espacio multidimensional donde los enfoques 
-analíticos tradicionales y los métodos empíricos de prueba y error alcanzan su límite. Esta restricción algorítmica 
-motiva la adopción de arquitecturas de aprendizaje automático y algoritmos evolutivos como enfoques ineludibles para 
-explorar topologías de diseño y establecer el control inteligente en fuentes de luz de nueva generación \cite{Genty_2021}.
+La capacidad de manipular determinísticamente la fase y amplitud de estos pulsos se conoce como control coherente, un paradigma indispensable para dirigir rutas fotofísicas y fotoquímicas complejas. Sin embargo, dado que la dinámica del pulso resulta de un sistema acoplado y altamente no lineal, su forma final es extremadamente sensible a múltiples variables del oscilador (potencia de bombeo, dispersión neta, espectro de ganancia y pérdidas). La optimización simultánea de estos parámetros conforma un espacio multidimensional donde los enfoques analíticos tradicionales y los métodos empíricos de prueba y error alcanzan su límite. Esta restricción algorítmica motiva la adopción de arquitecturas de aprendizaje automático y algoritmos evolutivos como enfoques ineludibles para explorar topologías de diseño y establecer el control inteligente en fuentes de luz de nueva generación \cite{Genty_2021}.
+
+
+\section{Multidimensionalidad y el colapso de la optimización clásica}
+
+El control coherente de pulsos láser ultrarrápidos se traduce en un problema de optimización multidimensional, donde el objetivo es encontrar la configuración óptima de parámetros que maximice una función de mérito específica (por ejemplo, la intensidad pico, la duración del pulso o la eficiencia de generación de armónicos). Este espacio de búsqueda es intrínsecamente complejo debido a la alta dimensionalidad y a la naturaleza no lineal del sistema.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% Enfoque: Aquí presentas al "villano" de la historia. Es la sección más crítica para justificar tu maestría.
+
+% Contenido:
+
+% Explicas la complejidad del espacio de fase. Un pulso deseado depende de una red acoplada de variables físicas: dispersión de velocidad de grupo (GVD), auto-modulación de fase (SPM), ancho de banda de la ganancia, profundidad de modulación del absorbente saturable, etc.
+
+% Detallas cómo una pequeña perturbación en un parámetro exige reajustar los demás para mantener la estabilidad del pulso.
+
+% Argumentas por qué los enfoques tradicionales (ajuste manual heurístico en el laboratorio o barridos de cuadrícula numéricos) son computacionalmente prohibitivos y escalan de forma ineficiente ante un espacio de parámetros N-dimensional.

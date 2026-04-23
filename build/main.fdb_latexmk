@@ -1,19 +1,19 @@
 # Fdb version 4
-["bibtex build/main"] 1776230767.11059 "build/main.aux" "build/main.bbl" "build/main" 1776231014.87705 0
+["bibtex build/main"] 1776919327.80082 "build/main.aux" "build/main.bbl" "build/main" 1776919491.4408 0
   "./references.bib" 1776230766 10114 202718418d7f5461d763d67db475560e ""
-  "build/main.aux" 1776231013 6177 c83c665150e179d5844f255a6e041508 "pdflatex"
+  "build/main.aux" 1776919490 6472 6a10acd847c71ca89ddaa3814d2b1f82 "pdflatex"
   "c:/texlive/2025/texmf-dist/bibtex/bst/natbib/unsrtnat.bst" 1744851749 24550 a41a6405f4de768c43e871d9fbce2bc8 ""
   (generated)
   "build/main.bbl"
   "build/main.blg"
   (rewritten before read)
-["pdflatex"] 1776231012.443 "c:/Users/rebel/OneDrive/Documentos/01_Academia/02_Universidad/TESIS DE MAESTRIA/Tesis/Latex/Optimización de parámetros de láseres ultrarrápidos con técnicas de machine learning/main.tex" "build/main.pdf" "main" 1776231014.87757 0
-  "build/main.aux" 1776231013 6177 c83c665150e179d5844f255a6e041508 "pdflatex"
-  "build/main.bbl" 1776230767 6110 cd6a875abe75e80c961a5619fc6a8153 "bibtex build/main"
-  "build/main.lof" 1776231013 329 9c2c83b7d7e03d390f25eed667286b47 "pdflatex"
-  "build/main.lot" 1776231013 110 23afabf659c39586fe5fdf469f0fda26 "pdflatex"
-  "build/main.out" 1776231013 4713 2c8cb71f191c83e6123fea58c4b355ea "pdflatex"
-  "build/main.toc" 1776231013 2009 92fb4bc790c9c6848fdadc30c0360474 "pdflatex"
+["pdflatex"] 1776919489.33345 "c:/Users/rebel/OneDrive/Documentos/01_Academia/02_Universidad/TESIS DE MAESTRIA/Tesis/Latex/Optimización de parámetros de láseres ultrarrápidos con técnicas de machine learning/main.tex" "build/main.pdf" "main" 1776919491.44127 0
+  "build/main.aux" 1776919490 6472 6a10acd847c71ca89ddaa3814d2b1f82 "pdflatex"
+  "build/main.bbl" 1776919328 6110 cd6a875abe75e80c961a5619fc6a8153 "bibtex build/main"
+  "build/main.lof" 1776919490 329 9c2c83b7d7e03d390f25eed667286b47 "pdflatex"
+  "build/main.lot" 1776919490 110 23afabf659c39586fe5fdf469f0fda26 "pdflatex"
+  "build/main.out" 1776919490 5315 76aec3a91157c259049cc384763121c5 "pdflatex"
+  "build/main.toc" 1776919490 2222 42dd8d9665a225af15929a7cc998d147 "pdflatex"
   "c:/Users/rebel/OneDrive/Documentos/01_Academia/02_Universidad/TESIS DE MAESTRIA/Tesis/Latex/Optimización de parámetros de láseres ultrarrápidos con técnicas de machine learning/main.tex" 1776230889 1656 cbd9fa91e7727307e6a14a0e8e3abe46 ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1744847564 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1744846334 2971 def0b6c1f0b107b3b936def894055589 ""
@@ -156,15 +156,15 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1744858653 5567782 00e0fb0c7cc9c7361a97e3a2230dfbe7 ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1744858937 3561295 b4a42c96c45f480d2c669bff3a98cdb8 ""
   "c:/texlive/2025/texmf.cnf" 1744858610 713 e69b156964470283e0530f5060668171 ""
-  "chapters/ch1_introduccion.tex" 1776230608 8333 c232d0cb0b65b87a531ea2f736464880 ""
+  "chapters/ch1_introduccion.tex" 1776913935 9482 714f3a1caa41bd388c7482bcdd3f2fb3 ""
   "chapters/ch2_revision_literatura.tex" 1769133687 391 07ba6779766f90c9409db8320332c8ab ""
-  "chapters/ch3_marco_teorico.tex" 1769491819 959 c883ed9dcb15b3ad6377fbf57be57ecc ""
+  "chapters/ch3_marco_teorico.tex" 1776919488 1891 fddf7356d394035d4cd7c528cf361b98 ""
   "chapters/ch4_metodologia.tex" 1772599664 47 dc346435e3f35f9c975ae35b552f3ca7 ""
   "chapters/images/ch1/time_scale.png" 1776225370 167580 0870fd19bdb2a93bb7ad01f64aa799b8 ""
   "images/background_image.jpg" 1769133687 893585 9ff3385e03ed2e3368a73c84ef0c09ac ""
   "main.tex" 1776230889 1656 cbd9fa91e7727307e6a14a0e8e3abe46 ""
   "preamble/definitions.tex" 1773715015 962 6011e004b8e17c0050872abe5aa2fd6f ""
-  "preamble/packages.tex" 1776231011 2378 c460d5ab35cbb1275ec12f0177c84830 ""
+  "preamble/packages.tex" 1776231016 2378 c460d5ab35cbb1275ec12f0177c84830 ""
   "sections/abstract.tex" 1772511993 145 e1676224eed6d6e0d41b9495d536850f ""
   "sections/acknowledgements.tex" 1769133687 477 688b3b94dd2e882763725c8086df4a66 ""
   "sections/cover_picture_citation.tex" 1769133687 423 bdeed3837f962dbed92010089614c56d ""
