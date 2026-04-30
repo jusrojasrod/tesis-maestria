@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.16)  22 APR 2026 23:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.16)  29 APR 2026 23:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -648,7 +648,7 @@ Package hyperref Info: Link coloring ON on input line 8.
 
  (./sections/titlepage.tex
 
-<images/background_image.jpg, id=96, 1176.395pt x 892.33376pt>
+<images/background_image.jpg, id=100, 1176.395pt x 892.33376pt>
 File: images/background_image.jpg Graphic file (type jpg)
 <use images/background_image.jpg>
 Package pdftex.def Info: images/background_image.jpg  used on input line 53.
@@ -778,7 +778,7 @@ LaTeX Info: Redefining \% on input line 47.
 
 ] (./chapters/ch1_introduccion.tex
 Cap\'{\i }tulo 1.
-<chapters/images/ch1/time_scale.png, id=211, 767.86874pt x 227.34938pt>
+<chapters/images/ch1/time_scale.png, id=222, 767.86874pt x 227.34938pt>
 File: chapters/images/ch1/time_scale.png Graphic file (type png)
 <use chapters/images/ch1/time_scale.png>
 Package pdftex.def Info: chapters/images/ch1/time_scale.png  used on input line 12.
@@ -789,28 +789,28 @@ Package pdftex.def Info: chapters/images/ch1/time_scale.png  used on input line 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.19 
+l.21 
       [1
 
  <./chapters/images/ch1/time_scale.png>]
 
-LaTeX Info: Redefining \. on input line 35.
-LaTeX Info: Redefining \% on input line 35.
+LaTeX Info: Redefining \. on input line 37.
+LaTeX Info: Redefining \% on input line 37.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.35 
-      [2]
+l.37 
+      [2]) (./chapters/ch2_revision_literatura.tex
 
-LaTeX Info: Redefining \. on input line 47.
-LaTeX Info: Redefining \% on input line 47.
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.47 
-      [3]) (./chapters/ch2_revision_literatura.tex
+l.1 \chapter
+            {Revisión de la literatura} [3]
 
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
@@ -819,13 +819,13 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.4}) has b
 <to be read again> 
                    \relax 
 l.1 \chapter
-            {Revisión de la literatura} [4]
+            {Revisión de la literatura} [4
+
+]
 Cap\'{\i }tulo 2.
 ) (./chapters/ch3_marco_teorico.tex
 
-[5
-
-]
+[5]
 
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
@@ -833,23 +833,39 @@ LaTeX Info: Redefining \% on input line 1.
 
 ]
 Cap\'{\i }tulo 3.
-) (./chapters/ch4_metodologia.tex
+<chapters/images/ch3/CavidadLaser_fig3.png, id=276, 813.0375pt x 461.3235pt>
+File: chapters/images/ch3/CavidadLaser_fig3.png Graphic file (type png)
+<use chapters/images/ch3/CavidadLaser_fig3.png>
+Package pdftex.def Info: chapters/images/ch3/CavidadLaser_fig3.png  used on input line 22.
+(pdftex.def)             Requested size: 243.91313pt x 138.39812pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
 
 [7]
 
+LaTeX Info: Redefining \. on input line 38.
+LaTeX Info: Redefining \% on input line 38.
+[8 <./chapters/images/ch3/CavidadLaser_fig3.png>]) (./chapters/ch4_metodologia.tex
+
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
-[8]
+[9]
+
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+[10]
 Cap\'{\i }tulo 4.
 ) (build/main.bbl
 
-[9
+[11
 
 ]
 
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
-[10
+[12
 
 ]
 Package microtype Info: Loading generic protrusion settings for font family
@@ -858,11 +874,11 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             See the microtype manual for details.
 
 
-[11{c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}])
+[13{c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}])
 
 LaTeX Info: Redefining \. on input line 77.
 LaTeX Info: Redefining \% on input line 77.
-[12] (build/main.aux
+[14] (build/main.aux
 LaTeX Info: Redefining \. on input line 11.
 LaTeX Info: Redefining \% on input line 11.
 )
@@ -871,21 +887,21 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-03-26>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 76AEC3A91157C259049CC384763121C5;5315.
+(rerunfilecheck)             Checksum: E99FBCA2A956EB4D77B63E491B814910;5719.
  ) 
 Here is how much of TeX's memory you used:
- 22156 strings out of 469626
- 420133 string characters out of 5475183
- 822468 words of memory out of 5000000
- 48317 multiletter control sequences out of 15000+600000
- 700474 words of font info for 259 fonts, out of 8000000 for 9000
+ 22213 strings out of 469626
+ 420960 string characters out of 5475183
+ 824856 words of memory out of 5000000
+ 48330 multiletter control sequences out of 15000+600000
+ 705541 words of font info for 287 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 80i,12n,83p,1185b,1244s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/symbol/usyr.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on build/main.pdf (30 pages, 1178772 bytes).
+ 80i,12n,83p,1185b,1252s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/symbol/usyr.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on build/main.pdf (32 pages, 1266455 bytes).
 PDF statistics:
- 357 PDF objects out of 1000 (max. 8388607)
- 303 compressed objects within 4 object streams
- 70 named destinations out of 1000 (max. 500000)
- 78019 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 387 PDF objects out of 1000 (max. 8388607)
+ 327 compressed objects within 4 object streams
+ 74 named destinations out of 1000 (max. 500000)
+ 82128 words of extra memory for PDF output out of 89155 (max. 10000000)
 

@@ -15,13 +15,55 @@ Debido a la naturaleza ondulatoria de la luz y que esta es una propiedad fundame
 
 \section{Láseres de pulsos ultracortos}
 
-\subsection{Bloqueo de modos}
+El bloqueo de modos (del inglés, mode-locking) constituye la técnica fundamental para la generación de pulsos ópticos en el régimen ultrarrápido. En un oscilador que opera bajo bloqueo de modos en onda continua (CW mode-locking), la duración temporal de los pulsos emitidos es órdenes de magnitud inferior al tiempo de ida y vuelta de la cavidad (round-trip time), el cual dicta de manera estricta la tasa de repetición del sistema. Típicamente, este régimen se caracteriza por la propagación intracavidad de un único pulso ultracorto confinado a una escala de picosegundos o femtosegundos, o bien de un tren de pulsos con espaciamiento temporal constante en el caso de operar bajo bloqueo de modos armónico.
 
-Para obtener un laser de modos bloqueados, es necesario incorporar un mecanismo activo o no lineal (moduladores) que induzca una relación de fase coherente entre los modos longitudinales de la cavidad. Además, deben considerarse los nuevos procesos físicos que afectan el pulso en su propagación por la cavidad. Algunos de estos procesos que deben ser considerados en el bloqueo de modos son:
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.3]{chapters/images/ch3/CavidadLaser_fig3.png}
+    \caption{Representación esquemática de la cavidad resonante de un láser de longitud L, diseñada para operar en régimen de bloqueo de modos. El sistema alberga un medio activo (ganancia) y un elemento de modulación (pérdida). La cavidad está delimitada por un espejo de alta reflectancia (HR) en un extremo y un espejo acoplador de salida semitransparente (OC) en el opuesto.}
+    \label{fig:CavidadLaser_fig3}
+\end{figure}
+
+La arquitectura clásica de un láser de modos bloqueados requiere la integración de un elemento modulador en el interior de la cavidad (véase la Figura \ref{fig:CavidadLaser_fig3}). La propagación del campo electromagnético a través de este componente permite la formación de pulsos sincronizados con los instantes de mínima atenuación impuestos por el modulador. La periodicidad intrínseca de esta modulación coincide con el tiempo de vuelo de ida y vuelta de la cavidad, matemáticamente definido como $T_R=2/Lv_g$, donde $L$ representa la longitud óptica de la cavidad y $v_g$ denota la velocidad de grupo del paquete de ondas en el medio.
+
+\subsection{Procesos inmersos en el bloqueo de modos}
+
+Para establecer y sostener el régimen de bloqueo de modos, es imperativo incorporar un mecanismo (moduladores activos o pasivos fuertemente no lineales) que induzca una relación de fase rígidamente coherente entre los múltiples modos longitudinales resonantes de la cavidad. La dinámica espaciotemporal del pulso ultracorto durante su propagación intracavidad está dictada por una interacción altamente compleja de diversos fenómenos físicos macroscópicos:
 
     \begin{itemize}
-        \item Ganancia. La ganancia se requiere en los laseres de modos bloqueados tanto como en los laseres de single mode. La saturacion de la ganancia, en donde la ganacia decrece a medida que la intensidad del pulso aumenta, es importante en cualquier laser. En los laseres de single mode 
+        \item Ganancia. Como en todo oscilador, se requiere un medio activo que provea amplificación suficiente para compensar las pérdidas totales. Mientras que en regímenes monomodo la ganancia es sensible exclusivamente a la potencia promedio, en el bloqueo de modos la elevada intensidad pico de los pulsos ultracortos puede inducir una saturación dinámica y rápida del medio activo (efecto particularmente relevante en láseres de colorante o semiconductores). Este agotamiento abrupto de la ganancia forma asimétricamente el perfil del pulso, facilitando su acortamiento temporal.
+        \item Perdida lineal. Engloban la atenuación no dependiente de la intensidad resultante de la transmisión intencionada a través del acoplador de salida, así como la absorción y dispersión parásitas en los componentes ópticos. Un diseño que optimice la relación entre ganancias y pérdidas lineales es insoslayable para suprimir inestabilidades del tipo Q-switching y garantizar la estabilidad macroscópica del tren de pulsos.
+        \item Modulación activa. Consiste en la introducción de un elemento acustoóptico o electroóptico (modulador de amplitud o fase) impulsado por un sintetizador de radiofrecuencia externo. Para lograr el bloqueo de modos, la frecuencia de este forzamiento externo debe coincidir con la frecuencia del resonador pasivo, induciendo bandas laterales que acoplan en fase los modos longitudinales adyacentes.
+        \item Pérdida saturable (Modulación pasiva de amplitud): Ocurre cuando la atenuación intracavidad responde de manera inversamente proporcional a la intensidad fluente. Este mecanismo no lineal favorece la transmisión de las intensidades pico (reduciendo las pérdidas) y atenúa las componentes de baja intensidad o ruido de fondo. Los dispositivos de pérdida saturable (tales como los Espejos Absorbedores Saturables de Semiconductor o SESAMs, y el efecto de lente de Kerr, KLM) se clasifican en "rápidos" o "lentos" en función del tiempo de relajación de sus portadores relativos a la duración del pulso. Los absorbedores rápidos son excepcionalmente efectivos para regímenes de femtosegundos dado que moldean simétricamente la envolvente del pulso mediante una modulación instantánea.
+        \item Modulación de autofase (SPM): Derivada del efecto Kerr óptico, la SPM es un fenómeno paramétrico en el cual el índice de refracción del material depende de la intensidad lumínica transitoria. En osciladores ultrarrápidos, su tiempo de respuesta es cuasi-instantáneo, provocando un desplazamiento de fase no lineal proporcional a la envolvente temporal del pulso, lo que invariablemente se traduce en la generación de nuevas componentes frecuenciales y un severo ensanchamiento espectral.
+        \item Dispersión de la velocidad de grupo (GVD): La dependencia de la velocidad de fase con la frecuencia (dispersión cromática) provoca que las distintas componentes espectrales del pulso transiten por la cavidad con velocidades diferenciadas. En un medio de dispersión normal, esto induce un ensanchamiento temporal (chirping) sistemático del pulso. Para contrarrestar esta deformación y preservar la coherencia temporal, es imperativo implementar esquemas de compensación intracavidad (e.g., pares de prismas o espejos fuertemente chirpeados).
+        \item Dinámica solitónica: Es el corolario del balance determinista entre la Modulación de autofase (SPM) y una dispersión anómala neta en la cavidad. Mientras la SPM genera un chirp de frecuencia positiva en el frente del pulso, la dispersión anómala invierte este efecto. Su mutua cancelación permite la propagación de "solitones ópticos", paquetes de onda robustos que mantienen una estructura temporal invariante a lo largo de miles de tránsitos intracavidad.
+        \item Limitaciones del ancho de banda y filtrado pasivo: La emisión transitable en el oscilador está acotada por el ancho de banda intrínseco del medio de ganancia y la reflectividad espectral de la óptica intracavidad. Por el principio de incertidumbre de tiempo-ancho de banda, el límite de duración temporal mínima de un pulso ultracorto está dictaminado por la máxima anchura espectral que los elementos pasivos permitan oscilar coherentemente, constituyendo el límite fundamental de la técnica.
     \end{itemize}
+
+
+\subsection{Principios basicos del bloqueo de modos}
+
+Las condiciones de frontera en una cavidad determinan los modos axiales que pueden existir en la cavidad. Para el bloqueo de modos, es necesario que los modos axiales tengan una relacion de fase coherente entre ellos. Esto se puede lograr mediante la introduccion de u elemento de modulacion en la cavidad que induce una modulacion periodca en la perdida o ganancia de la cavidad, lo cual induce una oscilacion en mas de un modo axial. La intensidad y la fase de cada modo axial determinan la duracion del pulso.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \subsection{Física de láseres femtosegundo y picosegundo}
 \subsection{Mecanismos de bloqueo de modos}

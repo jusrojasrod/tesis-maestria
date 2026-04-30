@@ -1,19 +1,19 @@
 # Fdb version 4
-["bibtex build/main"] 1776919327.80082 "build/main.aux" "build/main.bbl" "build/main" 1776919491.4408 0
+["bibtex build/main"] 1777522538.56989 "build/main.aux" "build/main.bbl" "build/main" 1777523131.41326 0
   "./references.bib" 1776230766 10114 202718418d7f5461d763d67db475560e ""
-  "build/main.aux" 1776919490 6472 6a10acd847c71ca89ddaa3814d2b1f82 "pdflatex"
+  "build/main.aux" 1777523130 7585 3c85e8e94fd0afd806c67dc418cf7d8b "pdflatex"
   "c:/texlive/2025/texmf-dist/bibtex/bst/natbib/unsrtnat.bst" 1744851749 24550 a41a6405f4de768c43e871d9fbce2bc8 ""
   (generated)
   "build/main.bbl"
   "build/main.blg"
   (rewritten before read)
-["pdflatex"] 1776919489.33345 "c:/Users/rebel/OneDrive/Documentos/01_Academia/02_Universidad/TESIS DE MAESTRIA/Tesis/Latex/Optimización de parámetros de láseres ultrarrápidos con técnicas de machine learning/main.tex" "build/main.pdf" "main" 1776919491.44127 0
-  "build/main.aux" 1776919490 6472 6a10acd847c71ca89ddaa3814d2b1f82 "pdflatex"
-  "build/main.bbl" 1776919328 6110 cd6a875abe75e80c961a5619fc6a8153 "bibtex build/main"
-  "build/main.lof" 1776919490 329 9c2c83b7d7e03d390f25eed667286b47 "pdflatex"
-  "build/main.lot" 1776919490 110 23afabf659c39586fe5fdf469f0fda26 "pdflatex"
-  "build/main.out" 1776919490 5315 76aec3a91157c259049cc384763121c5 "pdflatex"
-  "build/main.toc" 1776919490 2222 42dd8d9665a225af15929a7cc998d147 "pdflatex"
+["pdflatex"] 1777523129.03704 "c:/Users/rebel/OneDrive/Documentos/01_Academia/02_Universidad/TESIS DE MAESTRIA/Tesis/Latex/Optimización de parámetros de láseres ultrarrápidos con técnicas de machine learning/main.tex" "build/main.pdf" "main" 1777523131.41378 0
+  "build/main.aux" 1777523130 7585 3c85e8e94fd0afd806c67dc418cf7d8b "pdflatex"
+  "build/main.bbl" 1777522538 6110 cd6a875abe75e80c961a5619fc6a8153 "bibtex build/main"
+  "build/main.lof" 1777523130 782 f5a83c8f5d700de3315df428321ec68f "pdflatex"
+  "build/main.lot" 1777523130 110 23afabf659c39586fe5fdf469f0fda26 "pdflatex"
+  "build/main.out" 1777523130 5719 e99fbca2a956eb4d77b63e491b814910 "pdflatex"
+  "build/main.toc" 1777523130 2362 bd5cb0121758c9b542cbbe7d636a22b7 "pdflatex"
   "c:/Users/rebel/OneDrive/Documentos/01_Academia/02_Universidad/TESIS DE MAESTRIA/Tesis/Latex/Optimización de parámetros de láseres ultrarrápidos con técnicas de machine learning/main.tex" 1776230889 1656 cbd9fa91e7727307e6a14a0e8e3abe46 ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1744847564 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1744846334 2971 def0b6c1f0b107b3b936def894055589 ""
@@ -43,6 +43,7 @@
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmr12.tfm" 1744846323 1288 655e228510b4c2a1abe905c368440826 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm" 1744846323 1124 6c73e740cf17375f03eec0ee63599741 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/rsfs/rsfs10.tfm" 1744854469 688 37338d6ab346c2f1466b29e195316aa4 ""
+  "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1744844623 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1744844623 35752 024fb6c41858982481f6968b5fc26508 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1744844623 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb" 1744846334 167085 3b331a8ed51d2a40eb9422e52a3bcab8 ""
@@ -158,13 +159,14 @@
   "c:/texlive/2025/texmf.cnf" 1744858610 713 e69b156964470283e0530f5060668171 ""
   "chapters/ch1_introduccion.tex" 1776913935 9482 714f3a1caa41bd388c7482bcdd3f2fb3 ""
   "chapters/ch2_revision_literatura.tex" 1769133687 391 07ba6779766f90c9409db8320332c8ab ""
-  "chapters/ch3_marco_teorico.tex" 1776919488 1891 fddf7356d394035d4cd7c528cf361b98 ""
+  "chapters/ch3_marco_teorico.tex" 1777523128 8542 3db3a45db66e20bbd5cac09eef6ceca3 ""
   "chapters/ch4_metodologia.tex" 1772599664 47 dc346435e3f35f9c975ae35b552f3ca7 ""
   "chapters/images/ch1/time_scale.png" 1776225370 167580 0870fd19bdb2a93bb7ad01f64aa799b8 ""
+  "chapters/images/ch3/CavidadLaser_fig3.png" 1777521190 77554 000af99d5783c855280c68fd91370e91 ""
   "images/background_image.jpg" 1769133687 893585 9ff3385e03ed2e3368a73c84ef0c09ac ""
   "main.tex" 1776230889 1656 cbd9fa91e7727307e6a14a0e8e3abe46 ""
   "preamble/definitions.tex" 1773715015 962 6011e004b8e17c0050872abe5aa2fd6f ""
-  "preamble/packages.tex" 1776231016 2378 c460d5ab35cbb1275ec12f0177c84830 ""
+  "preamble/packages.tex" 1777520609 2380 3617e07e216d80ef82008879e1e5a29b ""
   "sections/abstract.tex" 1772511993 145 e1676224eed6d6e0d41b9495d536850f ""
   "sections/acknowledgements.tex" 1769133687 477 688b3b94dd2e882763725c8086df4a66 ""
   "sections/cover_picture_citation.tex" 1769133687 423 bdeed3837f962dbed92010089614c56d ""
