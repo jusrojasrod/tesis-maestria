@@ -11,15 +11,12 @@
 \contentsline {section}{\numberline {2.3}Machine learning principles applied to optical systems}{5}{section.2.3}%
 \contentsline {section}{\numberline {2.4}Review of previous work on automatic optimization of ultrafast lasers}{5}{section.2.4}%
 \contentsline {section}{\numberline {2.5}Identification of research gaps and opportunities}{5}{section.2.5}%
-\contentsline {chapter}{\numberline {3}Marco teórico}{7}{chapter.3}%
+\contentsline {chapter}{\numberline {3}Pulsos ultrarrápidos: fundamentos físicos}{7}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Propagación linear de un pulso}{7}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Láseres de pulsos ultracortos}{7}{section.3.2}%
+\contentsline {section}{\numberline {3.2}Técnicas de bloqueo de modos}{7}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}Procesos inmersos en el bloqueo de modos}{8}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Principios basicos del bloqueo de modos}{9}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Física de láseres femtosegundo y picosegundo}{10}{subsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.2.4}Mecanismos de bloqueo de modos}{10}{subsection.3.2.4}%
-\contentsline {subsection}{\numberline {3.2.5}Modelado matemático de la cavidad láser y dinámica del pulso}{10}{subsection.3.2.5}%
-\contentsline {section}{\numberline {3.3}Machine learning}{10}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Fundamentos de machine learning}{10}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Algoritmos de Machine learning}{10}{subsection.3.3.2}%
-\contentsline {chapter}{\numberline {4}Metodología}{11}{chapter.4}%
+\contentsline {subsection}{\numberline {3.2.2}Principios básicos del bloqueo de modos}{9}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}Solitones}{12}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Bloqueo de modos activo}{12}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Pulsos solitónicos en régimen de bloqueo de modos}{12}{subsection.3.4.1}%
+\contentsline {chapter}{\numberline {4}Metodología}{15}{chapter.4}%
