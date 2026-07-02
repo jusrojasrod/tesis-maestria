@@ -2,21 +2,85 @@
 \contentsline {chapter}{Acknowledgements}{\es@scroman {iii}}{chapter*.1}%
 \contentsline {chapter}{Abstract}{\es@scroman {v}}{chapter*.2}%
 \contentsline {chapter}{Resumen}{\es@scroman {vii}}{chapter*.3}%
+\contentsline {chapter}{Notaciones y acrónimos}{\es@scroman {xvii}}{chapter*.7}%
 \contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Dinámica y control de pulsos en láseres ultrarrápidos}{1}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Multidimensionalidad y el colapso de la optimización clásica}{3}{section.1.2}%
-\contentsline {chapter}{\numberline {2}Revisión de la literatura}{5}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Ultrafast lasers: fundamentals and applications}{5}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Parameter optimization techniques in laser systems}{5}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Machine learning principles applied to optical systems}{5}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Review of previous work on automatic optimization of ultrafast lasers}{5}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Identification of research gaps and opportunities}{5}{section.2.5}%
-\contentsline {chapter}{\numberline {3}Pulsos ultrarrápidos: fundamentos físicos}{7}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Propagación linear de un pulso}{7}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Técnicas de bloqueo de modos}{7}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Procesos inmersos en el bloqueo de modos}{8}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Principios básicos del bloqueo de modos}{9}{subsection.3.2.2}%
-\contentsline {section}{\numberline {3.3}Solitones}{12}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Bloqueo de modos activo}{12}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Pulsos solitónicos en régimen de bloqueo de modos}{12}{subsection.3.4.1}%
-\contentsline {chapter}{\numberline {4}Metodología}{15}{chapter.4}%
+\contentsline {section}{\numberline {1.1}Contexto y relevancia de los láseres ultrarrápidos}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}El problema del control y la optimización de parámetros}{2}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Limitaciones de los enfoques tradicionales de ajuste}{4}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Planteamiento del problema y pregunta de investigación}{5}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Objetivos}{6}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Hipótesis, alcance y limitaciones}{6}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Aporte de la tesis}{7}{section.1.7}%
+\contentsline {section}{\numberline {1.8}Resumen de contenido}{8}{section.1.8}%
+\contentsline {chapter}{\numberline {2}Estado del arte}{9}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Pulsos ultracortos: generación y propagación}{9}{section.2.1}%
+\contentsline {section}{\numberline {2.2}El mode-locking como sistema dinámico disipativo}{11}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Espacio de parámetros y estructura del problema de optimización}{13}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Limitaciones de los enfoques tradicionales de ajuste}{15}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Génesis: del control adaptativo a los métodos \textit {data-driven}}{16}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Algoritmos evolutivos: el paradigma del autoajuste}{18}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Heurísticas de control experto y fotónica programable}{19}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Redes neuronales: modelos subrogados, predicción directa e inversa}{21}{section.2.8}%
+\contentsline {section}{\numberline {2.9}Optimización por enjambre de partículas}{22}{section.2.9}%
+\contentsline {section}{\numberline {2.10}Aprendizaje por refuerzo profundo}{23}{section.2.10}%
+\contentsline {section}{\numberline {2.11}Revisiones de síntesis y panorama del campo}{25}{section.2.11}%
+\contentsline {section}{\numberline {2.12}Brechas identificadas y posicionamiento de la tesis}{26}{section.2.12}%
+\contentsline {subsection}{\numberline {2.12.1}Brecha fenomenológica: predominancia del régimen de mode-locking pasivo}{26}{subsection.2.12.1}%
+\contentsline {subsection}{\numberline {2.12.2}Brecha metodológica: carencia de validación cruzada y benchmarking sistemático}{27}{subsection.2.12.2}%
+\contentsline {subsection}{\numberline {2.12.3}Restricción transversal: el problema de transferencia sim-to-real}{27}{subsection.2.12.3}%
+\contentsline {section}{\numberline {2.13}Síntesis}{28}{section.2.13}%
+\contentsline {chapter}{\numberline {3}Marco teórico}{31}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Propagación de un pulso: régimen lineal y no lineal}{31}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}La envolvente de campo lentamente variable}{31}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Régimen lineal: dispersión de la velocidad de grupo}{32}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Régimen no lineal: efecto Kerr y automodulación de fase}{32}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}La ecuación no lineal de Schrödinger}{33}{subsection.3.1.4}%
+\contentsline {subsection}{\numberline {3.1.5}Del medio de propagación a la cavidad}{33}{subsection.3.1.5}%
+\contentsline {section}{\numberline {3.2}Bloqueo de modos: la cavidad como sistema dinámico disipativo}{34}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Procesos inmersos en el bloqueo de modos}{34}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Principios básicos del bloqueo de modos}{36}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}La ecuación maestra de Haus}{38}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}El promediado por ronda}{39}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Operadores de los elementos intracavitarios}{39}{subsection.3.3.2}%
+\contentsline {paragraph}{Ganancia con ancho de banda finito.}{39}{paragraph*.13}%
+\contentsline {paragraph}{Pérdida lineal.}{40}{paragraph*.14}%
+\contentsline {paragraph}{Dispersión de la velocidad de grupo (GVD).}{40}{paragraph*.15}%
+\contentsline {paragraph}{Automodulación de fase (SPM).}{40}{paragraph*.16}%
+\contentsline {paragraph}{Mecanismo de bloqueo de modos.}{40}{paragraph*.17}%
+\contentsline {subsection}{\numberline {3.3.3}Forma general y especializaciones}{40}{subsection.3.3.3}%
+\contentsline {paragraph}{Límite de Kuizenga--Siegman.}{41}{paragraph*.18}%
+\contentsline {subsection}{\numberline {3.3.4}Conexión con la ecuación no lineal de Schrödinger}{41}{subsection.3.3.4}%
+\contentsline {section}{\numberline {3.4}Bloqueo de modos activo}{42}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Solución de Kuizenga--Siegman: el pulso gaussiano}{42}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Pulsos solitónicos en régimen activo}{43}{subsection.3.4.2}%
+\contentsline {paragraph}{El continuo y su papel estabilizador.}{44}{paragraph*.19}%
+\contentsline {paragraph}{Duración mínima y factor de reducción.}{44}{paragraph*.21}%
+\contentsline {paragraph}{Balance de energía y estabilidad.}{45}{paragraph*.22}%
+\contentsline {section}{\numberline {3.5}Bloqueo de modos pasivo}{45}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}El absorbente saturable}{45}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Absorbente rápido y absorbente lento}{46}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Implementaciones físicas: SESAM y KLM}{46}{subsection.3.5.3}%
+\contentsline {subsection}{\numberline {3.5.4}Ecuación maestra del bloqueo de modos pasivo}{46}{subsection.3.5.4}%
+\contentsline {section}{\numberline {3.6}Solitones y solitones disipativos}{47}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}El solitón fundamental de la ecuación no lineal de Schrödinger}{48}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}El solitón disipativo en la cavidad}{48}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.6.3}Regímenes de operación y multiestabilidad}{49}{subsection.3.6.3}%
+\contentsline {section}{\numberline {3.7}Espacio de parámetros y función de mérito}{49}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Las variables de decisión}{50}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7.2}Estructura del espacio de optimización}{50}{subsection.3.7.2}%
+\contentsline {subsection}{\numberline {3.7.3}La función de mérito}{50}{subsection.3.7.3}%
+\contentsline {section}{\numberline {3.8}El problema de optimización: formulación y panorama}{51}{section.3.8}%
+\contentsline {section}{\numberline {3.9}Algoritmos genéticos}{52}{section.3.9}%
+\contentsline {subsection}{\numberline {3.9.1}La metáfora evolutiva}{52}{subsection.3.9.1}%
+\contentsline {subsection}{\numberline {3.9.2}Operadores genéticos}{53}{subsection.3.9.2}%
+\contentsline {subsection}{\numberline {3.9.3}El ciclo generacional}{53}{subsection.3.9.3}%
+\contentsline {section}{\numberline {3.10}Redes neuronales como modelo sustituto acopladas al algoritmo genético}{54}{section.3.10}%
+\contentsline {subsection}{\numberline {3.10.1}El perceptrón multicapa}{54}{subsection.3.10.1}%
+\contentsline {subsection}{\numberline {3.10.2}Entrenamiento: aprendizaje del mapeo}{54}{subsection.3.10.2}%
+\contentsline {subsection}{\numberline {3.10.3}El modelo sustituto y el acoplamiento NN+GA}{55}{subsection.3.10.3}%
+\contentsline {section}{\numberline {3.11}Optimización por enjambre de partículas}{55}{section.3.11}%
+\contentsline {subsection}{\numberline {3.11.1}Partículas, memoria y comunicación}{56}{subsection.3.11.1}%
+\contentsline {subsection}{\numberline {3.11.2}La dinámica del enjambre}{56}{subsection.3.11.2}%
+\contentsline {subsection}{\numberline {3.11.3}Topología, convergencia y contraste con el algoritmo genético}{56}{subsection.3.11.3}%
+\contentsline {section}{\numberline {3.12}Síntesis del marco teórico}{57}{section.3.12}%
+\contentsline {chapter}{\numberline {4}Metodología}{59}{chapter.4}%

@@ -34,6 +34,7 @@
 \null\thispagestyle{empty}\newpage
 
 % Índice de Contenido
+\dominitoc % Prepara los mini-índices por capítulo (minitoc); debe ir antes del índice
 \tableofcontents
 
 
@@ -43,13 +44,24 @@
 % Lista de Tablas
 \listoftables
 
+% Notaciones y acrónimos (estilo Del Valle: justo antes del cuerpo principal)
+\input{sections/notations.tex}
+\cleardoublepage
+
 % --- Cuerpo Principal de la Tesis (con numeración arábiga y capítulos) ---
 \mainmatter
 
 \input{chapters/ch1_introduccion}
+\cleardoublepage
+
 \input{chapters/ch2_revision_literatura}
+\cleardoublepage
+
 \input{chapters/ch3_marco_teorico}
+\cleardoublepage
+
 \input{chapters/ch4_metodologia}
+\cleardoublepage
 
 
 % \chapter{Resultados}

@@ -1,9 +1,6 @@
-\chapter{Marco teórico}
+\chapter{Pulsos ultrarrápidos: fundamentos físicos}
 \label{ch:Theoretical background}
 \chapterminitoc
-
-Este capítulo recorre, en un único arco argumental, el camino que va de la física del pulso ultracorto al control inteligente de la cavidad que lo genera. Se organiza en dos partes encadenadas. La primera establece las herramientas físicas del marco de modelado de cavidad de Keller y Krausz: la propagación de la envolvente bajo dispersión y no linealidad, el bloqueo de modos entendido como sistema dinámico disipativo, la ecuación maestra de Haus como formalismo central, los regímenes de bloqueo de modos activo y pasivo, el solitón disipativo y, como bisagra, la traducción de la física del oscilador en un problema de optimización con su función de mérito. La segunda parte desarrolla los fundamentos de las tres estrategias de optimización que la tesis compara —el algoritmo genético, la red neuronal acoplada al algoritmo genético y la optimización por enjambre de partículas—, todas orientadas a maximizar esa misma función de mérito sobre el mismo simulador.
-
 
 % ============================================================
 %  CAPITULO 3 -- MARCO TEORICO
@@ -111,7 +108,7 @@ envolvente, su contribución a la propagación es
 %
 \begin{equation}
     \frac{\partial A}{\partial z}
-    = i\,\delta_0\,|A|^2 A,
+    = -\,i\,\delta_0\,|A|^2 A,
     \qquad \delta_0 \propto n_2\,\omega_0 ,
     \label{eq:spm_prop}
 \end{equation}
@@ -133,11 +130,11 @@ canónica de la óptica de pulsos \cite{Agrawal2019}:
 \begin{equation}
     \frac{\partial A}{\partial z}
     = i\,D_0\,\frac{\partial^2 A}{\partial t^2}
-      + i\,\delta_0\,|A|^2 A .
+      - i\,\delta_0\,|A|^2 A .
     \label{eq:nlse}
 \end{equation}
 %
-La competencia entre ambos términos es la clave de la dinámica ultrarrápida:
+El signo relativo entre ambos términos es la clave de la dinámica ultrarrápida:
 la GVD anómala ($D_0>0$) impone sobre el pulso un \emph{chirp} de un signo, y la
 SPM ($\delta_0>0$) uno de signo opuesto. Cuando ambos se cancelan exactamente, el
 pulso propaga sin deformarse —es un solitón óptico—, resultado que la
@@ -164,7 +161,7 @@ operadores
 \begin{equation}
     \Delta_{D} A = i\,D\,\frac{\partial^2 A}{\partial t^2},
     \qquad
-    \Delta_{\delta} A = i\,\delta\,|A|^2 A ,
+    \Delta_{\delta} A = -\,i\,\delta\,|A|^2 A ,
     \label{eq:nlse_cavidad}
 \end{equation}
 %
@@ -178,7 +175,6 @@ disipativos encargados de fijar, de entre el continuo de soluciones de la NLSE,
 el pulso estacionario que el láser efectivamente emite. Con la física de la
 propagación ya establecida, la siguiente sección construye esa cavidad y su
 dinámica.
-
 
 % ============================================================
 %  CAPITULO 3 -- MARCO TEORICO
@@ -453,16 +449,9 @@ $f_m = m\,f_{\text{rep}} + f_{CEO}$, parámetro fundamental en metrología de
 frecuencias y óptica de campo fuerte.
 
 
-% ============================================================
-%  CAPITULO 3 -- MARCO TEORICO
-%  Seccion 3.3  ---  La ecuacion maestra de Haus
-%  (nucleo del marco de cavidad Keller/Krausz; fija la notacion
-%   y la ecuacion base que reutilizan 3.4 activo y 3.5 pasivo)
-% ============================================================
-
 \section{La ecuación maestra de Haus}
 \label{sec:haus}
-
+ %
 Las secciones anteriores describieron la cavidad como una sucesión de elementos
 —medio de ganancia, pérdidas lineales, modulador, materiales dispersivos y no
 lineales— por los que el campo transita una y otra vez. Seguir la envolvente del
@@ -477,9 +466,10 @@ cambio por ronda permite sustituir la secuencia discreta de operaciones por una
 única ecuación diferencial continua, que constituye el núcleo del modelado de
 cavidad adoptado en esta tesis y la herramienta de la que penderán los regímenes
 activo (Sección~\ref{sec:ml_activo}) y pasivo (Sección~\ref{sec:ml_pasivo}).
-
+%
+%
 \subsection{El promediado por ronda}
-
+ %
 El punto de partida es la separación de dos escalas temporales. Por un lado, el
 \emph{tiempo local} $t$, definido en un marco de referencia que viaja con el
 pulso, resuelve la estructura interna de la envolvente (la escala de
@@ -489,7 +479,7 @@ y vuelta $T_R$; resulta cómodo tratarlo como una variable continua, de modo que
 $T = n\,T_R$ con $n$ el número de ronda. La cantidad de interés es entonces la
 envolvente compleja $A(T,t)$, lentamente variable en $T$ y rápidamente
 estructurada en $t$.
-
+ 
 Cada elemento intracavitario $j$ produce, en un solo paso, un cambio
 $\Delta_j A$ sobre la envolvente. Tras un recorrido completo, el campo acumula la
 suma de todas esas contribuciones:
@@ -516,9 +506,9 @@ continua gobernada por la acción promediada de todos los elementos de la cavida
 Resta especificar cada operador $\Delta_j A$, lo que se hace a continuación
 retomando los procesos físicos ya presentados en la
 Sección~\ref{sec:procesos_mode_locking}.
-
+ 
 \subsection{Operadores de los elementos intracavitarios}
-
+ 
 \paragraph{Ganancia con ancho de banda finito.}
 El medio activo amplifica la envolvente, pero solo dentro de su ancho de banda
 $\Omega_g$. En el dominio de la frecuencia, el perfil de ganancia en torno a la
@@ -537,7 +527,7 @@ El término $g\,A$ representa la amplificación neta y $D_g\,\partial_t^2 A$ la
 espectrales más alejadas de la línea central y, por tanto, se opone al
 acortamiento temporal del pulso. El valor saturado de $g$ queda fijado por la
 energía intracavitaria a través de la condición de balance con las pérdidas.
-
+ 
 \paragraph{Pérdida lineal.}
 La atenuación independiente de la intensidad —transmisión por el acoplador de
 salida y pérdidas parásitas— actúa como un simple factor de reducción:
@@ -546,7 +536,7 @@ salida y pérdidas parásitas— actúa como un simple factor de reducción:
     \Delta_{l} A = -\,l\,A .
     \label{eq:op_perdida}
 \end{equation}
-
+ 
 \paragraph{Dispersión de la velocidad de grupo (GVD).}
 La dependencia de la velocidad de fase con la frecuencia introduce un desfase
 cuadrático en el espectro que, en el dominio temporal, se escribe como
@@ -559,21 +549,21 @@ cuadrático en el espectro que, en el dominio temporal, se escribe como
 donde $D$ es la dispersión neta por ronda. El carácter imaginario del operador
 distingue la GVD de la dispersión de ganancia: aquella reordena las fases
 espectrales sin atenuar, esta filtra amplitudes.
-
+ 
 \paragraph{Automodulación de fase (SPM).}
 El efecto Kerr hace que el índice de refracción dependa de la intensidad
 instantánea, imprimiendo sobre la envolvente un desfase no lineal proporcional a
 $|A|^2$:
 %
 \begin{equation}
-    \Delta_{\delta} A = i\,\delta\,|A|^2 A ,
+    \Delta_{\delta} A = -\,i\,\delta\,|A|^2 A ,
     \label{eq:op_spm}
 \end{equation}
 %
 con $\delta$ el coeficiente de no linealidad por ronda. Junto con la GVD, este es
 el término responsable de la dinámica solitónica que se analiza en la
 Sección~\ref{sec:solitones}.
-
+ 
 \paragraph{Mecanismo de bloqueo de modos.}
 El elemento que sostiene el régimen pulsado se describe con un operador
 $\Delta_{\mathrm{ML}}A$ cuya forma concreta depende de la técnica empleada. En el
@@ -599,9 +589,9 @@ rápido admite la linealización $q(|A|^2)\approx q_0-\gamma|A|^2$, de modo que 
 término favorece la transmisión de los picos de mayor intensidad. Las
 Secciones~\ref{sec:ml_activo} y~\ref{sec:ml_pasivo} desarrollan, respectivamente,
 cada una de estas dos variantes.
-
+ 
 \subsection{Forma general y especializaciones}
-
+ 
 Sustituyendo los operadores
 \eqref{eq:op_ganancia}--\eqref{eq:op_absorbente} en la
 forma genérica~\eqref{eq:haus_maestra_forma} se obtiene la \textbf{ecuación
@@ -613,7 +603,7 @@ linealidad y el mecanismo de bloqueo de modos:
     T_R\,\frac{\partial A}{\partial T}
     = \Bigl[\,(g-l)
       + \bigl(D_g + iD\bigr)\frac{\partial^2}{\partial t^2}
-      + i\,\delta\,|A|^2
+      - i\,\delta\,|A|^2
       + \Delta_{\mathrm{ML}} \,\Bigr] A ,
     \label{eq:haus_general}
 \end{equation}
@@ -624,7 +614,7 @@ por~\eqref{eq:op_absorbente} en el pasivo. La
 ecuación~\eqref{eq:haus_general} es la pieza central del marco de cavidad: todas
 las especializaciones que siguen en este capítulo se obtienen seleccionando qué
 términos se conservan y cuáles resultan despreciables en cada régimen.
-
+ 
 La condición de operación estacionaria se impone exigiendo que el pulso se
 reproduzca a sí mismo de una vuelta a la siguiente, salvo un eventual
 desplazamiento de fase global $\phi_0$ por ronda. Equivale a buscar soluciones de
@@ -636,11 +626,11 @@ tiempo local:
     i\,\phi_0\,A
     = \Bigl[\,(g-l)
       + \bigl(D_g + iD\bigr)\frac{\partial^2}{\partial t^2}
-      + i\,\delta\,|A|^2
+      - i\,\delta\,|A|^2
       + \Delta_{\mathrm{ML}} \,\Bigr] A .
     \label{eq:haus_estacionario}
 \end{equation}
-
+ 
 \paragraph{Límite de Kuizenga--Siegman.}
 El caso históricamente primero —y la base sobre la que se construye el régimen
 solitónico de la Sección~\ref{sec:ml_activo}— corresponde al bloqueo de modos
@@ -665,14 +655,14 @@ de ganancia $D_g$ (que lo ensancha) y la curvatura del modulador $M_s$ (que lo
 estrecha). Esta es la solución de Kuizenga--Siegman \cite{KuizengaSiegman1970},
 que la Sección~\ref{sec:ml_activo} retoma para incorporar después los términos de
 SPM y GVD y obtener el solitón.
-
+ 
 \subsection{Conexión con la ecuación no lineal de Schrödinger}
-
+ 
 La forma general~\eqref{eq:haus_general} ilumina la relación entre el oscilador y
 los sistemas no lineales conservativos. Si se agrupan los términos puramente
 dispersivos y no lineales, el contenido entre corchetes de
 la~\eqref{eq:haus_general} contiene la combinación
-$iD\,\partial_t^2 A + i\delta|A|^2 A$, que es exactamente el segundo miembro de la
+$iD\,\partial_t^2 A - i\delta|A|^2 A$, que es exactamente el segundo miembro de la
 \textbf{ecuación no lineal de Schrödinger} (NLSE) introducida en la
 Sección~\ref{sec:propagacion}. Los términos restantes —ganancia, pérdida,
 dispersión de ganancia y modulación— son los que distinguen una \emph{cavidad}
@@ -781,7 +771,7 @@ entonces como
 %
 \begin{equation}
     T_R\,\frac{\partial A}{\partial T}
-    = \Bigl[\,iD\,\frac{\partial^2}{\partial t^2} + i\delta\,|A|^2 \,\Bigr] A
+    = \Bigl[\,iD\,\frac{\partial^2}{\partial t^2} - i\delta\,|A|^2 \,\Bigr] A
     + \Bigl[\,g - l + D_g\,\frac{\partial^2}{\partial t^2}
       - M\bigl(1-\cos\omega_m t\bigr) \,\Bigr] A = 0.
     \label{eq:haus_soliton}
@@ -1315,7 +1305,7 @@ objetivos en un escalar: se busca el frente de Pareto de soluciones no dominadas
 que expone explícitamente los compromisos entre metas en conflicto —un pulso más
 corto suele ser menos energético o menos estable—. La elección entre ambos
 enfoques, así como la forma precisa de $F$ y de sus pesos, es una decisión
-metodológica que se concreta en el Capítulo~\ref{ch:Methodology}.
+metodológica que se concreta en el Capítulo~\ref{ch:metodologia}.
 
 Lo esencial para el hilo del capítulo es que la función de mérito $F(\mathbf{p})$
 definida aquí es, exactamente, el objetivo que los tres métodos de la segunda parte
@@ -1395,7 +1385,7 @@ que motiva el estudio comparativo sistemático que persigue esta tesis
 
 El algoritmo genético (GA) es la primera de las tres estrategias comparadas y
 constituye la línea base del estudio, por su madurez teórica y por su empleo
-extendido en la autooptimización de láseres ultrarrápidos
+extendido en la auto optimización de láseres ultrarrápidos
 \cite{Andral2015,Woodward2016}. Pertenece a la familia de los métodos
 \emph{evolutivos}: se inspira en la selección natural para hacer evolucionar, a lo
 largo de sucesivas generaciones, un conjunto de soluciones candidatas hacia
@@ -1479,236 +1469,10 @@ un modelo aprendido más barato, dando lugar al esquema NN+GA de la
 Sección~\ref{sec:nnga}.
 
 
-% ============================================================
-%  CAPITULO 3 -- MARCO TEORICO  ---  PARTE II
-%  Seccion 3.10  ---  Redes neuronales como modelo sustituto
-%                     acopladas al algoritmo genetico (NN+GA)
-% ============================================================
-
-\section{Redes neuronales como modelo sustituto acopladas al algoritmo genético}
-\label{sec:nnga}
-
-La segunda estrategia parte de un diagnóstico preciso de la limitación del
-algoritmo genético (Sección~\ref{sec:ga}): su calidad de búsqueda es adecuada, pero
-cada una de las miles de evaluaciones que requiere exige una simulación completa de
-la cavidad. La idea de la estrategia NN+GA es reemplazar la mayor parte de esas
-simulaciones por las predicciones de una red neuronal que ha aprendido a imitar al
-simulador —un \emph{modelo sustituto} (\emph{surrogate})— mucho más barato de
-evaluar \cite{Baumeister2018,Genty2021}. El algoritmo genético conserva así su
-maquinaria de búsqueda, pero la alimenta con una función de aptitud aproximada y
-casi gratuita.
-
-\subsection{El perceptrón multicapa}
-\label{sec:mlp}
-
-El modelo sustituto se construye con un \emph{perceptrón multicapa}, la arquitectura
-de red neuronal más elemental. Su unidad de cómputo es la \emph{neurona}, que recibe
-un vector de entradas $\mathbf{x}$, forma una combinación lineal con sus pesos
-$\mathbf{w}$ y un sesgo $b$, y aplica una función de activación no lineal $\sigma$:
-%
-\begin{equation}
-    a = \sigma\!\left(\mathbf{w}\cdot\mathbf{x} + b\right).
-    \label{eq:neurona}
-\end{equation}
-%
-Las neuronas se organizan en capas: una \emph{capa de entrada} que recibe el vector
-de parámetros de la cavidad $\mathbf{p}$, una o varias \emph{capas ocultas} que
-transforman sucesivamente la información, y una \emph{capa de salida} que entrega la
-predicción —el valor de la función de mérito $F(\mathbf{p})$, o bien los observables
-del pulso a partir de los cuales se calcula—. La no linealidad de la activación
-$\sigma$ —una función sigmoide, tangente hiperbólica o unidad lineal rectificada
-(ReLU)— es esencial: sin ella la red colapsaría a una simple transformación lineal.
-Con suficientes neuronas ocultas, una red de este tipo puede aproximar la relación
-$\mathbf{p}\mapsto F(\mathbf{p})$ con la precisión que se desee, propiedad que
-justifica su uso como sustituto del simulador.
-
-\subsection{Entrenamiento: aprendizaje del mapeo}
-\label{sec:entrenamiento}
-
-Para que la red aproxime al simulador es necesario ajustar sus pesos y sesgos
-—colectivamente, sus parámetros $\boldsymbol{\theta}$— mediante \emph{aprendizaje
-supervisado}. Se genera primero un conjunto de datos ejecutando el simulador sobre
-un muestreo del espacio de parámetros, obteniendo pares
-$\{(\mathbf{p}^{(k)}, F(\mathbf{p}^{(k)}))\}$. El entrenamiento busca los parámetros
-$\boldsymbol{\theta}$ que minimizan una función de pérdida que mide la discrepancia
-entre la predicción de la red $\hat{F}_{\boldsymbol{\theta}}$ y el valor real, por
-ejemplo el error cuadrático medio,
-%
-\begin{equation}
-    \mathcal{L}(\boldsymbol{\theta})
-    = \frac{1}{K}\sum_{k=1}^{K}
-    \bigl[\,\hat{F}_{\boldsymbol{\theta}}(\mathbf{p}^{(k)})
-    - F(\mathbf{p}^{(k)})\,\bigr]^2 .
-    \label{eq:perdida_mse}
-\end{equation}
-%
-La minimización se realiza por descenso de gradiente, calculando
-$\nabla_{\boldsymbol{\theta}}\mathcal{L}$ de forma eficiente mediante el algoritmo de
-\emph{retropropagación}, que propaga el error desde la capa de salida hacia atrás a
-través de la red. El conjunto de datos se divide en subconjuntos de entrenamiento y
-validación, de modo que la capacidad de \emph{generalización} —el desempeño sobre
-puntos no vistos— pueda vigilarse y evitarse el sobreajuste.
-
-\subsection{El modelo sustituto y el acoplamiento NN+GA}
-\label{sec:surrogate_acoplamiento}
-
-Una vez entrenada, la red evalúa $\hat{F}(\mathbf{p})$ en una fracción ínfima del
-tiempo que tarda el simulador, pues reduce una integración numérica de la ecuación
-maestra a un puñado de multiplicaciones matriciales. Este es el papel del modelo
-sustituto: una aproximación barata de la función objetivo costosa. El esquema NN+GA
-lo integra en el ciclo evolutivo de la Sección~\ref{sec:ga_ciclo} sustituyendo, en
-la evaluación de la aptitud de cada individuo, la llamada al simulador por una
-consulta a la red. De este modo el algoritmo genético puede explorar poblaciones
-mucho mayores durante muchas más generaciones sin que el presupuesto de simulaciones
-se dispare.
-
-El acoplamiento introduce, sin embargo, un riesgo característico: si la red comete
-errores en regiones poco representadas del espacio, el algoritmo genético puede
-converger hacia soluciones que parecen excelentes para el sustituto pero mediocres
-para el simulador real —el optimizador «explota» los errores del modelo—. Para
-contenerlo, el esquema incorpora una \emph{verificación periódica}: las mejores
-soluciones que propone el GA sobre el sustituto se reevalúan con el simulador
-auténtico, y los nuevos pares $(\mathbf{p}, F(\mathbf{p}))$ así obtenidos se añaden
-al conjunto de entrenamiento para reajustar la red. Este bucle de refinamiento
-—búsqueda barata sobre el sustituto, verificación selectiva con el simulador,
-reentrenamiento— concentra el escaso presupuesto de simulaciones en las regiones
-que de verdad importan, las de mayor mérito.
-
-El objetivo declarado de la estrategia NN+GA es, por tanto, alcanzar soluciones de
-calidad comparable a las del algoritmo genético puro con una fracción de las
-simulaciones. Si ese ahorro se materializa sin sacrificar la calidad del pulso, y
-bajo qué condiciones, es una de las preguntas empíricas que el estudio comparativo
-de esta tesis busca responder (Capítulo~\ref{ch:Methodology}). La tercera estrategia
-aborda el mismo problema desde una filosofía de búsqueda distinta, la inteligencia
-de enjambre, y es el objeto de la sección siguiente.
 
 
-% ============================================================
-%  CAPITULO 3 -- MARCO TEORICO  ---  PARTE II
-%  Seccion 3.11  ---  Optimizacion por enjambre de particulas (PSO)
-% ============================================================
-
-\section{Optimización por enjambre de partículas}
-\label{sec:pso}
-
-La tercera estrategia, la optimización por enjambre de partículas (PSO), aborda la
-búsqueda global desde la \emph{inteligencia de enjambre}: la observación de que un
-colectivo de agentes simples que comparten información puede resolver problemas que
-superan a cada agente por separado \cite{Kennedy1995}. Al igual que el algoritmo
-genético, es un método poblacional y sin derivadas, pero prescinde por completo de
-los operadores evolutivos y los reemplaza por una dinámica de movimiento inspirada
-en el comportamiento de bandadas y bancos de peces. Su uso en la optimización de
-láseres de modos bloqueados está bien documentado
-\cite{Kokhanovskiy2021,Nsoungui2026}.
-
-\subsection{Partículas, memoria y comunicación}
-\label{sec:pso_particulas}
-
-El enjambre está formado por un conjunto de \emph{partículas}, cada una de las
-cuales representa una solución candidata mediante su \emph{posición}
-$\mathbf{x}_i$ en el espacio de parámetros —el análogo del vector $\mathbf{p}$— y se
-desplaza por él con una \emph{velocidad} $\mathbf{v}_i$. A diferencia de los
-individuos del algoritmo genético, que se reemplazan generación tras generación,
-las partículas persisten y se mueven, guiadas por dos fuentes de memoria. Cada
-partícula recuerda la mejor posición que ella misma ha visitado, su mejor personal
-$\mathbf{p}_i^{\text{best}}$; y el enjambre comparte la mejor posición hallada por
-cualquiera de sus miembros, el mejor global $\mathbf{g}^{\text{best}}$. La aptitud
-que determina cuál es «mejor» es, de nuevo, la función de mérito
-$F(\mathbf{p})$ evaluada por el simulador (Sección~\ref{sec:funcion_merito}).
-
-\subsection{La dinámica del enjambre}
-\label{sec:pso_dinamica}
-
-En cada iteración, la velocidad de cada partícula se actualiza combinando tres
-términos, y su posición se desplaza en consecuencia:
-%
-\begin{align}
-    \mathbf{v}_i(t+1) &= \underbrace{\omega\,\mathbf{v}_i(t)}_{\text{inercia}}
-    + \underbrace{c_1\,r_1\,\bigl[\mathbf{p}_i^{\text{best}}-\mathbf{x}_i(t)\bigr]}_{\text{componente cognitivo}}
-    + \underbrace{c_2\,r_2\,\bigl[\mathbf{g}^{\text{best}}-\mathbf{x}_i(t)\bigr]}_{\text{componente social}},
-    \label{eq:pso_velocidad}\\[4pt]
-    \mathbf{x}_i(t+1) &= \mathbf{x}_i(t) + \mathbf{v}_i(t+1).
-    \label{eq:pso_posicion}
-\end{align}
-%
-Cada término tiene una interpretación directa. La \emph{inercia}, ponderada por el
-peso $\omega$, mantiene a la partícula en su rumbo actual y favorece la exploración
-de zonas nuevas. El \emph{componente cognitivo} la atrae hacia su propia mejor
-experiencia $\mathbf{p}_i^{\text{best}}$, y el \emph{componente social} la atrae
-hacia la mejor experiencia colectiva $\mathbf{g}^{\text{best}}$; ambos impulsan la
-explotación de las buenas regiones ya descubiertas. Los coeficientes $c_1$ y $c_2$
-gradúan la confianza relativa que la partícula deposita en su memoria individual
-frente a la del grupo, mientras que $r_1,r_2\in[0,1]$ son números aleatorios que se
-extraen en cada paso e inyectan la estocasticidad necesaria para diversificar la
-búsqueda. El peso de inercia $\omega$ es el principal regulador del compromiso
-entre exploración y explotación: valores altos dilatan la búsqueda global, valores
-bajos aceleran la convergencia local, por lo que a menudo se reduce de forma
-progresiva a lo largo de las iteraciones.
-
-\subsection{Topología, convergencia y contraste con el algoritmo genético}
-\label{sec:pso_topologia}
-
-El comportamiento del enjambre depende también de su \emph{topología}, es decir, de
-qué partículas comparten su mejor posición con cuáles. En la topología global todas
-consultan un único $\mathbf{g}^{\text{best}}$, lo que acelera la convergencia pero
-aumenta el riesgo de estancamiento prematuro en un óptimo local; en las topologías
-locales cada partícula solo se comunica con un vecindario, lo que preserva la
-diversidad a costa de una convergencia más lenta. El proceso se detiene, como en las
-demás metaheurísticas, al agotar el presupuesto de evaluaciones o cuando el mejor
-global deja de mejorar.
-
-El contraste con el algoritmo genético es instructivo y es una de las razones para
-incluir ambos en el estudio. El GA genera nuevas soluciones recombinando y mutando
-las existentes, descartando las peores; el PSO no crea ni destruye individuos, sino
-que \emph{mueve} un conjunto fijo de partículas guiándolas por atracción hacia las
-mejores posiciones conocidas. Esta transmisión directa de información suele
-conferir al PSO una convergencia inicial rápida y una implementación con menos
-operadores que ajustar, aunque a cambio puede ser más propenso a concentrarse
-prematuramente en torno a un óptimo local si la diversidad no se preserva. Que estas
-diferencias se traduzcan en ventajas medibles —en calidad del pulso, número de
-evaluaciones o robustez— sobre la dinámica de \emph{mode-locking} activo y pasivo es
-justamente la comparación que esta tesis se propone dilucidar.
 
 
-% ============================================================
-%  CAPITULO 3 -- MARCO TEORICO
-%  Seccion 3.12  ---  Sintesis del marco teorico (cierre)
-% ============================================================
 
-\section{Síntesis del marco teórico}
-\label{sec:sintesis_marco}
 
-Este capítulo ha recorrido, en un único arco, el camino que va de la física del
-pulso al control inteligente de la cavidad. La primera parte estableció que la
-envolvente de un pulso ultracorto evoluciona bajo el juego de la dispersión y la no
-linealidad de Kerr, sintetizado en la ecuación no lineal de Schrödinger
-(Sección~\ref{sec:propagacion}); que la cavidad moldea esa envolvente ronda tras
-ronda mediante ganancia, pérdidas y modulación, y que ese promediado por tránsito se
-condensa en la ecuación maestra de Haus (Sección~\ref{sec:haus}), el formalismo
-central del marco de modelado adoptado. A partir de ella se dedujeron los dos
-mecanismos de bloqueo de modos —activo y pasivo (Secciones~\ref{sec:ml_activo}
-y~\ref{sec:ml_pasivo})— y el objeto común que ambos producen, el solitón disipativo,
-así como el mapa de regímenes de operación y la multiestabilidad que de él resulta
-(Sección~\ref{sec:solitones}).
-
-Esa multiestabilidad fue la que motivó la bisagra del capítulo: la traducción de la
-física del oscilador en un problema de optimización bien planteado
-(Sección~\ref{sec:espacio_parametros}), definido por un vector de parámetros de
-decisión, un espacio de búsqueda no convexo y de caja negra, y una función de mérito
-que cuantifica la calidad del pulso. Sobre ese problema, la segunda parte desplegó
-las tres estrategias que la tesis compara: el algoritmo genético como línea base
-evolutiva (Sección~\ref{sec:ga}), la red neuronal acoplada al algoritmo genético
-como vía para abaratar la búsqueda mediante un modelo sustituto
-(Sección~\ref{sec:nnga}) y la optimización por enjambre de partículas como
-alternativa de inteligencia de enjambre (Sección~\ref{sec:pso}). Las tres persiguen
-maximizar la misma función de mérito evaluada por el mismo simulador, lo que las
-hace directamente comparables.
-
-Con las herramientas físicas y computacionales así dispuestas, queda planteado el
-terreno sobre el que se construye el resto del trabajo. El
-Capítulo~\ref{ch:Methodology} las pone a operar de forma concreta y reproducible:
-describe el modelo numérico de la cavidad, fija la función de mérito y los rangos de
-los parámetros, y detalla la implementación de cada uno de los tres métodos y el
-diseño del experimento comparativo con el que se responderá a la pregunta de
-investigación.
 

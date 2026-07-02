@@ -3,44 +3,49 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: unsrtnat.bst
 Database file #1: references.bib
-You've used 16 entries,
+Warning--string name "july" is undefined
+--line 598 of file references.bib
+Warning--I didn't find a database entry for "Akhmediev2005"
+Warning--empty journal in MaYu2023
+You've used 52 entries,
             2481 wiz_defined-function locations,
-            704 strings with 8391 characters,
-and the built_in function-call counts, 7407 in all, are:
-= -- 588
-> -- 487
-< -- 6
-+ -- 182
-- -- 150
-* -- 715
-:= -- 1260
-add.period$ -- 81
-call.type$ -- 16
-change.case$ -- 30
-chr.to.int$ -- 16
-cite$ -- 17
-duplicate$ -- 294
-empty$ -- 597
-format.name$ -- 169
-if$ -- 1517
-int.to.chr$ -- 1
-int.to.str$ -- 17
-missing$ -- 16
-newline$ -- 121
-num.names$ -- 45
-pop$ -- 97
+            981 strings with 16498 characters,
+and the built_in function-call counts, 23164 in all, are:
+= -- 1941
+> -- 1410
+< -- 26
++ -- 529
+- -- 424
+* -- 2063
+:= -- 3836
+add.period$ -- 228
+call.type$ -- 52
+change.case$ -- 100
+chr.to.int$ -- 51
+cite$ -- 53
+duplicate$ -- 1017
+empty$ -- 1925
+format.name$ -- 502
+if$ -- 4826
+int.to.chr$ -- 2
+int.to.str$ -- 53
+missing$ -- 56
+newline$ -- 337
+num.names$ -- 156
+pop$ -- 341
 preamble$ -- 1
-purify$ -- 16
+purify$ -- 52
 quote$ -- 0
-skip$ -- 159
+skip$ -- 582
 stack$ -- 0
-substring$ -- 339
-swap$ -- 44
-text.length$ -- 0
+substring$ -- 1102
+swap$ -- 151
+text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 106
-warning$ -- 0
-while$ -- 42
+type$ -- 346
+warning$ -- 1
+while$ -- 175
 width$ -- 0
-write$ -- 278
+write$ -- 822
+(There were 3 warnings)

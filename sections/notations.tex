@@ -1,0 +1,47 @@
+% sections/notations.tex
+% --- NOTACIONES Y ACRÓNIMOS (estilo Del Valle) ---
+% Del Valle estructura esta sección en dos bloques:
+%   1) "Notaciones": prosa que fija las convenciones de símbolos y unidades.
+%   2) "Lista de acrónimos": listado a dos columnas (sigla -- significado).
+% EDITA el contenido para que refleje las convenciones reales de tu tesis.
+
+\chapter*{Notaciones y acrónimos}
+\addcontentsline{toc}{chapter}{Notaciones y acrónimos}
+\markboth{Notaciones y acrónimos}{Notaciones y acrónimos}
+
+\section*{Notaciones}
+
+A lo largo del texto se adopta el sistema de unidades $\hbar = 1$, de modo que
+energía y frecuencia se expresan en las mismas unidades. % <-- AJUSTA si no aplica a tu caso.
+Los operadores se denotan con un acento circunflejo ($\hat{a}$, $\hat{\sigma}$),
+y su valor esperado se escribe $\langle \hat{a} \rangle$. Se emplea la notación
+habitual de la teoría de conjuntos: $\mathbb{R}$ para los números reales y
+$\mathbb{C}$ para los complejos. Los vectores y matrices se escriben en negrita
+($\mathbf{x}$, $\mathbf{W}$), y la transpuesta se indica con el superíndice
+$^{\mathsf{T}}$.
+% AÑADE aquí cualquier otra convención propia de tu trabajo
+% (parámetros del láser, hiperparámetros del modelo de aprendizaje, etc.).
+
+\section*{Lista de acrónimos}
+
+\begin{multicols}{2}
+\noindent
+\begin{description}[leftmargin=5.5em,labelwidth=5em,itemsep=2pt,parsep=0pt]
+  \item[\textbf{ML}]   Aprendizaje automático (\textit{Machine Learning})
+  \item[\textbf{RL}]   Aprendizaje por refuerzo (\textit{Reinforcement Learning})
+  \item[\textbf{NN}]   Red neuronal (\textit{Neural Network})
+  \item[\textbf{CNN}]  Red neuronal convolucional
+  \item[\textbf{PSO}]  Optimización por enjambre de partículas
+  \item[\textbf{GA}]   Algoritmo genético
+  \item[\textbf{EA}]   Algoritmo evolutivo
+  \item[\textbf{MSE}]  Error cuadrático medio
+  \item[\textbf{CW}]   Onda continua (\textit{Continuous Wave})
+  \item[\textbf{KLM}]  Anclaje de modos por lente Kerr
+  \item[\textbf{SAM}]  Espejo absorbente saturable
+  \item[\textbf{SESAM}] Espejo absorbente saturable semiconductor
+  \item[\textbf{GVD}]  Dispersión de velocidad de grupo
+  \item[\textbf{SPM}]  Automodulación de fase
+  \item[\textbf{FWHM}] Anchura a media altura
+  \item[\textbf{ODE}]  Ecuación diferencial ordinaria
+\end{description}
+\end{multicols}

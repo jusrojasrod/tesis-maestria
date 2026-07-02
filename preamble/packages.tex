@@ -1,7 +1,9 @@
 % --- CODIFICACIÓN Y FUENTES ---
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{mathptmx}       
+% Estilo Del Valle: texto en Times, pero matemáticas en Computer Modern.
+% (mathptmx pondría también las matemáticas en Times; aquí solo cambiamos el texto.)
+\renewcommand{\rmdefault}{ptm}
 
 % --- IDIOMA ---
 \usepackage[english,spanish,es-nodecimaldot]{babel}
@@ -15,13 +17,22 @@
             headheight=15pt
            ]{geometry}
 
+% --- ENCABEZADOS / PIE (estilo Del Valle) ---
+% Sin encabezados ni reglas; número de página centrado en el pie.
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{} % Limpia todo
-\fancyhead[LE,RO]{\thepage} % Número de página a los lados externos
-\fancyhead[LO]{\nouppercase{\rightmark}} % Sección a la izquierda en impares
-\fancyhead[RE]{\nouppercase{\leftmark}}  % Capítulo a la derecha en pares
-\renewcommand{\headrulewidth}{0.4pt} % Línea decorativa
+\fancyfoot[C]{\thepage} % Número de página centrado abajo
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% El mismo aspecto en las páginas de inicio de capítulo (estilo plain)
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\thepage}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+}
 
 \setlength{\headheight}{15.2pt}
 
@@ -55,36 +66,55 @@
 \usepackage{array}
 
 % --- LISTAS Y FORMATO ---
+\usepackage{multicol}   % Lista de acrónimos a dos columnas (estilo Del Valle)
 \usepackage{enumitem}
 \usepackage{setspace}
 % \usepackage{parskip}    
 \usepackage{microtype}
 \usepackage{titlesec}
 
-% Configuración de Títulos de Capítulos
+% Configuración de Títulos de Capítulos (estilo Del Valle:
+% "Capítulo N" en negrita y, debajo, el título en negrita más grande)
 \titleformat{\chapter}[display]
-  {\normalfont\Large\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
-\titlespacing*{\chapter}{0pt}{50pt}{40pt}
+  {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{14pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{50pt}{30pt}
 
 % --- CITAS Y BIBLIOGRAFÍA ---
 \usepackage[square,numbers,sort&compress]{natbib}
 
 % --- HIPERVÍNCULOS (Al final) ---
 \usepackage{xcolor}
-\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+% Paleta estilo Del Valle: enlaces internos en teal-azul (muestreado del índice
+% original, RGB 0/96/136 ~ #006088), citas en rojo oscuro.
+\definecolor{linkblue}{rgb}{0.000, 0.376, 0.533}
+\definecolor{citered}{rgb}{0.55, 0.0, 0.0}
 
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
-    linkcolor=darkblue,
-    citecolor=darkblue,
-    urlcolor=darkblue,
+    linktoc=page,        % Estilo Del Valle: en el índice solo se colorea el número de página (los títulos quedan en negro)
+    linkcolor=linkblue,
+    citecolor=citered,
+    urlcolor=linkblue,
     filecolor=magenta,
     pdfauthor={Juan Sebastian Rojas Rodriguez},
     pdftitle={Ultrafast laser parameters optimization through machine learning techniques},
     pdfsubject={Master Thesis},
     pdfkeywords={Quantum Optics, Ultrafast optics, Machine Learning}
 }
+
+% --- MINI-ÍNDICE POR CAPÍTULO (estilo Del Valle) ---
+% Se carga DESPUÉS de hyperref para que el mini-índice tenga hipervínculos.
+% Requiere \dominitoc antes de \tableofcontents (ver main.tex) y
+% \chapterminitoc justo tras cada \chapter.
+\usepackage{minitoc}
+\setcounter{minitocdepth}{1}              % solo secciones (1.1, 1.2, ...), como Del Valle
+\mtcsettitle{minitoc}{Contenido}          % encabezado del mini-índice
+\mtcsettitlefont{minitoc}{\large\bfseries}% encabezado en negrita
+\setlength{\mtcindent}{0pt}               % sin sangría extra a la izquierda
+\renewcommand{\mtcSSfont}{\small\rmfamily}% tamaño de las entradas
+% \chapterminitoc = mini-índice + un poco de aire antes del texto del capítulo.
+\newcommand{\chapterminitoc}{\minitoc\vspace{1.2em}}
 
 % --- INTERLINEADO ---
 % \onehalfspacing

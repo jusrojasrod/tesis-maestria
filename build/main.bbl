@@ -1,121 +1,337 @@
-\begin{thebibliography}{16}
+\begin{thebibliography}{52}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Nob(2023)]{Nobel_2023}
-2023.
-\newblock URL \url{https://www.nobelprize.org/prizes/physics/2023/summary/}.
-
-\bibitem[Keller(2022)]{Keller_2022}
-Ursulla Keller.
+\bibitem[Keller(2022)]{Keller2022}
+Ursula Keller.
 \newblock \emph{Ultrafast Lasers: A Comprehensive Introduction to Fundamental Principles with Practical Applications}.
-\newblock Springer Cham, Massachusetts, 1 edition, 2022.
+\newblock Graduate Texts in Physics. Springer, Cham, 2022.
+\newblock \doi{10.1007/978-3-030-82532-4}.
 
-\bibitem[Helbing et~al.(2003)Helbing, Steinmeyer, and Keller]{keller_2003}
-F.W. Helbing, G.~Steinmeyer, and U.~Keller.
-\newblock Carrier-envelope offset phase-locking with attosecond timing jitter.
-\newblock \emph{IEEE Journal of Selected Topics in Quantum Electronics}, 9\penalty0 (4):\penalty0 1030--1040, 2003.
-\newblock \doi{10.1109/JSTQE.2003.819104}.
+\bibitem[Keller(2003)]{Keller2003}
+Ursula Keller.
+\newblock Recent developments in compact ultrafast lasers.
+\newblock \emph{Nature}, 424\penalty0 (6950):\penalty0 831--838, 2003.
+\newblock \doi{10.1038/nature01938}.
 
-\bibitem[Ciappina et~al.(2017)Ciappina, Pérez-Hernández, Landsman, Okell, Zherebtsov, Förg, Schötz, Seiffert, Fennel, Shaaran, Zimmermann, Chacón, Guichard, Zaïr, Tisch, Marangos, Witting, Braun, Maier, Roso, Krüger, Hommelhoff, Kling, Krausz, and Lewenstein]{Ciappina_2017}
-M~F Ciappina, J~A Pérez-Hernández, A~S Landsman, W~A Okell, S~Zherebtsov, B~Förg, J~Schötz, L~Seiffert, T~Fennel, T~Shaaran, T~Zimmermann, A~Chacón, R~Guichard, A~Zaïr, J~W~G Tisch, J~P Marangos, T~Witting, A~Braun, S~A Maier, L~Roso, M~Krüger, P~Hommelhoff, M~F Kling, F~Krausz, and M~Lewenstein.
-\newblock Attosecond physics at the nanoscale.
-\newblock \emph{Reports on Progress in Physics}, 80\penalty0 (5):\penalty0 054401, March 2017.
-\newblock ISSN 1361-6633.
-\newblock \doi{10.1088/1361-6633/aa574e}.
-\newblock URL \url{http://dx.doi.org/10.1088/1361-6633/aa574e}.
+\bibitem[{The Royal Swedish Academy of Sciences}(2023)]{Nobel2023}
+{The Royal Swedish Academy of Sciences}.
+\newblock The nobel prize in physics 2023.
+\newblock Press release, NobelPrize.org, 2023.
+\newblock URL \url{https://www.nobelprize.org/prizes/physics/2023/}.
+\newblock Awarded to Pierre Agostini, Ferenc Krausz and Anne L'Huillier for experimental methods that generate attosecond pulses of light for the study of electron dynamics in matter.
 
-\bibitem[Krausz and Ivanov(2009)]{Krausz_Ivanov_2009}
-Ferenc Krausz and Misha Ivanov.
-\newblock Attosecond physics.
-\newblock \emph{Reviews of Modern Physics}, 81\penalty0 (1):\penalty0 163–234, February 2009.
-\newblock ISSN 0034-6861, 1539-0756.
-\newblock \doi{10.1103/RevModPhys.81.163}.
-\newblock URL \url{https://link.aps.org/doi/10.1103/RevModPhys.81.163}.
+\bibitem[Krausz et~al.(1992)Krausz, Fermann, Brabec, Curley, Hofer, Ober, Spielmann, Wintner, and Schmidt]{Krausz1992}
+Ferenc Krausz, Martin~E. Fermann, Thomas Brabec, P.~F. Curley, M.~Hofer, M.~H. Ober, Ch. Spielmann, E.~Wintner, and A.~J. Schmidt.
+\newblock Femtosecond solid-state lasers.
+\newblock \emph{IEEE Journal of Quantum Electronics}, 28\penalty0 (10):\penalty0 2097--2122, 1992.
+\newblock \doi{10.1109/3.159520}.
 
-\bibitem[Lewenstein et~al.(2022)Lewenstein, Baldelli, Bhattacharya, Biegert, Ciappina, Elu, Grass, Grochowski, Johnson, Lamprou, Maxwell, Ordóñez, Pisanty, Rivera-Dean, Stammer, Tyulnev, and Tzallas]{lewenstein2022}
-M.~Lewenstein, N.~Baldelli, U.~Bhattacharya, J.~Biegert, M.~F. Ciappina, U.~Elu, T.~Grass, P.~T. Grochowski, A.~Johnson, Th. Lamprou, A.~S. Maxwell, A.~Ordóñez, E.~Pisanty, J.~Rivera-Dean, P.~Stammer, I.~Tyulnev, and P.~Tzallas.
-\newblock Attosecond physics and quantum information science, 2022.
-\newblock URL \url{https://arxiv.org/abs/2208.14769}.
-
-\bibitem[Borrego-Varillas et~al.(2022)Borrego-Varillas, Lucchini, and Nisoli]{Borrego-Varillas_Lucchini_Nisoli_2022}
-Rocío Borrego-Varillas, Matteo Lucchini, and Mauro Nisoli.
-\newblock Attosecond spectroscopy for the investigation of ultrafast dynamics in atomic, molecular and solid-state physics.
-\newblock \emph{Reports on Progress in Physics}, 85\penalty0 (6):\penalty0 066401, June 2022.
-\newblock ISSN 0034-4885, 1361-6633.
-\newblock \doi{10.1088/1361-6633/ac5e7f}.
-\newblock URL \url{https://iopscience.iop.org/article/10.1088/1361-6633/ac5e7f}.
-
-\bibitem[Maiuri et~al.(2020)Maiuri, Garavelli, and Cerullo]{Maiuri_2020}
-Margherita Maiuri, Marco Garavelli, and Giulio Cerullo.
-\newblock Ultrafast spectroscopy: State of the art and open challenges.
-\newblock \emph{Journal of the American Chemical Society}, 142\penalty0 (1):\penalty0 3–15, January 2020.
-\newblock ISSN 0002-7863, 1520-5126.
-\newblock \doi{10.1021/jacs.9b10533}.
-\newblock URL \url{https://pubs.acs.org/doi/10.1021/jacs.9b10533}.
-
-\bibitem[Denk et~al.(1990)Denk, Strickler, and Webb]{Denk_1990}
-W.~Denk, J.~H. Strickler, and W.~W. Webb.
-\newblock Two-photon laser scanning fluorescence microscopy.
-\newblock \emph{Science (New York, N.Y.)}, 248\penalty0 (4951):\penalty0 73–76, April 1990.
-\newblock ISSN 0036-8075.
-\newblock \doi{10.1126/science.2321027}.
-
-\bibitem[Zipfel et~al.(2003)Zipfel, Williams, and Webb]{Zipfel_2003}
-Warren~R. Zipfel, Rebecca~M. Williams, and Watt~W. Webb.
-\newblock Nonlinear magic: multiphoton microscopy in the biosciences.
-\newblock \emph{Nature Biotechnology}, 21\penalty0 (11):\penalty0 1369–1377, November 2003.
-\newblock ISSN 1087-0156.
-\newblock \doi{10.1038/nbt899}.
-
-\bibitem[Udem et~al.(2002)Udem, Holzwarth, and Hänsch]{Udem_2002}
-Th~Udem, R.~Holzwarth, and T.~W. Hänsch.
-\newblock Optical frequency metrology.
-\newblock \emph{Nature}, 416\penalty0 (6877):\penalty0 233–237, March 2002.
-\newblock ISSN 0028-0836.
-\newblock \doi{10.1038/416233a}.
-
-\bibitem[Corkum(1993)]{Corkum_1993}
-P.~B. Corkum.
-\newblock Plasma perspective on strong field multiphoton ionization.
-\newblock \emph{Physical Review Letters}, 71\penalty0 (13):\penalty0 1994–1997, September 1993.
-\newblock ISSN 0031-9007.
-\newblock \doi{10.1103/PhysRevLett.71.1994}.
-\newblock URL \url{https://link.aps.org/doi/10.1103/PhysRevLett.71.1994}.
-
-\bibitem[Strickland and Mourou(1985)]{Strickland_1985}
+\bibitem[Strickland and Mourou(1985)]{StricklandMourou1985}
 Donna Strickland and Gerard Mourou.
 \newblock Compression of amplified chirped optical pulses.
-\newblock \emph{Optics Communications}, 56\penalty0 (3):\penalty0 219–221, December 1985.
-\newblock ISSN 0030-4018.
+\newblock \emph{Optics Communications}, 56\penalty0 (3):\penalty0 219--221, 1985.
 \newblock \doi{10.1016/0030-4018(85)90120-8}.
-\newblock URL \url{https://www.sciencedirect.com/science/article/pii/0030401885901208}.
 
-\bibitem[Haus(2000)]{Haus_2000}
-H.A. Haus.
+\bibitem[Fermann and Hartl(2013)]{FermannHartl2013}
+Martin~E. Fermann and Ingmar Hartl.
+\newblock Ultrafast fibre lasers.
+\newblock \emph{Nature Photonics}, 7\penalty0 (11):\penalty0 868--874, 2013.
+\newblock \doi{10.1038/nphoton.2013.280}.
+
+\bibitem[Haus(2000)]{Haus2000}
+Hermann~A. Haus.
 \newblock Mode-locking of lasers.
-\newblock \emph{IEEE Journal of Selected Topics in Quantum Electronics}, 6\penalty0 (6):\penalty0 1173–1185, November 2000.
-\newblock ISSN 1077-260X, 1558-4542.
+\newblock \emph{IEEE Journal of Selected Topics in Quantum Electronics}, 6\penalty0 (6):\penalty0 1173--1185, 2000.
 \newblock \doi{10.1109/2944.902165}.
-\newblock URL \url{http://ieeexplore.ieee.org/document/902165/}.
 
-\bibitem[Agrawal(2012)]{Agrawal_2012}
-Govind Agrawal.
-\newblock \emph{Nonlinear Fiber Optics}.
-\newblock Academic Press, October 2012.
-\newblock ISBN 9780123970237.
-\newblock \doi{10.1016/C2011-0-00045-5}.
-\newblock URL \url{https://www.sciencedirect.com/book/monograph/9780123970237/nonlinear-fiber-optics}.
+\bibitem[Andral et~al.(2015)Andral, Si~Fodil, Amrani, Billard, Hertz, and Grelu]{Andral2015}
+U.~Andral, R.~Si~Fodil, F.~Amrani, F.~Billard, E.~Hertz, and Ph. Grelu.
+\newblock Fiber laser mode locked through an evolutionary algorithm.
+\newblock \emph{Optica}, 2\penalty0 (4):\penalty0 275--278, 2015.
+\newblock \doi{10.1364/OPTICA.2.000275}.
 
-\bibitem[Genty et~al.(2021)Genty, Salmela, Dudley, Brunner, Kokhanovskiy, Kobtsev, and Turitsyn]{Genty_2021}
-Goëry Genty, Lauri Salmela, John~M. Dudley, Daniel Brunner, Alexey Kokhanovskiy, Sergei Kobtsev, and Sergei~K. Turitsyn.
+\bibitem[Grelu and Akhmediev(2012)]{GreluAkhmediev2012}
+Philippe Grelu and Nail Akhmediev.
+\newblock Dissipative solitons for mode-locked lasers.
+\newblock \emph{Nature Photonics}, 6\penalty0 (2):\penalty0 84--92, 2012.
+\newblock \doi{10.1038/nphoton.2011.345}.
+
+\bibitem[Kokhanovskiy et~al.(2022)Kokhanovskiy, Kuprikov, Bednyakova, Popkov, Smirnov, and Turitsyn]{Kokhanovskiy2022}
+Alexey Kokhanovskiy, Evgeny Kuprikov, Anastasia Bednyakova, Ivan Popkov, Sergey Smirnov, and Sergei Turitsyn.
+\newblock A deep reinforcement learning algorithm for smart control of hysteresis phenomena in a mode-locked fiber laser.
+\newblock \emph{Photonics}, 9\penalty0 (12):\penalty0 921, 2022.
+\newblock \doi{10.3390/photonics9120921}.
+
+\bibitem[Genty et~al.(2021)Genty, Salmela, Dudley, Brunner, Kokhanovskiy, Kobtsev, and Turitsyn]{Genty2021}
+Go{\"e}ry Genty, Lauri Salmela, John~M. Dudley, Daniel Brunner, Alexey Kokhanovskiy, Sergei Kobtsev, and Sergei~K. Turitsyn.
 \newblock Machine learning and applications in ultrafast photonics.
-\newblock \emph{Nature Photonics}, 15\penalty0 (2):\penalty0 91–101, February 2021.
-\newblock ISSN 1749-4893.
+\newblock \emph{Nature Photonics}, 15\penalty0 (2):\penalty0 91--101, 2021.
 \newblock \doi{10.1038/s41566-020-00716-4}.
-\newblock URL \url{https://www.nature.com/articles/s41566-020-00716-4}.
+
+\bibitem[Woodward and Kelleher(2016)]{Woodward2016}
+R.~I. Woodward and E.~J.~R. Kelleher.
+\newblock Towards `smart lasers': self-optimisation of an ultrafast pulse source using a genetic algorithm.
+\newblock \emph{Scientific Reports}, 6:\penalty0 37616, 2016.
+\newblock \doi{10.1038/srep37616}.
+
+\bibitem[Pu et~al.(2019)Pu, Yi, Zhang, and Hu]{Pu2019}
+Guoqing Pu, Lilin Yi, Li~Zhang, and Weisheng Hu.
+\newblock Intelligent programmable mode-locked fiber laser with a human-like algorithm.
+\newblock \emph{Optica}, 6\penalty0 (3):\penalty0 362--369, 2019.
+\newblock \doi{10.1364/OPTICA.6.000362}.
+
+\bibitem[Pu et~al.(2020)Pu, Zhang, Hu, and Yi]{Pu2020}
+Guoqing Pu, Li~Zhang, Weisheng Hu, and Lilin Yi.
+\newblock Automatic mode-locking fiber lasers: progress and perspectives.
+\newblock \emph{Science China Information Sciences}, 63\penalty0 (6):\penalty0 160404, 2020.
+\newblock \doi{10.1007/s11432-020-2883-0}.
+
+\bibitem[Kuizenga and Siegman(1970)]{KuizengaSiegman1970}
+D.~J. Kuizenga and A.~E. Siegman.
+\newblock {FM} and {AM} mode locking of the homogeneous laser --- part i: Theory.
+\newblock \emph{IEEE Journal of Quantum Electronics}, 6\penalty0 (11):\penalty0 694--708, 1970.
+\newblock \doi{10.1109/JQE.1970.1076343}.
+
+\bibitem[Jiang et~al.(2022)Jiang, Wu, An, Hou, Chang, Huang, Li, Su, and Zhou]{Jiang2022}
+Min Jiang, Hanshuo Wu, Yi~An, Tianyue Hou, Qi~Chang, Liangjin Huang, Jun Li, Rongtao Su, and Pu~Zhou.
+\newblock Fiber laser development enabled by machine learning: review and prospect.
+\newblock \emph{PhotoniX}, 3:\penalty0 16, 2022.
+\newblock \doi{10.1186/s43074-022-00055-3}.
+
+\bibitem[Baumeister et~al.(2018)Baumeister, Brunton, and Kutz]{Baumeister2018}
+Thomas Baumeister, Steven~L. Brunton, and J.~Nathan Kutz.
+\newblock Deep learning and model predictive control for self-tuning mode-locked lasers.
+\newblock \emph{Journal of the Optical Society of America B}, 35\penalty0 (3):\penalty0 617--626, 2018.
+\newblock \doi{10.1364/JOSAB.35.000617}.
+
+\bibitem[Kokhanovskiy et~al.(2024)Kokhanovskiy, Kuprikov, Serebrennikov, Mkrtchyan, Davletkhanov, Bunkov, Krasnikov, Shashkov, Nasibulin, and Gladush]{Kokhanovskiy2024}
+Alexey Kokhanovskiy, Evgeny Kuprikov, Kirill Serebrennikov, Aram Mkrtchyan, Aydar Davletkhanov, Alexander Bunkov, Dmitry Krasnikov, Mikhail Shashkov, Albert Nasibulin, and Yuriy Gladush.
+\newblock Multistability manipulation by reinforcement learning algorithm inside mode-locked fiber laser.
+\newblock \emph{Nanophotonics}, 13\penalty0 (16):\penalty0 2891--2901, 2024.
+\newblock \doi{10.1515/nanoph-2023-0792}.
+
+\bibitem[Agrawal(2019)]{Agrawal2019}
+Govind~P. Agrawal.
+\newblock \emph{Nonlinear Fiber Optics}.
+\newblock Academic Press, London, 6 edition, 2019.
+\newblock ISBN 978-0-12-817042-7.
+
+\bibitem[Stolen and Lin(1978)]{StolenLin1978}
+R.~H. Stolen and Chinlon Lin.
+\newblock Self-phase-modulation in silica optical fibers.
+\newblock \emph{Physical Review A}, 17\penalty0 (4):\penalty0 1448--1453, 1978.
+\newblock \doi{10.1103/PhysRevA.17.1448}.
+
+\bibitem[Hasegawa and Tappert(1973)]{HasegawaTappert1973}
+Akira Hasegawa and Frederick Tappert.
+\newblock Transmission of stationary nonlinear optical pulses in dispersive dielectric fibers. i. anomalous dispersion.
+\newblock \emph{Applied Physics Letters}, 23\penalty0 (3):\penalty0 142--144, 1973.
+\newblock \doi{10.1063/1.1654836}.
+
+\bibitem[Mollenauer et~al.(1980)Mollenauer, Stolen, and Gordon]{Mollenauer1980}
+L.~F. Mollenauer, R.~H. Stolen, and J.~P. Gordon.
+\newblock Experimental observation of picosecond pulse narrowing and solitons in optical fibers.
+\newblock \emph{Physical Review Letters}, 45\penalty0 (13):\penalty0 1095--1098, 1980.
+\newblock \doi{10.1103/PhysRevLett.45.1095}.
+
+\bibitem[Haus(1975{\natexlab{a}})]{Haus1975fast}
+Hermann~A. Haus.
+\newblock Theory of mode locking with a fast saturable absorber.
+\newblock \emph{Journal of Applied Physics}, 46\penalty0 (7):\penalty0 3049--3058, 1975{\natexlab{a}}.
+\newblock \doi{10.1063/1.321997}.
+
+\bibitem[Haus(1975{\natexlab{b}})]{Haus1975forced}
+Hermann~A. Haus.
+\newblock A theory of forced mode locking.
+\newblock \emph{IEEE Journal of Quantum Electronics}, 11\penalty0 (7):\penalty0 323--330, 1975{\natexlab{b}}.
+\newblock \doi{10.1109/JQE.1975.1068636}.
+
+\bibitem[Keller et~al.(1996)Keller, Weingarten, K{\"a}rtner, Kopf, Braun, Jung, Fluck, H{\"o}nninger, Matuschek, and Aus~der Au]{Keller1996}
+U.~Keller, K.~J. Weingarten, F.~X. K{\"a}rtner, D.~Kopf, B.~Braun, I.~D. Jung, R.~Fluck, C.~H{\"o}nninger, N.~Matuschek, and J.~Aus~der Au.
+\newblock Semiconductor saturable absorber mirrors ({SESAM}s) for femtosecond to nanosecond pulse generation in solid-state lasers.
+\newblock \emph{IEEE Journal of Selected Topics in Quantum Electronics}, 2\penalty0 (3):\penalty0 435--453, 1996.
+\newblock \doi{10.1109/2944.571743}.
+
+\bibitem[Boyd and Vandenberghe(2004)]{Boyd2004}
+Stephen Boyd and Lieven Vandenberghe.
+\newblock Convex optimization, March 2004.
+\newblock URL \url{https://www.cambridge.org/highereducation/books/convex-optimization/17D2FAA54F641A2F62C7CCD01DFA97C4}.
+
+\bibitem[Turitsyn et~al.(2016)Turitsyn, Rosanov, Yarutkina, Bednyakova, Fedorov, Shtyrina, and Fedoruk]{Turitsyn2016}
+S~K Turitsyn, N~N Rosanov, I~A Yarutkina, A~E Bednyakova, S~V Fedorov, O~V Shtyrina, and M~P Fedoruk.
+\newblock Dissipative solitons in fiber lasers.
+\newblock \emph{Physics-Uspekhi}, 59\penalty0 (7):\penalty0 642--668, July 2016.
+\newblock ISSN 1063-7869, 1468-4780.
+\newblock \doi{10.3367/UFNe.2015.12.037674}.
+\newblock URL \url{https://ufn.ru/en/articles/2016/7/b/}.
+
+\bibitem[Bellman(1966)]{Bellman1966}
+Richard Bellman.
+\newblock Dynamic programming.
+\newblock \emph{Science}, 153\penalty0 (3731):\penalty0 34--37, July 1966.
+\newblock ISSN 0036-8075, 1095-9203.
+\newblock \doi{10.1126/science.153.3731.34}.
+\newblock URL \url{https://www.science.org/doi/10.1126/science.153.3731.34}.
+
+\bibitem[Slotine and Li(1991)]{Slotine1991}
+Jean-Jacques~E. Slotine and Weiping Li.
+\newblock \emph{Applied Nonlinear Control}.
+\newblock Prentice Hall, 1991.
+\newblock ISBN 9780130408907.
+\newblock Google-Books-ID: cwpRAAAAMAAJ.
+
+\bibitem[Brunton and Kutz(2022)]{BruntonKutz2022}
+Steven~L. Brunton and Jose~Nathan Kutz.
+\newblock \emph{Data-driven science and engineering: machine learning, dynamical systems, and control}.
+\newblock Cambridge University Press, Cambridge, United Kingdom, New York, NY, 2022.
+\newblock ISBN 9781009089517.
+
+\bibitem[Fu et~al.(2014)Fu, Brunton, and Kutz]{FuBruntonKutz2014}
+Xing Fu, Steven~L. Brunton, and J.~Nathan Kutz.
+\newblock Classification of birefringence in mode-locked fiber lasers using machine learning and sparse representation.
+\newblock \emph{Optics Express}, 22\penalty0 (7):\penalty0 8585--8597, 2014.
+\newblock \doi{10.1364/OE.22.008585}.
+
+\bibitem[Andral et~al.(2016)Andral, Buguet, Si~Fodil, Amrani, Billard, Hertz, and Grelu]{Andral2016}
+U.~Andral, J.~Buguet, R.~Si~Fodil, F.~Amrani, F.~Billard, E.~Hertz, and Ph. Grelu.
+\newblock Toward an autosetting mode-locked fiber laser cavity.
+\newblock \emph{Journal of the Optical Society of America B}, 33\penalty0 (5):\penalty0 825--833, 2016.
+\newblock \doi{10.1364/JOSAB.33.000825}.
+
+\bibitem[Wright et~al.(2017)Wright, Christodoulides, and Wise]{Wright2017}
+Logan~G. Wright, Demetrios~N. Christodoulides, and Frank~W. Wise.
+\newblock Spatiotemporal mode-locking in multimode fiber lasers.
+\newblock \emph{Science}, 358\penalty0 (6359):\penalty0 94--97, oct 2017.
+\newblock ISSN 0036-8075, 1095-9203.
+\newblock \doi{10.1126/science.aao0831}.
+\newblock URL \url{https://www.science.org/doi/10.1126/science.aao0831}.
+
+\bibitem[Wei et~al.(2020)Wei, Jing, Shen, and Wang]{Wei2020}
+Xiaoming Wei, Joseph~C. Jing, Yuecheng Shen, and Lihong~V. Wang.
+\newblock Harnessing a multi-dimensional fibre laser using genetic wavefront shaping.
+\newblock \emph{Light: Science \& Applications}, 9:\penalty0 149, 2020.
+\newblock \doi{10.1038/s41377-020-00383-8}.
+
+\bibitem[Sutton and Barto(2018)]{Sutton2018}
+Richard~S. Sutton and Andrew~G. Barto.
+\newblock \emph{Reinforcement learning: an introduction}.
+\newblock Adaptive computation and machine learning series. The MIT Press, Cambridge, Massachusetts, second edition edition, 2018.
+\newblock ISBN 9780262039246.
+
+\bibitem[Salmela et~al.(2021)Salmela, Tsipinakis, Foi, Billet, Dudley, and Genty]{Salmela2021}
+Lauri Salmela, Nikolaos Tsipinakis, Alessandro Foi, Cyril Billet, John~M. Dudley, and Go{\"e}ry Genty.
+\newblock Predicting ultrafast nonlinear dynamics in fibre optics with a recurrent neural network.
+\newblock \emph{Nature Machine Intelligence}, 3\penalty0 (4):\penalty0 344--354, 2021.
+\newblock \doi{10.1038/s42256-021-00297-z}.
+
+\bibitem[Han et~al.(2024)Han, Huang, Yue, Li, Yan, Xia, Zhang, Zhang, Xia, and Zhang]{Han2024}
+Xiaoxiang Han, Zhiting Huang, Jun Yue, Jun Li, Xiang'an Yan, Yanwen Xia, Guoqing Zhang, Haiyang Zhang, Caijuan Xia, and Yusheng Zhang.
+\newblock Optimizing ultrashort pulse in fiber laser based on artificial intelligence algorithm.
+\newblock \emph{Scientific Reports}, 14:\penalty0 7919, 2024.
+\newblock \doi{10.1038/s41598-024-58630-6}.
+
+\bibitem[Tarantola(2005)]{Tarantola2005}
+Albert Tarantola.
+\newblock \emph{Inverse Problem Theory and Methods for Model Parameter Estimation}.
+\newblock Society for Industrial and Applied Mathematics, January 2005.
+\newblock ISBN 9780898715729.
+\newblock \doi{10.1137/1.9780898717921}.
+\newblock URL \url{http://epubs.siam.org/doi/book/10.1137/1.9780898717921}.
+
+\bibitem[Han et~al.(2025)Han, Feng, Huang, Li, Yan, Xia, Zhang, Zhang, and Xia]{Han2025}
+X.~Han, Z.~Feng, Z.~T. Huang, J.~Li, X.~Yan, Y.~Xia, Y.~J. Zhang, H.~Y. Zhang, and C.~Xia.
+\newblock Prediction and parameter inversion of wavelength-tunable fiber laser based on machine learning.
+\newblock \emph{Applied Optics}, 64\penalty0 (30):\penalty0 9072--9080, 2025.
+\newblock \doi{10.1364/AO.568280}.
+
+\bibitem[Raissi et~al.(2019)Raissi, Perdikaris, and Karniadakis]{Raissi2019}
+M.~Raissi, P.~Perdikaris, and G.~E. Karniadakis.
+\newblock Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations.
+\newblock \emph{Journal of Computational Physics}, 378:\penalty0 686--707, 2019.
+\newblock \doi{10.1016/j.jcp.2018.10.045}.
+
+\bibitem[Karniadakis et~al.(2021)Karniadakis, Kevrekidis, Lu, Perdikaris, Wang, and Yang]{Karniadakis2021}
+George~Em Karniadakis, Ioannis~G. Kevrekidis, Lu~Lu, Paris Perdikaris, Sifan Wang, and Liu Yang.
+\newblock Physics-informed machine learning.
+\newblock \emph{Nature Reviews Physics}, 3\penalty0 (6):\penalty0 422--440, june 2021.
+\newblock ISSN 2522-5820.
+\newblock \doi{10.1038/s42254-021-00314-5}.
+\newblock URL \url{https://www.nature.com/articles/s42254-021-00314-5}.
+
+\bibitem[Kennedy and Eberhart(1995)]{Kennedy1995}
+J.~Kennedy and R.~Eberhart.
+\newblock Particle swarm optimization.
+\newblock In \emph{Proceedings of ICNN95 - International Conference on Neural Networks}, volume~4, pages 1942--1948 vol.4, November 1995.
+\newblock \doi{10.1109/ICNN.1995.488968}.
+\newblock URL \url{https://ieeexplore.ieee.org/document/488968}.
+
+\bibitem[Kokhanovskiy et~al.(2021)Kokhanovskiy, Kuprikov, Bednyakova, Popkov, Smirnov, and Turitsyn]{Kokhanovskiy2021}
+Alexey Kokhanovskiy, Evgeny Kuprikov, Anastasia Bednyakova, Ivan Popkov, Sergey Smirnov, and Sergei Turitsyn.
+\newblock Inverse design of mode-locked fiber laser by particle swarm optimization algorithm.
+\newblock \emph{Scientific Reports}, 11:\penalty0 13555, 2021.
+\newblock \doi{10.1038/s41598-021-92996-1}.
+
+\bibitem[Nsoungui et~al.(2026)Nsoungui, Karar, Monga, Adibnia, Zayani, Salhi, Bahloul, and Ouahada]{Nsoungui2026}
+Gaelle Carine~Mbanda Nsoungui, Abdullah~S. Karar, Kaboko Jean-Jacques Monga, Ehsan Adibnia, Hafedh~Mahmoud Zayani, Mohamed Salhi, Faouzi Bahloul, and Khmaies Ouahada.
+\newblock Algorithmic optimization of figure-of-9 fiber lasers via particle swarm methods.
+\newblock \emph{Results in Optics}, 22:\penalty0 100955, January 2026.
+\newblock ISSN 26669501.
+\newblock \doi{10.1016/j.rio.2025.100955}.
+\newblock URL \url{https://linkinghub.elsevier.com/retrieve/pii/S266695012500183X}.
+
+\bibitem[Sun et~al.(2020)Sun, Kaiser, Brunton, and Kutz]{Sun2020}
+Chang Sun, Eurika Kaiser, Steven~L. Brunton, and J.~Nathan Kutz.
+\newblock Deep reinforcement learning for optical systems: a case study of mode-locked lasers.
+\newblock \emph{Machine Learning: Science and Technology}, 1\penalty0 (4):\penalty0 045013, 2020.
+\newblock \doi{10.1088/2632-2153/abb6d6}.
+
+\bibitem[Kuprikov et~al.(2022)Kuprikov, Kokhanovskiy, Serebrennikov, and Turitsyn]{Kuprikov2022}
+Evgeny Kuprikov, Alexey Kokhanovskiy, Kirill Serebrennikov, and Sergei Turitsyn.
+\newblock Deep reinforcement learning for self-tuning laser source of dissipative solitons.
+\newblock \emph{Scientific Reports}, 12:\penalty0 7185, 2022.
+\newblock \doi{10.1038/s41598-022-11274-w}.
+
+\bibitem[Haarnoja et~al.(2018)Haarnoja, Zhou, Abbeel, and Levine]{Haarnoja2018}
+Tuomas Haarnoja, Aurick Zhou, Pieter Abbeel, and Sergey Levine.
+\newblock Soft actor-critic: Off-policy maximum entropy deep reinforcement learning with a stochastic actor.
+\newblock In \emph{Proceedings of the 35th International Conference on Machine Learning}, pages 1861--1870. PMLR, 2018.
+\newblock URL \url{https://proceedings.mlr.press/v80/haarnoja18b.html}.
+
+\bibitem[Yan et~al.(2021)Yan, Deng, Zhang, Zhu, Yin, Li, Wu, and Jiang]{Yan2021}
+Qiuquan Yan, Qinghui Deng, Jun Zhang, Ying Zhu, Ke~Yin, Teng Li, Dan Wu, and Tian Jiang.
+\newblock Low-latency deep-reinforcement learning algorithm for ultrafast fiber lasers.
+\newblock \emph{Photonics Research}, 9\penalty0 (8):\penalty0 1493--1501, 2021.
+\newblock \doi{10.1364/PRJ.428117}.
+
+\bibitem[Ma and Yu(2023)]{MaYu2023}
+Qiuying Ma and Haoyang Yu.
+\newblock Artificial intelligence-enabled mode-locked fiber laser: A review.
+\newblock 6:\penalty0 36, sept 2023.
+\newblock ISSN 2520-8128.
+\newblock \doi{10.1007/s41871-023-00216-3}.
+\newblock URL \url{https://doi.org/10.1007/s41871-023-00216-3}.
+
+\bibitem[Pineau et~al.(2021)Pineau, Vincent-Lamarre, Sinha, Larivi{\`e}re, Beygelzimer, d'Alch{\'e} Buc, Fox, and Larochelle]{Pineau2021}
+Joelle Pineau, Philippe Vincent-Lamarre, Koustuv Sinha, Vincent Larivi{\`e}re, Alina Beygelzimer, Florence d'Alch{\'e} Buc, Emily Fox, and Hugo Larochelle.
+\newblock {Improving Reproducibility in Machine Learning Research (A Report from the NeurIPS 2019 Reproducibility Program)}.
+\newblock \emph{{Journal of Machine Learning Research}}, 22, August 2021.
+\newblock URL \url{https://hal.science/hal-03341560}.
+
+\bibitem[Zhao et~al.(2020)Zhao, Queralta, and Westerlund]{Zhao2020}
+Wenshuai Zhao, Jorge~Peña Queralta, and Tomi Westerlund.
+\newblock Sim-to-real transfer in deep reinforcement learning for robotics: a survey.
+\newblock In \emph{2020 IEEE Symposium Series on Computational Intelligence (SSCI)}, pages 737--744, December 2020.
+\newblock \doi{10.1109/SSCI47803.2020.9308468}.
+\newblock URL \url{https://ieeexplore.ieee.org/document/9308468}.
+
+\bibitem[Brunton et~al.(2014)Brunton, Fu, and Kutz]{BruntonFuKutz2014}
+Steven~L. Brunton, Xing Fu, and J.~Nathan Kutz.
+\newblock Self-tuning fiber lasers: machine learning applied to optical systems.
+\newblock \emph{IEEE Journal of Selected Topics in Quantum Electronics}, 20\penalty0 (5):\penalty0 464--471, 2014.
+\newblock \doi{10.1109/JSTQE.2014.2336538}.
 
 \end{thebibliography}

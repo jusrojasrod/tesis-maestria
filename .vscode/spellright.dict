@@ -50,3 +50,10 @@ phase
 acusto
 perturbativo
 solitónicas
+máx
+perturbativa
+multifotónicas
+ model-free
+ self-starting 
+ exploration-exploitation
+trade-off 
