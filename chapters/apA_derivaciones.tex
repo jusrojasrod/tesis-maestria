@@ -1,0 +1,306 @@
+% ============================================================
+%  APENDICES A-D (2026-11-24: un apéndice por tema, con títulos descriptivos)
+%  Bloques movidos LITERALMENTE desde ch3_marco_teorico.tex el 2026-11-23
+%  (observacion 3 del director). Solo cambian: niveles de encabezado,
+%  etiquetas app:*, dos correcciones objetivas en A.4 (raiz sexta en
+%  eq:tau_min; ~4000 transitos segun Keller Fig. 6.17) y la atribucion
+%  inicial de A.4. Detalle: drafts/cap3/CAMBIOS.md
+% ============================================================
+
+\chapter{Propagación del pulso: dispersión y efecto Kerr}
+\label{app:propagacion}
+
+\section{La envolvente de campo lentamente variable}
+
+Un pulso ultracorto es una oscilación óptica de frecuencia portadora $\omega_0$
+modulada por una envolvente que varía mucho más despacio que la portadora. Esta
+separación de escalas justifica la \emph{aproximación de envolvente lentamente
+variable}, en la que el campo eléctrico real se escribe como
+%
+\begin{equation}
+    E(z,t) = \tfrac{1}{2}\,A(z,t)\,
+    e^{\,i(\omega_0 t - k_0 z)} + \text{c.c.},
+    \label{eq:envolvente}
+\end{equation}
+%
+donde $A(z,t)$ es la envolvente compleja, cuyo módulo $|A|^2$ mide la intensidad
+instantánea y cuya fase codifica la estructura de frecuencias del pulso, $k_0$
+es el número de onda a la portadora y c.c.\ denota el complejo conjugado. Toda la
+dinámica de interés (ensanchamiento, \emph{chirp}, acortamiento) se traslada así a
+la evolución de $A$, mucho más lenta que las oscilaciones a $\omega_0$. Describir
+esa evolución es el objeto de esta sección.
+
+\section{Régimen lineal: dispersión de la velocidad de grupo}
+
+En un medio transparente, las distintas componentes espectrales del pulso viajan
+con velocidades de fase diferentes porque el número de onda depende de la
+frecuencia, $k=k(\omega)$. Desarrollando esta relación de dispersión en torno a la
+portadora,
+%
+\begin{equation}
+    k(\omega) = k_0 + k_1\,(\omega-\omega_0)
+    + \tfrac{1}{2}\,k_2\,(\omega-\omega_0)^2 + \cdots,
+    \qquad
+    k_n \equiv \left.\frac{d^{\,n}k}{d\omega^{\,n}}\right|_{\omega_0},
+    \label{eq:beta_expansion}
+\end{equation}
+%
+se identifican dos coeficientes de significado físico directo. El término de
+primer orden, $k_1 = 1/v_g$, es el inverso de la velocidad de grupo y no deforma
+el pulso: se limita a desplazarlo en bloque. Adoptando un marco de referencia que
+viaja con el pulso, $t \to t - z/v_g$, ese término se elimina y la deformación
+queda gobernada por el coeficiente de segundo orden $k_2$, la \emph{dispersión de
+la velocidad de grupo} (GVD). En este marco comóvil, la envolvente evoluciona
+según
+%
+\begin{equation}
+    \frac{\partial A}{\partial z}
+    = i\,D_0\,\frac{\partial^2 A}{\partial t^2},
+    \qquad D_0 \equiv \tfrac{1}{2}\,k_2,
+    \label{eq:gvd_prop}
+\end{equation}
+%
+una ecuación de tipo Schrödinger libre cuyo efecto es puramente dispersivo: no
+altera el espectro $|\tilde A(\omega)|^2$, sino que reorganiza las fases
+relativas de sus componentes. El signo de $k_2$ separa dos regímenes. En
+\emph{dispersión normal} ($k_2>0$, es decir $D_0>0$) las componentes de baja
+frecuencia adelantan a las de alta, y el pulso adquiere un \emph{chirp} positivo
+al tiempo que se ensancha temporalmente. En \emph{dispersión anómala}
+($k_2<0$, $D_0<0$) ocurre lo contrario. Este segundo régimen es el relevante para
+la formación de solitones, como se verá en la Sección~\ref{sec:solitones}: solo
+con dispersión anómala puede la no linealidad de Kerr contrarrestar el
+ensanchamiento y estabilizar el pulso.
+
+Conviene subrayar que la GVD, por sí sola, conserva el ancho de banda del pulso y
+por tanto su duración mínima alcanzable. Un pulso cuya duración temporal es la
+menor compatible con su ancho espectral se denomina \emph{limitado por
+transformada}; la dispersión lo aleja de ese límite introduciendo \emph{chirp},
+pero una compensación dispersiva de signo opuesto puede, en principio,
+restaurarlo. Esta reversibilidad distingue a la dispersión de los procesos que sí
+modifican el contenido espectral, a los que se pasa a continuación.
+
+\section{Régimen no lineal: efecto Kerr y automodulación de fase}
+
+A las intensidades pico que alcanzan los pulsos ultracortos, la respuesta del
+medio deja de ser lineal. El efecto Kerr óptico hace que el índice de refracción
+dependa de la intensidad instantánea,
+%
+\begin{equation}
+    n(I) = n_0 + n_2\,I,
+    \qquad I \propto |A|^2,
+    \label{eq:kerr}
+\end{equation}
+%
+con $n_2>0$ el índice no lineal del material \cite[sec.~4.1.1]{Keller2022}. Puesto que la fase
+acumulada por el campo es proporcional al índice, una envolvente de intensidad
+variable imprime sobre sí misma un desfase que sigue su propio perfil temporal:
+este es el fenómeno de \emph{automodulación de fase} (SPM). En términos de la
+envolvente, su contribución a la propagación es
+%
+\begin{equation}
+    \frac{\partial A}{\partial z}
+    = -\,i\,\delta_0\,|A|^2 A,
+    \qquad \delta_0 \propto n_2\,\omega_0,
+    \label{eq:spm_prop}
+\end{equation}
+%
+donde $\delta_0>0$ es el coeficiente de no linealidad. A diferencia de la GVD, la
+SPM no reordena fases a espectro constante: al ser el desfase proporcional a la
+intensidad, sus flancos temporales, donde $|A|^2$ varía con rapidez, generan
+\emph{nuevas} componentes de frecuencia, ensanchando el espectro del pulso. Es,
+por tanto, el mecanismo que permite acceder a anchos de banda, y con ellos a
+duraciones, que la sola cavidad lineal no alcanzaría.
+
+\chapter{Promediado por ronda de la ecuación maestra de Haus}
+\label{app:promediado}
+
+El punto de partida es la separación de dos escalas temporales. Por un lado, el
+\emph{tiempo local} $t$, definido en un marco de referencia que viaja con el
+pulso, resuelve la estructura interna de la envolvente (la escala de
+femto\-/picosegundos). Por otro, el \emph{tiempo lento} $T$ mide la evolución de
+esa envolvente a lo largo de muchos tránsitos y avanza en pasos del tiempo de ida
+y vuelta $T_R$; resulta cómodo tratarlo como una variable continua, de modo que
+$T = n\,T_R$ con $n$ el número de ronda. La cantidad de interés es entonces la
+envolvente compleja $A(T,t)$, lentamente variable en $T$ y rápidamente
+estructurada en $t$.
+
+Cada elemento intracavitario $j$ produce, en un solo paso, un cambio
+$\Delta_j A$ sobre la envolvente. Tras un recorrido completo, el campo acumula la
+suma de todas esas contribuciones:
+%
+\begin{equation}
+    A(T + T_R,\, t) = A(T,t) + \sum_j \Delta_j A .
+    \label{eq:haus_acumulacion}
+\end{equation}
+%
+En el régimen estacionario de bloqueo de modos, cada $\Delta_j A$ es pequeño
+frente a $A$, y también lo es su suma. Bajo esta hipótesis de cambio débil por
+ronda, el primer miembro de la ecuación~\eqref{eq:haus_acumulacion} admite el
+desarrollo $A(T+T_R,t) \approx A(T,t) + T_R\,\partial_T A$, con lo que la
+diferencia entre dos vueltas consecutivas se convierte en una derivada:
+%
+\begin{equation}
+    T_R\,\frac{\partial A}{\partial T} = \sum_j \Delta_j A .
+    \label{eq:haus_maestra_forma}
+\end{equation}
+%
+La ecuación~\eqref{eq:haus_maestra_forma} es la forma genérica de la ecuación
+maestra: traduce la dinámica discreta «vuelta a vuelta» en una evolución
+continua gobernada por la acción promediada de todos los elementos de la cavidad.
+Los operadores $\Delta_j A$ de cada elemento se especifican en la
+Sección~\ref{sec:haus}, a partir de los procesos físicos resumidos en el
+Cuadro~\ref{tab:procesos}.
+
+\chapter{Solución de Kuizenga--Siegman del bloqueo de modos activo}
+\label{app:ks}
+
+El punto de partida es la ecuación maestra para el bloqueo de modos activo sin
+dispersión ni no linealidad, deducida en la Sección~\ref{sec:haus}
+(ecuación~\eqref{eq:haus_activo_base}). Puesto que el pulso es mucho más corto que
+el periodo de modulación $2\pi/\omega_m$, basta desarrollar el modulador en torno
+a su mínimo de pérdida, $M\bigl(1-\cos\omega_m t\bigr)\approx M_s\,t^2$ con
+$M_s\equiv M\omega_m^2/2$. En estado estacionario ($\partial_T A = 0$) la ecuación
+maestra se reduce al problema de autovalores
+%
+\begin{equation}
+    D_g\,\frac{\partial^2 A}{\partial t^2}
+    - M_s\,t^2\,A + (g-l)\,A = 0,
+    \label{eq:ks_autovalores}
+\end{equation}
+%
+formalmente idéntico al del oscilador armónico cuántico. Su modo fundamental es un
+pulso de perfil gaussiano,
+%
+\begin{equation}
+    A(t) = A_0\,\exp\!\left(-\frac{t^2}{2\tau_g^{2}}\right),
+    \qquad
+    \tau_g = \left(\frac{D_g}{M_s}\right)^{1/4},
+    \label{eq:ks_gaussiano}
+\end{equation}
+%
+cuya anchura resulta del equilibrio entre los dos términos que compiten en
+\eqref{eq:ks_autovalores}: la dispersión de ganancia $D_g=g/\Omega_g^2$, que
+ensancha el pulso al filtrar sus alas espectrales, y la curvatura del modulador
+$M_s$, que lo estrecha al penalizar sus alas temporales
+(Figura~\ref{fig:ks-narrowing}).
+
+ Sustituyendo
+\eqref{eq:ks_gaussiano} en \eqref{eq:ks_autovalores} se obtiene además la
+condición de balance que fija la ganancia saturada,
+%
+\begin{equation}
+    g - l = \sqrt{D_g\,M_s},
+    \label{eq:ks_balance}
+\end{equation}
+%
+es decir, el exceso de ganancia sobre las pérdidas lineales necesario para
+sostener el pulso estacionario.
+
+\chapter{Teoría perturbativa del solitón en régimen activo}
+\label{app:soliton_activo}
+
+% [REV-2026-11-23] atribución explícita (antes solo había cita al final del pasaje)
+Esta deducción sigue la exposición de Keller~\cite[sec.~6.6]{Keller2022}, de la que se
+toman el planteamiento, las ecuaciones y los valores numéricos.
+
+Se propone así un \emph{ansatz} que describe un solitón acompañado de un fondo
+residual (el continuo),
+%
+\begin{equation}
+    A(T,t) = A_0\,\operatorname{sech}\!\left(\frac{t}{\tau}\right)
+    \exp\!\left(i\phi_0\,\frac{T}{T_R}\right) + \text{continuo},
+    \label{eq:ansatz_soliton}
+\end{equation}
+%
+donde $A_0$ es la amplitud de la envolvente, $\tau$ su duración y $\phi_0$ el
+desplazamiento de fase que el solitón acumula por cada periodo de repetición
+$T_R$. Con dispersión anómala suficiente, el continuo decae exponencialmente y,
+para una energía de pulso dada, se forma un solitón cuya duración ideal es
+%
+\begin{equation}
+    \tau = \frac{4\,|D|}{F_{P,L}\,\delta},
+    \label{eq:tau_soliton}
+\end{equation}
+%
+con $\delta$ el coeficiente de SPM y $F_{P,L}$ la densidad de energía del pulso en
+el medio láser, bajo el supuesto de que la SPM se genera en el cristal de
+ganancia. La dispersión neta por ronda $D$ se relaciona con la dispersión de
+retardo de grupo acumulada mediante $\mathrm{GDD}=2D$, de modo que el régimen
+anómalo ($\mathrm{GDD}<0$) corresponde, coherentemente con la
+Sección~\ref{sec:propagacion}, a $D<0$. La ecuación~\eqref{eq:tau_soliton} indica
+que reducir la dispersión acorta el solitón; sin embargo, como se verá, existe un
+límite por debajo del cual el pulso se desestabiliza.
+
+\paragraph{El continuo y su papel estabilizador.}
+El solitón no se forma de manera instantánea. Partiendo de un pulso gaussiano
+inicial, el sistema requiere del orden de miles de tránsitos (unos 4000 en el caso
+de Nd:YAG de \cite[Fig.~6.17]{Keller2022}) para relajar
+hacia el estado estacionario solitónico, de duración mucho menor. La fracción de
+energía del pulso inicial que no logra ajustarse al perfil del solitón se vierte
+en el continuo: una componente de baja intensidad para la cual la SPM es
+insuficiente para compensar el ensanchamiento dispersivo, de modo que se dispersa
+temporalmente. Al ensancharse, el continuo pasa más tiempo fuera de la ventana de
+transmisión del modulador y sufre en él una pérdida creciente, por lo que decae
+con las rondas (Figura~\ref{fig:saturable_gain}). En el marco de referencia del
+solitón, el efecto Kerr le imprime un desplazamiento de fase periódico que genera
+interferencias con el continuo; estas se desvanecen gradualmente a medida que el
+continuo se extingue, dejando únicamente el solitón.
+
+
+
+\paragraph{Duración mínima y factor de reducción.}
+Existe un límite a cuánto puede acortarse el solitón manteniéndolo estable frente
+al continuo: si la dispersión es demasiado baja, el continuo no se ensancha con la
+rapidez suficiente para ser absorbido por el modulador y el sistema se
+desestabiliza, llegando a generar pulsos satélite tras muchos miles de tránsitos.
+La teoría perturbativa de solitones fija ese umbral a través de la dispersión
+normalizada mínima
+%
+\begin{equation}
+    D_{n,\min} = \frac{|D|}{D_g}
+    = \frac{2}{9}\sqrt[3]{\frac{(9\phi_0/2)^2}{D_g\,M_s}},
+    \label{eq:disp_min}
+\end{equation}
+%
+a la que corresponde una duración a media altura de la intensidad
+%
+\begin{equation}
+    \tau_{\min} = 1.763\,\sqrt[6]{\frac{2\,D_g^{2}}{9\,\phi_0\,M_s}}.
+    \label{eq:tau_min}
+\end{equation}
+%
+Comparando la duración mínima solitónica~\eqref{eq:tau_min} con la del pulso
+gaussiano puramente activo~\eqref{eq:tau_gauss}, el factor de reducción que aporta
+el régimen solitónico es
+%
+\begin{equation}
+    R_{\max} = \frac{\tau_p}{\tau_{\min}}
+    = \frac{1.665}{1.763}\,\sqrt[12]{\frac{(9\phi_0/2)^2}{D_g\,M_s}}
+    = \frac{1.665}{1.763}\,\sqrt[4]{\tfrac{9}{2}\,D_{n,\min}}.
+    \label{eq:factor_reduccion}
+\end{equation}
+%
+A diferencia del caso puramente activo, la envolvente estacionaria ya no es un
+pulso gaussiano con \emph{chirp}, sino un solitón $\operatorname{sech}^2$ sin
+\emph{chirp}, que es lo que permite descender al régimen de femtosegundos.
+
+\paragraph{Balance de energía y estabilidad.}
+El solitón permanece estable mientras su pérdida efectiva $l_s$ sea inferior a la
+que sufre el continuo $l_c$. La pérdida del solitón consta de dos aportaciones,
+%
+\begin{equation}
+    l_s = \frac{D_g}{3\,\tau^2}
+        + \frac{\pi^2}{24}\,M\,\omega_m^2\,\tau^2,
+    \label{eq:perdida_soliton}
+\end{equation}
+%
+la primera debida al ancho de banda finito de la ganancia, que tiende a ensanchar
+el solitón, y la segunda a la acción residual del modulador de pérdida. El balance
+de ganancia y pérdidas se escribe entonces como $g = l + l_s$, con $l$ la pérdida
+aportada por el resto de los elementos de la cavidad. Para solitones muy cortos, el
+primer término domina y la influencia del modulador sobre el solitón resulta casi
+nula; el continuo, en cambio, sí experimenta en el modulador una pérdida intensa,
+lo que garantiza su supresión y, con ella, la estabilidad del pulso solitónico.
+Este contraste entre la escasa pérdida del solitón y la elevada del continuo es,
+en última instancia, el mecanismo que sostiene el bloqueo de modos activo en su
+régimen solitónico \cite{Haus2000,Keller2022}.

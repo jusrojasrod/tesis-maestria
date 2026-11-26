@@ -1,3 +1,37 @@
 \chapter*{Resumen}
 \addcontentsline{toc}{chapter}{Resumen} % Añade "Resumen" a la Tabla de Contenido
-Aquí va el resumen en español. Debe ser una traducción o adaptación del Abstract.
+
+Generar el pulso que una aplicación requiere de un láser ultrarrápido equivale a fijar la
+configuración de parámetros de su cavidad, un problema de optimización de caja negra, no
+convexo y multiestable frente al cual los métodos de ajuste tradicionales resultan
+insuficientes. La literatura ha respondido con algoritmos inspirados en la naturaleza y
+técnicas de aprendizaje automático, pero deja dos vacíos: se ha concentrado casi por
+completo en el régimen de \emph{mode-locking} pasivo, dejando el activo subexplorado, y
+está organizada como una colección de estudios de caso aislados, sin comparaciones que
+mantengan fijos el láser, el espacio de parámetros y la función objetivo para variar solo
+el algoritmo. Esta tesis aborda ambos vacíos con un estudio comparativo controlado de tres
+estrategias libres de gradiente: un algoritmo genético (GA), un híbrido con red neuronal
+sustituta (NN+GA) y la optimización por enjambre de partículas (PSO), sobre un simulador de
+la ecuación maestra de Haus validado contra soluciones analíticas, en los regímenes activo
+y pasivo, bajo una misma función de mérito y métricas comunes de calidad, costo y robustez.
+
+Sobre una matriz de sesenta corridas independientes y contraste estadístico no paramétrico,
+las tres estrategias alcanzan soluciones factibles, pero el método preferible depende del
+régimen. En el régimen activo el PSO domina de forma significativa en
+calidad, dispersión, velocidad de convergencia y robustez del óptimo, asociada a un
+acortamiento solitónico más fuerte; en el pasivo el PSO y
+el GA quedan estadísticamente empatados. El sustituto neuronal iguala al GA en el régimen
+activo con $5{.}7$ veces menos evaluaciones del simulador y sacrifica calidad en el pasivo,
+aunque un control emparejado muestra que, con ese presupuesto, su aporte no se distingue
+del de su propio muestreo inicial. Un único factor (la forma
+del paisaje de optimización de cada régimen, regular en el activo y multiestable en el
+pasivo) explica los tres hallazgos, y la robustez local emerge como una dimensión de
+comparación que discrimina entre métodos cuando la calidad los iguala. El trabajo, realizado
+en simulación, aporta un marco reproducible y evidencia de que el régimen activo es, para
+esta familia de métodos, el más tratable; la validación experimental y la extensión al
+aprendizaje por refuerzo profundo quedan como líneas de trabajo futuro.
+
+\vspace{1em}
+\noindent\textbf{Palabras clave:} láseres ultrarrápidos, \emph{mode-locking}, optimización
+sin gradiente, algoritmo genético, optimización por enjambre de partículas, redes neuronales
+sustitutas, ecuación maestra de Haus, aprendizaje automático.

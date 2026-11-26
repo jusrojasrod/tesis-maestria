@@ -1,4 +1,4 @@
-\documentclass[12pt, a4paper, twoside]{book}
+\documentclass[10pt, a4paper, twoside]{book}
 
 % --- Preámbulo: Cargar Paquetes y Definiciones ---
 \input{preamble/packages.tex}
@@ -64,17 +64,18 @@
 \cleardoublepage
 
 
-% \chapter{Resultados}
-% \input{chapters/results.tex}
-% \cleardoublepage
+% ch5 (Resultados) y ch6 (Discusión) fusionados en un único capítulo "Resultados y Discusión"
+% (2026-07-24). Los archivos ch5_resultados.tex y ch6_discusion.tex quedan como respaldo, sin \input.
+\input{chapters/ch5_resultados_discusion}
+\cleardoublepage
 
-% \chapter{Discusión}
-% \input{chapters/discussion.tex}
-% \cleardoublepage
+\input{chapters/ch7_conclusiones}
+\cleardoublepage
 
-% \chapter{Conclusiones}
-% \input{chapters/conclusions.tex}
-% \cleardoublepage
+% --- Apéndices (2026-11-23) ---
+\appendix
+\input{chapters/apA_derivaciones}
+\cleardoublepage
 
 % --- Bibliografía ---
 % Asegúrate de que el archivo references.bib esté en la raíz del proyecto

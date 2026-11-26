@@ -2,8 +2,7 @@
 \label{ch:Theoretical background}
 \chapterminitoc
 
-Este capítulo recorre, en un único arco argumental, el camino que va de la física del pulso ultracorto al control inteligente de la cavidad que lo genera. Se organiza en dos partes encadenadas. La primera establece las herramientas físicas del marco de modelado de cavidad de Keller y Krausz: la propagación de la envolvente bajo dispersión y no linealidad, el bloqueo de modos entendido como sistema dinámico disipativo, la ecuación maestra de Haus como formalismo central, los regímenes de bloqueo de modos activo y pasivo, el solitón disipativo y, como bisagra, la traducción de la física del oscilador en un problema de optimización con su función de mérito. La segunda parte desarrolla los fundamentos de las tres estrategias de optimización que la tesis compara —el algoritmo genético, la red neuronal acoplada al algoritmo genético y la optimización por enjambre de partículas—, todas orientadas a maximizar esa misma función de mérito sobre el mismo simulador.
-
+En este capítulo se introduce el formalismo físico y de aprendizaje de máquina que se utiliza a lo largo del texto. Por el lado físico, se establecen las modelos que permiten caracterizar la cavidad descrita como keller y krausz lo logran: la propagación de la envolvente bajo la dispersión y no linealidad, el bloqueo de modos, la ecuación maestra de Haus como formalismo central, los regímenes de bloque de modos activo y pasivo y otros temas centrales. La segunda parte desarrolla los fundamentos de los tres algoritmos de optimización que se implementaran: algoritmos genéticos, redes neuronales y optimización por enjambre de partículas, todas enfocadas a maximizar la llamada función de mérito sobre el mismo simulador.
 
 % ============================================================
 %  CAPITULO 3 -- MARCO TEORICO
@@ -14,443 +13,75 @@ Este capítulo recorre, en un único arco argumental, el camino que va de la fí
 \section{Propagación de un pulso: régimen lineal y no lineal}
 \label{sec:propagacion}
 
-Antes de describir cómo la cavidad moldea un pulso ronda tras ronda conviene
-establecer el objeto que se propaga y las dos influencias elementales que lo
-transforman al atravesar cualquier medio material: la dispersión, de carácter
-lineal, y la no linealidad de Kerr. Ambas reaparecerán, ya promediadas por
-tránsito, como operadores de la ecuación maestra de Haus
-(Sección~\ref{sec:haus}); aquí se deducen en su forma de propagación para dejar
-sentado su origen físico y su notación.
 
-\subsection{La envolvente de campo lentamente variable}
+Un pulso ultrarrápido se describe por su envolvente compleja $A(z,t)$ y una portadora de frecuencia $\omega_0$. Al atravesar un medio, la envolvente que viaja con una velocidad de grupo $v_g$, cambia por dos efectos que actúan simultáneamente: la dispersión de velocidad de grupo (GVD, relacionada al coeficiente $D_0\equiv k_2/2$) que reordena las fases sin alterar el espectro; y la automodulación de fase (SPM) debida al efecto Kerr, $n(I)=n_0+n_2I$, de coeficiente $\delta_0\propto n_2\omega_0$, que imprime una fase proporcional a $|A|^2$, generando frecuencias nuevas \cite[secs.~4.1 y 4.3]{Keller2022}. La deducción de ambos términos está en el Apéndice~\ref{app:propagacion}.
 
-Un pulso ultracorto es una oscilación óptica de frecuencia portadora $\omega_0$
-modulada por una envolvente que varía mucho más despacio que la portadora. Esta
-separación de escalas justifica la \emph{aproximación de envolvente lentamente
-variable}, en la que el campo eléctrico real se escribe como
-%
-\begin{equation}
-    E(z,t) = \tfrac{1}{2}\,A(z,t)\,
-    e^{\,i(k_0 z - \omega_0 t)} + \text{c.c.},
-    \label{eq:envolvente}
-\end{equation}
-%
-donde $A(z,t)$ es la envolvente compleja —cuyo módulo $|A|^2$ mide la intensidad
-instantánea y cuya fase codifica la estructura de frecuencias del pulso—, $k_0$
-es el número de onda a la portadora y c.c.\ denota el complejo conjugado. Toda la
-dinámica de interés (ensanchamiento, \emph{chirp}, acortamiento) se traslada así a
-la evolución de $A$, mucho más lenta que las oscilaciones a $\omega_0$. Describir
-esa evolución es el objeto de esta sección.
+Cuando los fenómenos de dispersión y no linealidad actúan simultáneamente sobre la misma propagación, sus contribuciones \eqref{eq:gvd_prop} y \eqref{eq:spm_prop} se suman, dando lugar a la \textbf{ecuación no lineal de Schrödinger} (NLSE) ecuación
+canónica de la óptica de pulsos \cite[sec.~4.3]{Keller2022}:
 
-\subsection{Régimen lineal: dispersión de la velocidad de grupo}
-
-En un medio transparente, las distintas componentes espectrales del pulso viajan
-con velocidades de fase diferentes porque el número de onda depende de la
-frecuencia, $k=k(\omega)$. Desarrollando esta relación de dispersión en torno a la
-portadora,
-%
-\begin{equation}
-    k(\omega) = k_0 + k_1\,(\omega-\omega_0)
-    + \tfrac{1}{2}\,k_2\,(\omega-\omega_0)^2 + \cdots,
-    \qquad
-    k_n \equiv \left.\frac{d^{\,n}k}{d\omega^{\,n}}\right|_{\omega_0},
-    \label{eq:beta_expansion}
-\end{equation}
-%
-se identifican dos coeficientes de significado físico directo. El término de
-primer orden, $k_1 = 1/v_g$, es el inverso de la velocidad de grupo y no deforma
-el pulso: se limita a desplazarlo en bloque. Adoptando un marco de referencia que
-viaja con el pulso, $t \to t - z/v_g$, ese término se elimina y la deformación
-queda gobernada por el coeficiente de segundo orden $k_2$, la \emph{dispersión de
-la velocidad de grupo} (GVD). En este marco comóvil, la envolvente evoluciona
-según
-%
-\begin{equation}
-    \frac{\partial A}{\partial z}
-    = i\,D_0\,\frac{\partial^2 A}{\partial t^2},
-    \qquad D_0 \equiv -\tfrac{1}{2}\,k_2 ,
-    \label{eq:gvd_prop}
-\end{equation}
-%
-una ecuación de tipo Schrödinger libre cuyo efecto es puramente dispersivo: no
-altera el espectro $|\tilde A(\omega)|^2$, sino que reorganiza las fases
-relativas de sus componentes. El signo de $k_2$ separa dos regímenes. En
-\emph{dispersión normal} ($k_2>0$, es decir $D_0<0$) las componentes de baja
-frecuencia adelantan a las de alta, y el pulso adquiere un \emph{chirp} positivo
-al tiempo que se ensancha temporalmente. En \emph{dispersión anómala}
-($k_2<0$, $D_0>0$) ocurre lo contrario. Este segundo régimen es el relevante para
-la formación de solitones, como se verá en la Sección~\ref{sec:solitones}: solo
-con dispersión anómala puede la no linealidad de Kerr contrarrestar el
-ensanchamiento y estabilizar el pulso.
-
-Conviene subrayar que la GVD, por sí sola, conserva el ancho de banda del pulso y
-por tanto su duración mínima alcanzable. Un pulso cuya duración temporal es la
-menor compatible con su ancho espectral se denomina \emph{limitado por
-transformada}; la dispersión lo aleja de ese límite introduciendo \emph{chirp},
-pero una compensación dispersiva de signo opuesto puede, en principio,
-restaurarlo. Esta reversibilidad distingue a la dispersión de los procesos que sí
-modifican el contenido espectral, a los que se pasa a continuación.
-
-\subsection{Régimen no lineal: efecto Kerr y automodulación de fase}
-
-A las intensidades pico que alcanzan los pulsos ultracortos, la respuesta del
-medio deja de ser lineal. El efecto Kerr óptico hace que el índice de refracción
-dependa de la intensidad instantánea,
-%
-\begin{equation}
-    n(I) = n_0 + n_2\,I,
-    \qquad I \propto |A|^2,
-    \label{eq:kerr}
-\end{equation}
-%
-con $n_2>0$ el índice no lineal del material \cite{Boyd2004}. Puesto que la fase
-acumulada por el campo es proporcional al índice, una envolvente de intensidad
-variable imprime sobre sí misma un desfase que sigue su propio perfil temporal:
-este es el fenómeno de \emph{automodulación de fase} (SPM). En términos de la
-envolvente, su contribución a la propagación es
-%
-\begin{equation}
-    \frac{\partial A}{\partial z}
-    = i\,\delta_0\,|A|^2 A,
-    \qquad \delta_0 \propto n_2\,\omega_0 ,
-    \label{eq:spm_prop}
-\end{equation}
-%
-donde $\delta_0>0$ es el coeficiente de no linealidad. A diferencia de la GVD, la
-SPM no reordena fases a espectro constante: al ser el desfase proporcional a la
-intensidad, sus flancos temporales —donde $|A|^2$ varía con rapidez— generan
-\emph{nuevas} componentes de frecuencia, ensanchando el espectro del pulso. Es,
-por tanto, el mecanismo que permite acceder a anchos de banda —y con ellos a
-duraciones— que la sola cavidad lineal no alcanzaría.
-
-\subsection{La ecuación no lineal de Schrödinger}
-
-Cuando dispersión y no linealidad actúan simultáneamente sobre el mismo tramo de
-propagación, sus contribuciones \eqref{eq:gvd_prop} y \eqref{eq:spm_prop} se suman
-y dan lugar a la \textbf{ecuación no lineal de Schrödinger} (NLSE), ecuación
-canónica de la óptica de pulsos \cite{Agrawal2019}:
-%
 \begin{equation}
     \frac{\partial A}{\partial z}
     = i\,D_0\,\frac{\partial^2 A}{\partial t^2}
-      + i\,\delta_0\,|A|^2 A .
+            - i\,\delta_0\,|A|^2 A .
     \label{eq:nlse}
 \end{equation}
-%
-La competencia entre ambos términos es la clave de la dinámica ultrarrápida:
-la GVD anómala ($D_0>0$) impone sobre el pulso un \emph{chirp} de un signo, y la
-SPM ($\delta_0>0$) uno de signo opuesto. Cuando ambos se cancelan exactamente, el
-pulso propaga sin deformarse —es un solitón óptico—, resultado que la
-Sección~\ref{sec:solitones} desarrolla en el contexto de la cavidad. La
-ecuación~\eqref{eq:nlse} describe, no obstante, un medio conservativo: no contempla
-ni ganancia ni pérdidas, y admite un continuo de soluciones sin seleccionar
-ninguna. Un oscilador real requiere ambos ingredientes, y es ahí donde la
-descripción por propagación cede el paso a la descripción por cavidad.
 
-\subsection{Del medio de propagación a la cavidad}
+La competencia entre ambos términos es la clave de la dinámica ultrarrápida: la GVD anómala ($D_0<0$) impone sobre el pulso un \emph{chirp} de un signo, y la SPM ($\delta_0>0$) uno de signo opuesto. Cuando ambos se cancelan exactamente, el pulso se propaga sin deformarse (es un solitón óptico), resultado que la Sección~\ref{sec:solitones} desarrolla en el contexto de la cavidad. La ecuación~\eqref{eq:nlse} describe un medio conservativo: no contempla ni ganancia ni pérdidas, y admite un continuo de soluciones sin seleccionar ninguna. Un oscilador real requiere ambos ingredientes, y es ahí donde la descripción por propagación cede el paso a la descripción por cavidad.
 
-En un oscilador de bloqueo de modos el pulso no recorre un medio extenso una sola
-vez, sino que atraviesa repetidamente una secuencia de elementos discretos —el
-cristal de ganancia, el modulador, los espejos, los tramos de aire o de material
-dispersivo— completando un circuito cerrado en cada tiempo de ida y vuelta $T_R$.
-El efecto neto de la dispersión y la no linealidad sobre una ronda completa se
-obtiene integrando la NLSE~\eqref{eq:nlse} a lo largo del circuito, lo que
-convierte los coeficientes locales $D_0$ y $\delta_0$ en \emph{parámetros netos
-por ronda}: la dispersión intracavitaria acumulada $D$ y el coeficiente de
-automodulación de fase efectivo $\delta$. En esta imagen, la contribución de la
-NLSE a la evolución del pulso de una vuelta a la siguiente se escribe como los dos
-operadores
-%
-\begin{equation}
-    \Delta_{D} A = i\,D\,\frac{\partial^2 A}{\partial t^2},
-    \qquad
-    \Delta_{\delta} A = i\,\delta\,|A|^2 A ,
-    \label{eq:nlse_cavidad}
-\end{equation}
-%
-que son precisamente los términos dispersivo y no lineal de la ecuación maestra de
-Haus introducidos en la Sección~\ref{sec:haus}
-(ecuaciones~\eqref{eq:op_gvd} y~\eqref{eq:op_spm}). La ecuación
-maestra completa la NLSE~\eqref{eq:nlse} añadiéndole justamente lo que a esta le
-falta para describir un oscilador —la ganancia con ancho de banda finito, las
-pérdidas lineales y el mecanismo de bloqueo de modos—, que son los términos
-disipativos encargados de fijar, de entre el continuo de soluciones de la NLSE,
-el pulso estacionario que el láser efectivamente emite. Con la física de la
-propagación ya establecida, la siguiente sección construye esa cavidad y su
-dinámica.
+En un oscilador, el pulso atraviesa en cada tiempo de ida y vuelta $T_R$ una secuencia de elementos discretos. Si el pulso cambia poco en cada vuelta, los efectos pueden acumularse sin importar el orden en que actúen sobre el pulso, y la dispersión y la no linealidad quedan descritas por dos parámetros por ronda: la dispersión $D=\sum_j D_{0,j}L_j$ y el coeficiente de automodulación de fase $\delta=\sum_j \delta_{0,j}L_j$, donde la suma recorre los elementos dispuestos en una vuelta, de longitudes $L_j$ \cite[ecs.~4.5 y 4.39]{Keller2022}. En una cavidad cada elemento es recorrido dos veces vuelta. Estos son los parámetros que aparecen en los operadores de dispersión y de automodulación de fase de la ecuación maestra (Sección~\ref{sec:haus}, ecuaciones~\eqref{eq:op_gvd} y ~\eqref{eq:op_spm}).
 
 
 % ============================================================
 %  CAPITULO 3 -- MARCO TEORICO
 %  Seccion 3.2  ---  Bloqueo de modos: la cavidad como sistema
 %                    dinamico disipativo
-%  (integra y refina el borrador; alimenta la ecuacion maestra 3.3)
 % ============================================================
 
 \section{Bloqueo de modos: la cavidad como sistema dinámico disipativo}
 \label{sec:mode_locking}
 
-El bloqueo de modos (del inglés, \emph{mode-locking}) constituye la técnica
-fundamental para la generación de pulsos ópticos en el régimen ultrarrápido. En un
-oscilador que opera bajo bloqueo de modos en onda continua (\emph{CW
-mode-locking}), la duración temporal de los pulsos emitidos es órdenes de magnitud
-inferior al tiempo de ida y vuelta de la cavidad (\emph{round-trip time}), el cual
-dicta de manera estricta la tasa de repetición del sistema. Típicamente, este
-régimen se caracteriza por la propagación intracavidad de un único pulso
-ultracorto confinado a una escala de pico\-/ o femtosegundos, o bien de un tren de
-pulsos con espaciamiento temporal constante en el caso de operar bajo bloqueo de
-modos armónico.
+El bloqueo de modos (del inglés, \emph{mode-locking}) es una técnica que permite,  partir de un láser de onda continua (\emph{CW}), generar pulsos en el régime ultrarrápido, cuya duración temporal es varios órdenes de magnitud inferior al tiemp que le toma a la luz recorrer la cavidad de un extremo a otro y regresar (tiempo de id y vuelta $T_R=2L/v_g$, con $v_g$ la velocidad de grupo). La tasa de repetición de sistema va a venir determinada por la longitud $L$ de la cavidad $f_{\text{rep}}=1/T_R$ (Figura~\ref{fig:CavidadLaser_fig3}). Típicamente, este régime se caracteriza por la propagación en la cavidad de un único pulso ultracorto confinad a una escala de picosegundos o femtosegundos, o bien de varios pulsos igualmente espaciados en el caso de operar bajo el bloqueo de modos armónico \cite[cap.~6]{Keller2022}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.3]{chapters/images/ch3/CavidadLaser_fig3.png}
-    \caption{Representación esquemática de la cavidad resonante de un láser de
-    longitud $L$, diseñada para operar en régimen de bloqueo de modos. El sistema
-    alberga un medio activo (ganancia) y un elemento de modulación (pérdida). La
-    cavidad está delimitada por un espejo de alta reflectancia (HR) en un extremo
-    y un espejo acoplador de salida semitransparente (OC) en el opuesto.}
+    \includegraphics[width=0.85\textwidth]{chapters/images/ch3/fig_cavidad_v2.pdf}
+    \caption[Esquema de la cavidad resonante del láser]{Representación esquemática de la cavidad resonante de un láser de longitud $L$, diseñada para operar en régimen de bloqueo de modos. El sistema alberga un medio activo (ganancia) y un elemento de modulación (pérdida). La cavidad está delimitada por un espejo de alta reflectancia (HR) en un extremo y un espejo acoplador de salida semitransparente (OC) en el opuesto.}
     \label{fig:CavidadLaser_fig3}
 \end{figure}
 
-La arquitectura clásica de un láser de modos bloqueados requiere la integración de
-un elemento modulador en el interior de la cavidad (véase la
-Figura~\ref{fig:CavidadLaser_fig3}). La propagación del campo electromagnético a
-través de este componente permite la formación de pulsos sincronizados con los
-instantes de mínima atenuación impuestos por el modulador. La periodicidad
-intrínseca de esta modulación coincide con el tiempo de ida y vuelta de la
-cavidad, matemáticamente definido como $T_R = 2L/v_g$, donde $L$ representa la
-longitud óptica de la cavidad y $v_g$ denota la velocidad de grupo del paquete de
-ondas en el medio. Entender el bloqueo de modos exige, por tanto, analizar la
-cavidad no como un simple amplificador resonante, sino como un \emph{sistema
-dinámico disipativo}: un circuito en el que, ronda tras ronda, compiten aportes y
-sustracciones de energía hasta que el pulso alcanza un estado estacionario. Las
-dos subsecciones siguientes examinan primero los procesos físicos que participan
-en esa competencia y después el principio de coherencia de fase que da origen al
-pulso.
+La arquitectura de una cavidad láser de modos bloqueados requiere la integración de dos elementos que interactúan de forma sucesiva sobre el haz, redistribuyendo su energía para dar lugar al pulso láser \cite[secs.~6.2 y 9.1.1]{Keller2022}. Los efectos que ambos ejercen sobre el pulso son opuestos entre sí, de modo que lo que uno modifica es compensado por el otro a lo largo de miles de circulaciones continuas dentro de la cavidad. Por un lado, el elemento de pérdida modulada estrecha el pulso en el dominio temporal y, al hacerlo, introduce más componentes de frecuencia en el dominio espectral (es decir, lo acorta en el tiempo y lo ensancha en frecuencia). Aunque la pérdida está presente de manera continua, no es constante en cada instante, sino que varía con máximos y mínimos que se repiten con un periodo igual al tiempo de ida y vuelta $T_R$. Esta modulación puede imponerse desde fuera, mediante un modulador accionado por una señal externa (bloqueo de modos activo, Sección~\ref{sec:ml_activo}), o generarla el propio pulso al saturar un absorbente cuya pérdida disminuye con la intensidad (bloqueo de modos pasivo, Sección~\ref{sec:ml_pasivo}). En ambos casos, la ganancia solo alcanza a compensar las pérdidas alrededor del mínimo, de modo que el pulso que sobrevive vuelta tras vuelta es el que atraviesa el elemento de pérdida justo en ese instante, mientras que la luz que llega fuera de él se atenúa hasta extinguirse. Así, el elemento de pérdida tiende a comprimir el pulso temporalmente de forma reiterada. Sin embargo, este estrechamiento temporal no puede mantenerse indefinidamente sin un mecanismo que lo contrarreste; este efecto opuesto lo aporta el medio activo (o de ganancia). El medio activo posee un ancho de banda espectral finito. A medida que el elemento de pérdida puebla y ensancha el espectro del pulso, al llegar al medio activo las frecuencias que quedan fuera de su ancho de banda reciben menor o nula ganancia y resultan filtradas. Este estrechamiento espectral se traduce, en el dominio temporal, en un ensanchamiento del pulso. El estado estacionario se alcanza cuando ambos efectos se equilibran, y la duración resultante depende de cómo se module la pérdida, que es justamente lo que distingue al régimen activo del pasivo (Secciones~\ref{sec:ml_activo} y~\ref{sec:ml_pasivo}).
 
-\subsection{Procesos inmersos en el bloqueo de modos}
-\label{sec:procesos_mode_locking}
-
-Para establecer y sostener el régimen de bloqueo de modos es imperativo incorporar
-un mecanismo —moduladores activos o elementos pasivos fuertemente no lineales— que
-induzca una relación de fase rígidamente coherente entre los múltiples modos
-longitudinales resonantes de la cavidad. La dinámica espaciotemporal del pulso
-ultracorto durante su propagación intracavidad está dictada por la interacción
-altamente compleja de diversos fenómenos físicos, cada uno de los cuales
-reaparecerá, promediado por ronda, como un término de la ecuación maestra de Haus
-(Sección~\ref{sec:haus}):
-
-\begin{itemize}
-    \item \textbf{Ganancia.} Como en todo oscilador, se requiere un medio activo
-    que provea amplificación suficiente para compensar las pérdidas totales.
-    Mientras que en regímenes monomodo la ganancia es sensible exclusivamente a la
-    potencia promedio, en el bloqueo de modos la elevada intensidad pico de los
-    pulsos ultracortos puede inducir una saturación dinámica y rápida del medio
-    activo (efecto particularmente relevante en láseres de colorante o
-    semiconductores). Este agotamiento abrupto de la ganancia forma
-    asimétricamente el perfil del pulso, facilitando su acortamiento temporal.
-
-    \item \textbf{Pérdida lineal.} Engloba la atenuación no dependiente de la
-    intensidad resultante de la transmisión intencionada a través del acoplador de
-    salida, así como la absorción y dispersión parásitas en los componentes
-    ópticos. Un diseño que optimice la relación entre ganancia y pérdidas lineales
-    es insoslayable para suprimir inestabilidades del tipo \emph{Q-switching} y
-    garantizar la estabilidad macroscópica del tren de pulsos.
-
-    \item \textbf{Modulación activa.} Consiste en la introducción de un elemento
-    acustoóptico o electroóptico (modulador de amplitud o de fase) impulsado por un
-    sintetizador de radiofrecuencia externo. Para lograr el bloqueo de modos, la
-    frecuencia de este forzamiento externo debe coincidir con la del resonador
-    pasivo, induciendo bandas laterales que acoplan en fase los modos
-    longitudinales adyacentes. Es el mecanismo del bloqueo de modos activo
-    (Sección~\ref{sec:ml_activo}).
-
-    \item \textbf{Pérdida saturable (modulación pasiva de amplitud).} Ocurre cuando
-    la atenuación intracavidad responde de manera inversamente proporcional a la
-    intensidad. Este mecanismo no lineal favorece la transmisión de las
-    intensidades pico y atenúa las componentes de baja intensidad o ruido de fondo.
-    Los dispositivos de pérdida saturable —tales como los espejos absorbedores
-    saturables de semiconductor (SESAM) y el efecto de lente de Kerr (KLM)— se
-    clasifican en «rápidos» o «lentos» en función del tiempo de relajación de sus
-    portadores relativo a la duración del pulso. Es el mecanismo del bloqueo de
-    modos pasivo (Sección~\ref{sec:ml_pasivo}).
-
-    \item \textbf{Automodulación de fase (SPM).} Derivada del efecto Kerr óptico
-    (Sección~\ref{sec:propagacion}), la SPM es un fenómeno paramétrico en el cual
-    el índice de refracción del material depende de la intensidad lumínica
-    transitoria. En osciladores ultrarrápidos su tiempo de respuesta es
-    cuasi\-/instantáneo, provocando un desplazamiento de fase no lineal proporcional
-    a la envolvente temporal del pulso, lo que se traduce en la generación de
-    nuevas componentes frecuenciales y un severo ensanchamiento espectral.
-
-    \item \textbf{Dispersión de la velocidad de grupo (GVD).} La dependencia de la
-    velocidad de fase con la frecuencia (Sección~\ref{sec:propagacion}) provoca que
-    las distintas componentes espectrales del pulso transiten por la cavidad con
-    velocidades diferenciadas. En un medio de dispersión normal, esto induce un
-    ensanchamiento temporal (\emph{chirping}) sistemático del pulso. Para
-    contrarrestar esta deformación y preservar la coherencia temporal es imperativo
-    implementar esquemas de compensación intracavidad (p.\,ej.\ pares de prismas o
-    espejos fuertemente \emph{chirpeados}).
-
-    \item \textbf{Dinámica solitónica.} Es el corolario del balance determinista
-    entre la automodulación de fase y una dispersión anómala neta en la cavidad.
-    Mientras la SPM genera un \emph{chirp} de frecuencia en el frente del pulso, la
-    dispersión anómala lo invierte; su mutua cancelación permite la propagación de
-    solitones ópticos, paquetes de onda robustos que mantienen una estructura
-    temporal invariante a lo largo de miles de tránsitos
-    (Sección~\ref{sec:solitones}).
-
-    \item \textbf{Limitación del ancho de banda y filtrado pasivo.} La emisión
-    sostenible en el oscilador está acotada por el ancho de banda intrínseco del
-    medio de ganancia y por la reflectividad espectral de la óptica intracavidad.
-    Por el principio de incertidumbre tiempo\-/ancho de banda, la duración mínima
-    de un pulso ultracorto está dictada por la máxima anchura espectral que los
-    elementos pasivos permitan oscilar coherentemente, lo que constituye el límite
-    fundamental de la técnica.
-\end{itemize}
-
-\subsection{Principios básicos del bloqueo de modos}
-\label{sec:principios_mode_locking}
-
-La dinámica de oscilación en una cavidad láser está intrínsecamente gobernada por
-las condiciones de frontera, las cuales definen los modos axiales permitidos. El
-bloqueo de modos consiste en el establecimiento de una relación de fase fija y
-coherente entre estos modos longitudinales. Este fenómeno se induce mediante la
-incorporación de un mecanismo de modulación intracavidad que genera una
-perturbación periódica en las pérdidas o en la ganancia del resonador, forzando la
-oscilación simultánea y sincronizada de múltiples modos. La interferencia
-constructiva resultante de este acoplamiento de fase da lugar a la formación de
-pulsos ultracortos de alta intensidad, mientras que la interferencia destructiva
-en las regiones inter-pulsos minimiza la emisión en el dominio temporal.
+Este mismo balance puede entenderse también desde el dominio de la frecuencia. La dinámica de oscilación en una cavidad láser está gobernada por las condiciones de frontera, las cuales definen los modos longitudinales permitidos, separados en frecuencia por $\Delta\nu=1/T_R$. Como la pérdida se modula justamente con ese periodo, cada modo adquiere bandas laterales que coinciden con los modos vecinos, y la energía se transfiere entre ellos con una relación de fase fija; es decir, los modos quedan acoplados, o «bloqueados», en fase \cite[sec.~6.2]{Keller2022}. Esta es la versión espectral del estrechamiento temporal que produce el elemento de pérdida. La interferencia constructiva resultante de este acoplamiento da lugar a la formación de pulsos ultracortos de alta intensidad, mientras que la interferencia destructiva en las regiones entre pulsos minimiza la emisión; si las fases fueran aleatorias, la señal degeneraría en ruido óptico (Figura~\ref{fig:blockMode_CW}).
 
 \begin{figure}[h]
     \centering
-    \begin{minipage}{0.47\textwidth}
-        \includegraphics[width=\textwidth]{chapters/images/ch3/Modelocking_fig2a.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.47\textwidth}
-        \includegraphics[width=\textwidth]{chapters/images/ch3/Modelocking_fig2b.png}
-    \end{minipage}
-    \caption{Caracterización del espectro óptico en función de la intensidad
-    $\tilde{I}(\omega)$ y la fase $\tilde{\phi}(\omega)$. (a) Régimen de bloqueo de
-    modos: la coherencia de fase entre los múltiples modos longitudinales genera un
-    espectro estructurado y estable, cuya interferencia constructiva resulta en la
-    formación de un pulso ultracorto en el dominio temporal. (b) Régimen de emisión
-    multi-modo incoherente: la distribución estocástica de la intensidad y la fase
-    en los modos axiales produce una señal temporal caracterizada por fluctuaciones
-    aleatorias consistentes con ruido óptico, impidiendo la formación de una
-    envolvente de pulso definida.}
-    \label{fig:blockMode_CW}
+    \includegraphics[width=\textwidth]{chapters/images/ch3/fig_modelocking.pdf}
+    \caption[Espectro óptico: bloqueo de modos frente a emisión incoherente]{Papel de la coherencia de fase en la formación del pulso. Ambas filas comparten la misma envolvente de intensidad espectral $\tilde{I}(\omega)$; lo único que difiere es la fase de los modos $\tilde{\phi}(\omega)$. \emph{Fila superior} (bloqueo de modos): con las fases bloqueadas ($\tilde{\phi}=0$), la interferencia constructiva de los modos longitudinales produce un pulso ultracorto $I(t)$. \emph{Fila inferior} (emisión incoherente): con las fases distribuidas aleatoriamente, la señal temporal degenera en fluctuaciones de ruido óptico, sin una envolvente de pulso definida. La duración escala como $\tau \propto 1/\Delta\nu$.} \label{fig:blockMode_CW}
 \end{figure}
 
-La duración del pulso $\tau_p$ es inversamente proporcional al número de modos
-acoplados, lo que implica que un mayor ancho de banda espectral permite la
-generación de pulsos temporalmente más estrechos, limitados únicamente por la
-transformada de Fourier. Para un conjunto de modos axiales con un espaciamiento de
-frecuencia angular constante $\Delta\omega_{ax}$, una amplitud compleja
-$\tilde{E}(\omega)$ y una distribución de fase $\phi(\omega)$, el campo eléctrico
-en el dominio de la frecuencia se expresa como
-%
-\begin{equation}
-    \tilde{E}_{\text{tren}}(\omega)
-    = \tilde{E}(\omega)\,e^{i\tilde{\phi}(\omega)}
-      \sum_{m=-\infty}^{\infty} \delta(\omega - m\,\Delta\omega_{ax}),
-    \label{eq:tren_frecuencia}
-\end{equation}
-%
-donde $m \in \mathbb{Z}$ indexa los modos longitudinales. En el dominio espectral,
-la intensidad $\tilde{I}_{\text{tren}}(\omega) = |\tilde{E}_{\text{tren}}(\omega)|^2$
-se manifiesta como un peine de frecuencias. Al aplicar la transformada inversa de
-Fourier a la ecuación~\eqref{eq:tren_frecuencia} se obtiene la descripción del
-tren de pulsos en el dominio temporal:
-%
-\begin{equation}
-    \begin{aligned}
-        I_{\text{tren}}(t)
-        &= I_p(t) \ast \sum_{m=-\infty}^{\infty}\delta(t - mT_R)\\
-        &= \int_{-\infty}^{\infty} \sum_{m=-\infty}^{\infty}
-           \delta(\tau - mT_R)\, I_p(t - \tau)\, d\tau\\
-        &= \sum_{m=-\infty}^{\infty}
-           \int_{-\infty}^{\infty} \delta(\tau - mT_R)\, I_p(t - \tau)\, d\tau\\
-        &= \sum_{m=-\infty}^{\infty} I_p(t - mT_R),
-    \end{aligned}
-    \label{eq:tren_tiempo}
-\end{equation}
-%
-donde se ha empleado que la transformada de Fourier de un peine de deltas produce
-otro peine de deltas, y que el producto de dos funciones en el dominio espectral
-equivale a la convolución de sus transformadas inversas. Este resultado ilustra
-cómo el tren de pulsos en el dominio temporal es una suma de pulsos individuales
-$I_p(t)$, cada uno desplazado por un múltiplo entero del periodo de repetición
-$T_R$. La duración de cada pulso $I_p(t)$ viene dada por $\tau_p$, determinada por
-el ancho espectral óptico $\tilde{I}(\nu)$, y con una tasa de repetición definida
-como
-%
-\begin{equation}
-    f_{\text{rep}} = \Delta\nu_{ax}
-    = \frac{\Delta\omega_{ax}}{2\pi} = \frac{1}{T_R}.
-    \label{eq:tasa_repeticion}
-\end{equation}
-%
-Es imperativo distinguir entre la naturaleza espectral de un pulso aislado y la de
-un tren de pulsos. Mientras que un pulso único presenta un espectro continuo, la
-periodicidad intrínseca del tren impuesta por la cavidad resulta en un espectro
-discreto o «peine de frecuencias». Como se ilustra en la
-Figura~\ref{fig:blockMode_CW}, el bloqueo de modos transforma una emisión
-multi-modo incoherente (ruido) en una estructura temporalmente localizada y
-altamente estable.
+La duración del pulso $\tau_p$ es inversamente proporcional al número de modos acoplados, lo que implica que un mayor ancho de banda espectral permite la generación de pulsos temporalmente más estrechos, limitados únicamente por la transformada de Fourier \cite[sec.~6.1.2]{Keller2022}. De esta manera, el ancho de banda finito del medio activo, al limitar cuántos modos pueden oscilar, es la contraparte espectral del ensanchamiento temporal descrito antes, y fija la duración mínima que puede alcanzar el pulso.
 
-\begin{figure}[h]
+Además de estos dos elementos, en la cavidad intervienen las pérdidas lineales, la dispersión de la velocidad de grupo y la no linealidad de Kerr. En el Cuadro~\ref{tab:procesos} se resume el efecto de cada uno de estos procesos sobre el pulso y el término con el que entra en la ecuación maestra de Haus, que los reúne en una sola descripción (Sección~\ref{sec:haus}).
+
+\begin{table}[h]
     \centering
-    \begin{minipage}{0.47\textwidth}
-        \includegraphics[width=\textwidth]{chapters/images/ch3/CEO_Phase.png}\\
-        \small (a) Dominio temporal.
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.47\textwidth}
-        \includegraphics[width=\textwidth]{chapters/images/ch3/equidistantFrecuencyComb.png}\\
-        \small (b) Dominio espectral.
-    \end{minipage}
-    \caption{Dinámica temporal y espectral de un tren de pulsos ultracortos.
-    (a) Dominio temporal, donde se ilustra la evolución de la fase
-    portadora\-/envolvente (CEO). La disparidad entre las velocidades de grupo y de
-    fase en la cavidad induce un desplazamiento relativo ($\Delta\phi_{ce}$) del
-    campo eléctrico respecto a la envolvente en cada periodo de repetición $T_R$
-    \cite{Keller2022}. (b) Dominio espectral, que evidencia la estructura de peine
-    de frecuencias ópticas. El sistema posee dos grados de libertad fundamentales:
-    el intervalo entre modos ($f_{\text{rep}} = 1/T_R$) y la frecuencia de
-    compensación portadora\-/envolvente ($f_{CEO}$). En condiciones de dispersión
-    nula, donde las velocidades de fase y de grupo coinciden, el campo eléctrico se
-    reproduce idénticamente de pulso a pulso, resultando en un espectro cuyas
-    líneas son múltiplos enteros de $f_{\text{rep}}$ ($f_{CEO}=0$)
-    \cite{Keller2003}.}
-    \label{fig:equidistantFrecuencyComb}
-\end{figure}
-
-Para la generación de pulsos ultrarrápidos, el láser debe oscilar en tantos modos
-axiales como sea posible, con una relación de fase constante entre ellos. Existen
-diferentes técnicas para establecer esta condición dentro del láser; todas se
-denominan «técnicas de bloqueo de modos», pues los modos que forman el peine de
-frecuencias quedan bloqueados en fase con una distribución bien definida. Se
-clasifican en dos categorías principales. El bloqueo de modos \emph{activo}
-(Sección~\ref{sec:ml_activo}) emplea moduladores externos —acusto\-/ópticos o
-electro\-/ópticos— sincronizados con $T_R$. El bloqueo de modos \emph{pasivo}
-(Sección~\ref{sec:ml_pasivo}) utiliza elementos no lineales, tales como
-absorbedores saturables (SESAM) o el efecto Kerr óptico, que modulan las pérdidas
-en función de la intensidad instantánea, permitiendo alcanzar regímenes de
-femtosegundos.
-
-En sistemas de pocos ciclos cobra importancia un grado de libertad crítico: el
-desplazamiento de fase portadora\-/envolvente (\emph{carrier-envelope phase}, CEP).
-Debido a la dispersión intracavidad, la velocidad de fase y la velocidad de grupo
-difieren, provocando que el máximo del campo eléctrico se desplace respecto a la
-envolvente del pulso en cada tránsito. Este fenómeno se traduce en el dominio
-espectral como un desplazamiento global del peine de frecuencias por una cantidad
-denominada frecuencia de compensación portadora\-/envolvente, $f_{CEO}$. Así, la
-frecuencia de cada diente del peine queda definida por
-$f_m = m\,f_{\text{rep}} + f_{CEO}$, parámetro fundamental en metrología de
-frecuencias y óptica de campo fuerte.
+    \small
+    \caption{Procesos físicos que intervienen en el bloqueo de modos y término con que entran en la ecuación maestra de Haus.}
+    \label{tab:procesos}
+    \begin{tabular}{p{0.21\textwidth} p{0.47\textwidth} p{0.23\textwidth}}
+        \toprule
+        Proceso & Efecto sobre el pulso & Término (ecuación) \\
+        \midrule
+        Ganancia & Amplifica y compensa las pérdidas; se satura con la energía intracavitaria & $g\,A$, ec.~\eqref{eq:op_ganancia} \\
+        Ancho de banda de ganancia & Filtra las alas espectrales y se opone al acortamiento; fija la duración mínima & $D_g\,\partial_t^2A$, ec.~\eqref{eq:op_ganancia} \\
+        Pérdida lineal & Atenuación independiente de la intensidad (acoplador de salida, pérdidas parásitas); con las saturaciones fija la energía intracavitaria, de la que depende la estabilidad frente al \emph{Q-switching} \cite[sec.~9.7]{Keller2022} & $-l\,A$, ec.~\eqref{eq:op_perdida} \\
+        Modulación activa & Ventana periódica de baja pérdida sincronizada con $T_R$ (Sección~\ref{sec:ml_activo}) & ec.~\eqref{eq:op_modulador} \\
+        Pérdida saturable & Pérdida que decrece con la intensidad: recorta las alas y el ruido (Sección~\ref{sec:ml_pasivo}) & ec.~\eqref{eq:op_absorbente} \\
+        GVD & Reordena las fases espectrales sin cambiar el espectro; ensancha el pulso con \emph{chirp} & $iD\,\partial_t^2A$, ec.~\eqref{eq:op_gvd} \\
+        SPM (Kerr) & Fase no lineal $\propto|A|^2$; genera frecuencias nuevas & $-i\delta|A|^2A$, ec.~\eqref{eq:op_spm} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
 
 
 % ============================================================
@@ -463,11 +94,7 @@ frecuencias y óptica de campo fuerte.
 \section{La ecuación maestra de Haus}
 \label{sec:haus}
 
-Las secciones anteriores describieron la cavidad como una sucesión de elementos
-—medio de ganancia, pérdidas lineales, modulador, materiales dispersivos y no
-lineales— por los que el campo transita una y otra vez. Seguir la envolvente del
-pulso elemento por elemento a lo largo de los miles de tránsitos que tarda el
-oscilador en estabilizarse es, sin embargo, inviable y poco esclarecedor. El
+La cavidad es una sucesión de elementos (medio de ganancia, pérdidas lineales, modulador, materiales dispersivos y no lineales) por los que el campo transita una y otra vez, pero seguir la envolvente del pulso elemento por elemento, a lo largo de los miles de tránsitos que tarda el oscilador en estabilizarse, es inviable y poco esclarecedor. El
 formalismo de la \emph{ecuación maestra}, introducido por
 Haus \cite{Haus1975fast,Haus2000} como generalización del tratamiento de
 Kuizenga y Siegman \cite{KuizengaSiegman1970}, resuelve esta dificultad con una
@@ -478,44 +105,15 @@ cambio por ronda permite sustituir la secuencia discreta de operaciones por una
 cavidad adoptado en esta tesis y la herramienta de la que penderán los regímenes
 activo (Sección~\ref{sec:ml_activo}) y pasivo (Sección~\ref{sec:ml_pasivo}).
 
-\subsection{El promediado por ronda}
-
-El punto de partida es la separación de dos escalas temporales. Por un lado, el
-\emph{tiempo local} $t$, definido en un marco de referencia que viaja con el
-pulso, resuelve la estructura interna de la envolvente (la escala de
-femto\-/picosegundos). Por otro, el \emph{tiempo lento} $T$ mide la evolución de
-esa envolvente a lo largo de muchos tránsitos y avanza en pasos del tiempo de ida
-y vuelta $T_R$; resulta cómodo tratarlo como una variable continua, de modo que
-$T = n\,T_R$ con $n$ el número de ronda. La cantidad de interés es entonces la
-envolvente compleja $A(T,t)$, lentamente variable en $T$ y rápidamente
-estructurada en $t$.
-
-Cada elemento intracavitario $j$ produce, en un solo paso, un cambio
-$\Delta_j A$ sobre la envolvente. Tras un recorrido completo, el campo acumula la
-suma de todas esas contribuciones:
-%
-\begin{equation}
-    A(T + T_R,\, t) = A(T,t) + \sum_j \Delta_j A .
-    \label{eq:haus_acumulacion}
-\end{equation}
-%
-En el régimen estacionario de bloqueo de modos, cada $\Delta_j A$ es pequeño
-frente a $A$, y también lo es su suma. Bajo esta hipótesis de cambio débil por
-ronda, el primer miembro de la ecuación~\eqref{eq:haus_acumulacion} admite el
-desarrollo $A(T+T_R,t) \approx A(T,t) + T_R\,\partial_T A$, con lo que la
-diferencia entre dos vueltas consecutivas se convierte en una derivada:
-%
-\begin{equation}
-    T_R\,\frac{\partial A}{\partial T} = \sum_j \Delta_j A .
-    \label{eq:haus_maestra_forma}
-\end{equation}
-%
-La ecuación~\eqref{eq:haus_maestra_forma} es la forma genérica de la ecuación
-maestra: traduce la dinámica discreta «vuelta a vuelta» en una evolución
-continua gobernada por la acción promediada de todos los elementos de la cavidad.
-Resta especificar cada operador $\Delta_j A$, lo que se hace a continuación
-retomando los procesos físicos ya presentados en la
-Sección~\ref{sec:procesos_mode_locking}.
+% [REV-2026-11-23] resumen en el cuerpo; la deducción pasó al Apéndice~\ref{app:promediado}
+La ecuación maestra separa dos escalas temporales: el \emph{tiempo local} $t$, medido
+en un marco que viaja con el pulso y que resuelve su estructura interna, y el
+\emph{tiempo lento} $T=n\,T_R$, que cuenta rondas. Si cada elemento intracavitario $j$
+cambia la envolvente en una cantidad pequeña $\Delta_jA$ por ronda, la evolución de
+una ronda a la siguiente se escribe como una ecuación diferencial en $T$,
+$T_R\,\partial A/\partial T=\sum_j\Delta_jA$ (ecuación~\eqref{eq:haus_maestra_forma}
+del Apéndice~\ref{app:promediado}) \cite[sec.~5.1]{Kaertner2020}. Resta especificar
+cada operador $\Delta_jA$.
 
 \subsection{Operadores de los elementos intracavitarios}
 
@@ -527,7 +125,7 @@ puesto que en el dominio temporal $\omega^2$ corresponde al operador
 $-\partial^2/\partial t^2$, la acción de la ganancia sobre la envolvente es
 %
 \begin{equation}
-    \Delta_{g} A = \left( g + D_g\,\frac{\partial^2}{\partial t^2} \right) A ,
+    \Delta_{g} A = \left( g + D_g\,\frac{\partial^2}{\partial t^2} \right) A,
     \qquad D_g \equiv \frac{g}{\Omega_g^2}.
     \label{eq:op_ganancia}
 \end{equation}
@@ -536,11 +134,12 @@ El término $g\,A$ representa la amplificación neta y $D_g\,\partial_t^2 A$ la
 \emph{dispersión de ganancia}: un filtrado que penaliza las componentes
 espectrales más alejadas de la línea central y, por tanto, se opone al
 acortamiento temporal del pulso. El valor saturado de $g$ queda fijado por la
-energía intracavitaria a través de la condición de balance con las pérdidas.
+energía intracavitaria a través de la condición de balance con las pérdidas
+\cite[ecs.~6.44 y 6.57]{Keller2022}.
 
 \paragraph{Pérdida lineal.}
-La atenuación independiente de la intensidad —transmisión por el acoplador de
-salida y pérdidas parásitas— actúa como un simple factor de reducción:
+La atenuación independiente de la intensidad (transmisión por el acoplador de
+salida y pérdidas parásitas) actúa como un simple factor de reducción:
 %
 \begin{equation}
     \Delta_{l} A = -\,l\,A .
@@ -552,11 +151,11 @@ La dependencia de la velocidad de fase con la frecuencia introduce un desfase
 cuadrático en el espectro que, en el dominio temporal, se escribe como
 %
 \begin{equation}
-    \Delta_{D} A = i D\,\frac{\partial^2}{\partial t^2}\,A ,
+    \Delta_{D} A = i D\,\frac{\partial^2}{\partial t^2}\,A,
     \label{eq:op_gvd}
 \end{equation}
 %
-donde $D$ es la dispersión neta por ronda. El carácter imaginario del operador
+donde $D$ es la dispersión neta por ronda \cite[ec.~6.116]{Keller2022}. El carácter imaginario del operador
 distingue la GVD de la dispersión de ganancia: aquella reordena las fases
 espectrales sin atenuar, esta filtra amplitudes.
 
@@ -566,11 +165,11 @@ instantánea, imprimiendo sobre la envolvente un desfase no lineal proporcional 
 $|A|^2$:
 %
 \begin{equation}
-    \Delta_{\delta} A = i\,\delta\,|A|^2 A ,
+    \Delta_{\delta} A = -\,i\,\delta\,|A|^2 A,
     \label{eq:op_spm}
 \end{equation}
 %
-con $\delta$ el coeficiente de no linealidad por ronda. Junto con la GVD, este es
+con $\delta$ el coeficiente de no linealidad por ronda \cite[ec.~6.115]{Keller2022}. Junto con la GVD, este es
 el término responsable de la dinámica solitónica que se analiza en la
 Sección~\ref{sec:solitones}.
 
@@ -581,24 +180,23 @@ bloqueo de modos \emph{activo}, un modulador de amplitud impone una pérdida
 periódica sincronizada con la cavidad,
 %
 \begin{equation}
-    \Delta_{\mathrm{ML}}^{\text{act}} A = -\,M\bigl(1-\cos\omega_m t\bigr)\,A ,
+    \Delta_{\mathrm{ML}}^{\text{act}} A = -\,M\bigl(1-\cos\omega_m t\bigr)\,A,
     \label{eq:op_modulador}
 \end{equation}
 %
 con $M$ la profundidad de modulación y $\omega_m$ su frecuencia, igual a la de
-repetición de la cavidad. En el bloqueo de modos \emph{pasivo}, un absorbente
+repetición de la cavidad \cite[ecs.~6.47--6.49]{Keller2022}. En el bloqueo de modos \emph{pasivo}, un absorbente
 saturable atenúa selectivamente las componentes de baja intensidad,
 %
 \begin{equation}
-    \Delta_{\mathrm{ML}}^{\text{pas}} A = -\,q\!\left(|A|^2\right) A ,
+    \Delta_{\mathrm{ML}}^{\text{pas}} A = -\,q\!\left(|A|^2\right) A,
     \label{eq:op_absorbente}
 \end{equation}
 %
 donde $q(|A|^2)$ es una pérdida decreciente con la intensidad; para un absorbente
 rápido admite la linealización $q(|A|^2)\approx q_0-\gamma|A|^2$, de modo que el
-término favorece la transmisión de los picos de mayor intensidad. Las
-Secciones~\ref{sec:ml_activo} y~\ref{sec:ml_pasivo} desarrollan, respectivamente,
-cada una de estas dos variantes.
+término favorece la transmisión de los picos de mayor intensidad
+\cite[ecs.~7.20--7.24]{Keller2022}.
 
 \subsection{Forma general y especializaciones}
 
@@ -607,14 +205,14 @@ Sustituyendo los operadores
 forma genérica~\eqref{eq:haus_maestra_forma} se obtiene la \textbf{ecuación
 maestra de Haus} en su versión general, que reúne en una sola expresión la
 amplificación, las pérdidas, el filtrado de ganancia, la dispersión, la no
-linealidad y el mecanismo de bloqueo de modos:
+linealidad y el mecanismo de bloqueo de modos \cite[ec.~5.21]{Kaertner2020}:
 %
 \begin{equation}
     T_R\,\frac{\partial A}{\partial T}
     = \Bigl[\,(g-l)
       + \bigl(D_g + iD\bigr)\frac{\partial^2}{\partial t^2}
-      + i\,\delta\,|A|^2
-      + \Delta_{\mathrm{ML}} \,\Bigr] A ,
+      - i\,\delta\,|A|^2
+      + \Delta_{\mathrm{ML}} \,\Bigr] A,
     \label{eq:haus_general}
 \end{equation}
 %
@@ -623,7 +221,26 @@ ecuación~\eqref{eq:op_modulador} en el caso activo o
 por~\eqref{eq:op_absorbente} en el pasivo. La
 ecuación~\eqref{eq:haus_general} es la pieza central del marco de cavidad: todas
 las especializaciones que siguen en este capítulo se obtienen seleccionando qué
-términos se conservan y cuáles resultan despreciables en cada régimen.
+términos se conservan y cuáles resultan despreciables en cada régimen. La
+Figura~\ref{fig:haus-bloques} la representa como un diagrama de bloques, donde
+cada operador es una contribución física distinta y su suma es el cambio del pulso
+por vuelta de cavidad.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{chapters/images/ch3/fig_haus_bloques.pdf}
+    \caption[La ecuación maestra de Haus como diagrama de bloques]{La ecuación
+    maestra de Haus~\eqref{eq:haus_general} vista como un diagrama de bloques. En
+    una vuelta de cavidad, la envolvente $A(T,t)$ acumula de forma aditiva las
+    contribuciones de cada elemento: ganancia con filtrado espectral, pérdidas
+    lineales, dispersión de velocidad de grupo (GVD), no linealidad de fase
+    (Kerr/SPM) y el elemento de anclaje (un modulador en el régimen activo o un
+    absorbente saturable en el pasivo). Su suma es el cambio del pulso por vuelta,
+    $T_R\,\partial A/\partial T$, que se anula en el estado estacionario. Los
+    términos disipativos (que intercambian energía) y los conservativos (que solo
+    reconforman el pulso) se distinguen por color.}
+    \label{fig:haus-bloques}
+\end{figure}
 
 La condición de operación estacionaria se impone exigiendo que el pulso se
 reproduzca a sí mismo de una vuelta a la siguiente, salvo un eventual
@@ -636,46 +253,25 @@ tiempo local:
     i\,\phi_0\,A
     = \Bigl[\,(g-l)
       + \bigl(D_g + iD\bigr)\frac{\partial^2}{\partial t^2}
-      + i\,\delta\,|A|^2
+      - i\,\delta\,|A|^2
       + \Delta_{\mathrm{ML}} \,\Bigr] A .
     \label{eq:haus_estacionario}
 \end{equation}
 
-\paragraph{Límite de Kuizenga--Siegman.}
-El caso históricamente primero —y la base sobre la que se construye el régimen
-solitónico de la Sección~\ref{sec:ml_activo}— corresponde al bloqueo de modos
-activo sin dispersión ni no linealidad ($D=\delta=0$). La ecuación maestra se
-reduce entonces a
-%
-\begin{equation}
-    T_R\,\frac{\partial A}{\partial T}
-    = \Bigl[\,(g-l)
-      + D_g\,\frac{\partial^2}{\partial t^2}
-      - M\bigl(1-\cos\omega_m t\bigr) \,\Bigr] A .
-    \label{eq:haus_activo_base}
-\end{equation}
-%
-Dado que el pulso es mucho más corto que el periodo de modulación, basta
-desarrollar el modulador en torno a su mínimo de pérdida,
-$M(1-\cos\omega_m t)\approx M_s\,t^2$ con $M_s\equiv M\omega_m^2/2$, lo que
-convierte~\eqref{eq:haus_activo_base} en la ecuación de un oscilador armónico
-cuántico: sus soluciones estacionarias son funciones de Hermite--Gauss y el modo
-fundamental es un pulso gaussiano cuya anchura fija el balance entre la dispersión
-de ganancia $D_g$ (que lo ensancha) y la curvatura del modulador $M_s$ (que lo
-estrecha). Esta es la solución de Kuizenga--Siegman \cite{KuizengaSiegman1970},
-que la Sección~\ref{sec:ml_activo} retoma para incorporar después los términos de
-SPM y GVD y obtener el solitón.
+% [2026-11-23] párrafo «Límite de Kuizenga--Siegman» eliminado: duplicaba §3.4.1.
+% La ecuación eq:haus_activo_base se trasladó a §3.4.1.
 
 \subsection{Conexión con la ecuación no lineal de Schrödinger}
+\label{sec:haus_nlse}
 
 La forma general~\eqref{eq:haus_general} ilumina la relación entre el oscilador y
 los sistemas no lineales conservativos. Si se agrupan los términos puramente
 dispersivos y no lineales, el contenido entre corchetes de
 la~\eqref{eq:haus_general} contiene la combinación
-$iD\,\partial_t^2 A + i\delta|A|^2 A$, que es exactamente el segundo miembro de la
+$iD\,\partial_t^2 A - i\delta|A|^2 A$, que es exactamente el segundo miembro de la
 \textbf{ecuación no lineal de Schrödinger} (NLSE) introducida en la
-Sección~\ref{sec:propagacion}. Los términos restantes —ganancia, pérdida,
-dispersión de ganancia y modulación— son los que distinguen una \emph{cavidad}
+Sección~\ref{sec:propagacion}. Los términos restantes (ganancia, pérdida,
+dispersión de ganancia y modulación) son los que distinguen una \emph{cavidad}
 de un medio conservativo: aportan y disipan energía, y seleccionan una solución
 estacionaria de entre el continuo de soluciones de la NLSE. Cuando la dispersión
 de ganancia y la modulación son débiles frente al balance dispersión--no
@@ -683,7 +279,7 @@ linealidad, la dinámica de~\eqref{eq:haus_general} queda dominada por su parte
 NLSE y el pulso estacionario es un solitón ligeramente perturbado; cuando, por el
 contrario, dominan ganancia y modulación, se recupera el régimen gaussiano de
 Kuizenga--Siegman. La ecuación maestra de Haus interpola así entre ambos límites
-y proporciona el marco unificado —válido para bloqueo de modos activo y pasivo—
+y proporciona el marco unificado, válido para bloqueo de modos activo y pasivo,
 sobre el que se asienta el resto de este capítulo \cite{Haus2000,Keller2022}.
 
 
@@ -699,7 +295,7 @@ sobre el que se asienta el resto de este capítulo \cite{Haus2000,Keller2022}.
 
 El bloqueo de modos activo es una de las primeras técnicas desarrolladas para
 generar pulsos ultracortos \cite{KuizengaSiegman1970,Haus1975forced}. Consiste en
-introducir en la cavidad un modulador —acusto\-/óptico o electro\-/óptico— que
+introducir en la cavidad un modulador (acusto\-/óptico o electro\-/óptico) que
 modula periódicamente las pérdidas (modulación de amplitud, AM) o la fase
 (modulación de frecuencia, FM) del resonador. Para que el mecanismo bloquee los
 modos, la frecuencia del forzamiento externo $\omega_m$ debe coincidir con la
@@ -715,44 +311,44 @@ ensanchamiento detiene el proceso y fija el estado estacionario.
 \subsection{Solución de Kuizenga--Siegman: el pulso gaussiano}
 \label{sec:kuizenga_siegman}
 
-El punto de partida es la ecuación maestra para el bloqueo de modos activo sin
-dispersión ni no linealidad, deducida en la Sección~\ref{sec:haus}
-(ecuación~\eqref{eq:haus_activo_base}). Puesto que el pulso es mucho más corto que
-el periodo de modulación $2\pi/\omega_m$, basta desarrollar el modulador en torno
-a su mínimo de pérdida, $M\bigl(1-\cos\omega_m t\bigr)\approx M_s\,t^2$ con
-$M_s\equiv M\omega_m^2/2$. En estado estacionario ($\partial_T A = 0$) la ecuación
-maestra se reduce al problema de autovalores
+% [REV-2026-11-23] resumen en el cuerpo; la deducción pasó al Apéndice~\ref{app:ks}
+Sin dispersión ni no linealidad ($D=\delta=0$), la ecuación
+maestra~\eqref{eq:haus_general} con el modulador de amplitud~\eqref{eq:op_modulador}
+se reduce a
 %
 \begin{equation}
-    D_g\,\frac{\partial^2 A}{\partial t^2}
-    - M_s\,t^2\,A + (g-l)\,A = 0,
-    \label{eq:ks_autovalores}
+    T_R\,\frac{\partial A}{\partial T}
+    = \Bigl[\,(g-l)
+      + D_g\,\frac{\partial^2}{\partial t^2}
+      - M\bigl(1-\cos\omega_m t\bigr) \,\Bigr] A .
+    \label{eq:haus_activo_base}
 \end{equation}
 %
-formalmente idéntico al del oscilador armónico cuántico. Su modo fundamental es un
-pulso de perfil gaussiano,
-%
-\begin{equation}
-    A(t) = A_0\,\exp\!\left(-\frac{t^2}{2\tau_g^{2}}\right),
-    \qquad
-    \tau_g = \left(\frac{D_g}{M_s}\right)^{1/4},
-    \label{eq:ks_gaussiano}
-\end{equation}
-%
-cuya anchura resulta del equilibrio entre los dos términos que compiten en
-\eqref{eq:ks_autovalores}: la dispersión de ganancia $D_g=g/\Omega_g^2$, que
-ensancha el pulso al filtrar sus alas espectrales, y la curvatura del modulador
-$M_s$, que lo estrecha al penalizar sus alas temporales. Sustituyendo
-\eqref{eq:ks_gaussiano} en \eqref{eq:ks_autovalores} se obtiene además la
-condición de balance que fija la ganancia saturada,
-%
-\begin{equation}
-    g - l = \sqrt{D_g\,M_s},
-    \label{eq:ks_balance}
-\end{equation}
-%
-es decir, el exceso de ganancia sobre las pérdidas lineales necesario para
-sostener el pulso estacionario. Expresada como anchura a media altura de la
+Como el pulso es mucho más corto que el periodo de modulación, basta desarrollar el
+modulador en torno a su mínimo de pérdida, $M(1-\cos\omega_m t)\approx M_s\,t^2$ con
+$M_s\equiv M\omega_m^2/2$. El problema estacionario es entonces el de un oscilador
+armónico, cuyo modo fundamental es un pulso gaussiano
+\cite{KuizengaSiegman1970}, \cite[ecs.~6.51--6.63]{Keller2022}. Su anchura resulta
+del equilibrio entre la dispersión de ganancia $D_g$, que ensancha el pulso al
+filtrar sus alas espectrales, y la curvatura del modulador $M_s$, que lo estrecha al
+penalizar sus alas temporales (Figura~\ref{fig:ks-narrowing}; deducción en el
+Apéndice~\ref{app:ks}).
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.82\textwidth]{chapters/images/ch3/fig_ks_narrowing.pdf}
+    \caption[Balance del bloqueo de modos activo (Kuizenga--Siegman)]{Balance que
+    fija la duración del pulso en el bloqueo de modos activo. El pulso estacionario
+    (gaussiano) se sitúa en el mínimo de pérdida del modulador. Dos efectos opuestos
+    determinan su anchura: la curvatura del modulador $M_s$ lo estrecha (penaliza
+    sus alas temporales), mientras que la dispersión de ganancia $D_g$ lo ensancha
+    (filtra sus alas espectrales). El equilibrio da la anchura de
+    Kuizenga--Siegman, $\tau_g=(D_g/M_s)^{1/4}$
+    (ecuación~\eqref{eq:ks_gaussiano}).}
+    \label{fig:ks-narrowing}
+\end{figure}
+
+ Expresada como anchura a media altura de la
 intensidad, la duración del pulso gaussiano es
 %
 \begin{equation}
@@ -773,7 +369,9 @@ que da lugar al régimen solitónico.
 \subsection{Pulsos solitónicos en régimen activo}
 \label{sec:ml_activo_soliton}
 
-Cuando la cavidad presenta dispersión y no linealidad apreciables, a los términos
+% [REV-2026-11-23] atribución al inicio del pasaje (diagnóstico §3.1)
+Siguiendo a Keller~\cite[sec.~6.6]{Keller2022}, cuando la cavidad presenta dispersión
+y no linealidad apreciables, a los términos
 de \eqref{eq:haus_activo_base} se añaden los operadores de GVD y SPM introducidos
 en las ecuaciones~\eqref{eq:op_gvd} y~\eqref{eq:op_spm}. La ecuación maestra de
 Haus para el bloqueo de modos activo en presencia de estos efectos se escribe
@@ -781,7 +379,7 @@ entonces como
 %
 \begin{equation}
     T_R\,\frac{\partial A}{\partial T}
-    = \Bigl[\,iD\,\frac{\partial^2}{\partial t^2} + i\delta\,|A|^2 \,\Bigr] A
+    = \Bigl[\,iD\,\frac{\partial^2}{\partial t^2} - i\delta\,|A|^2 \,\Bigr] A
     + \Bigl[\,g - l + D_g\,\frac{\partial^2}{\partial t^2}
       - M\bigl(1-\cos\omega_m t\bigr) \,\Bigr] A = 0.
     \label{eq:haus_soliton}
@@ -789,7 +387,7 @@ entonces como
 %
 El primer corchete de la ecuación~\eqref{eq:haus_soliton} es la ecuación no lineal
 de Schrödinger (Sección~\ref{sec:propagacion}, ecuación~\eqref{eq:nlse}), cuya
-solución para dispersión anómala ($D>0$) y no linealidad focalizante es el solitón
+solución para dispersión anómala ($D<0$) y no linealidad focalizante es el solitón
 fundamental. Dos observaciones permiten tratar el segundo corchete como una
 perturbación. Por un lado, los medios de ganancia con ancho de banda suficiente
 para sostener pulsos ultracortos cumplen $D_g=g/\Omega_g^2\ll 1$. Por otro, el
@@ -800,115 +398,37 @@ desempeñan un papel perturbativo que estabiliza y selecciona la solución. La
 resolución se aborda mediante teoría de perturbaciones solitónicas, sustituyendo
 el perfil gaussiano de Kuizenga--Siegman por una secante hiperbólica.
 
-Se propone así un \emph{ansatz} que describe un solitón acompañado de un fondo
-residual —el continuo—,
-%
+% [REV-2026-11-23] resumen en el cuerpo; la deducción pasó al Apéndice~\ref{app:soliton_activo}
+La teoría de perturbaciones del solitón (Apéndice~\ref{app:soliton_activo}) da tres
+resultados. Con dispersión anómala suficiente, el continuo decae y el estado
+estacionario es un solitón $\operatorname{sech}^2$ sin \emph{chirp}, de duración
+$\tau=4|D|/(F_{P,L}\,\delta)$, con $F_{P,L}$ la fluencia del pulso en el medio láser.
+% [REV-2026-11-23b] condición de estabilidad enunciada como criterio (la usa el cap. 5)
+La dispersión, sin embargo, no puede reducirse sin límite. El solitón es estable
+mientras la dispersión normalizada $D_n\equiv|D|/D_g$ supere un valor mínimo,
 \begin{equation}
-    A(T,t) = A_0\,\operatorname{sech}\!\left(\frac{t}{\tau}\right)
-    \exp\!\left(i\phi_0\,\frac{T}{T_R}\right) + \text{continuo},
-    \label{eq:ansatz_soliton}
+    D_n > D_{n,\min},
+    \label{eq:cond_estabilidad_soliton}
 \end{equation}
-%
-donde $A_0$ es la amplitud de la envolvente, $\tau$ su duración y $\phi_0$ el
-desplazamiento de fase que el solitón acumula por cada periodo de repetición
-$T_R$. Con dispersión anómala suficiente, el continuo decae exponencialmente y,
-para una energía de pulso dada, se forma un solitón cuya duración ideal es
-%
-\begin{equation}
-    \tau = \frac{4\,|D|}{F_{P,L}\,\delta},
-    \label{eq:tau_soliton}
-\end{equation}
-%
-con $\delta$ el coeficiente de SPM y $F_{P,L}$ la densidad de energía del pulso en
-el medio láser, bajo el supuesto de que la SPM se genera en el cristal de
-ganancia. La dispersión neta por ronda $D$ se relaciona con la dispersión de
-retardo de grupo acumulada mediante $\mathrm{GDD}=-2D$, de modo que el régimen
-anómalo ($\mathrm{GDD}<0$) corresponde, coherentemente con la
-Sección~\ref{sec:propagacion}, a $D>0$. La ecuación~\eqref{eq:tau_soliton} indica
-que reducir la dispersión acorta el solitón; sin embargo, como se verá, existe un
-límite por debajo del cual el pulso se desestabiliza.
-
-\paragraph{El continuo y su papel estabilizador.}
-El solitón no se forma de manera instantánea. Partiendo de un pulso gaussiano
-inicial, el sistema requiere del orden de un centenar de tránsitos para relajar
-hacia el estado estacionario solitónico, de duración mucho menor. La fracción de
-energía del pulso inicial que no logra ajustarse al perfil del solitón se vierte
-en el continuo: una componente de baja intensidad para la cual la SPM es
-insuficiente para compensar el ensanchamiento dispersivo, de modo que se dispersa
-temporalmente. Al ensancharse, el continuo pasa más tiempo fuera de la ventana de
-transmisión del modulador y sufre en él una pérdida creciente, por lo que decae
-con las rondas (Figura~\ref{fig:saturable_gain}). En el marco de referencia del
-solitón, el efecto Kerr le imprime un desplazamiento de fase periódico que genera
-interferencias con el continuo; estas se desvanecen gradualmente a medida que el
-continuo se extingue, dejando únicamente el solitón.
+dado por la ecuación~\eqref{eq:disp_min}; por debajo de ese umbral el continuo deja de
+suprimirse y el pulso se desestabiliza. En ese límite, el acortamiento respecto del pulso gaussiano
+de Kuizenga--Siegman es el factor $R_{\max}$ de la
+ecuación~\eqref{eq:factor_reduccion}, que crece solo con la raíz cuarta de
+$D_{n,\min}$. Por último, la estabilidad se debe a que el continuo, demasiado débil
+para que la SPM compense su ensanchamiento dispersivo, se alarga, pasa más tiempo
+fuera de la ventana del modulador y sufre allí una pérdida mayor que el solitón
+(Figura~\ref{fig:saturable_gain}) \cite[sec.~6.6]{Keller2022}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\linewidth]{chapters/images/ch3/saturable_gain.png}
-    \caption{La ganancia se satura por acción del solitón. Como el continuo ocupa
+    \includegraphics[width=0.85\linewidth]{chapters/images/ch3/fig_saturable_gain.pdf}
+    \caption[Saturación de la ganancia por el solitón]{La ganancia se satura por acción del solitón. Como el continuo ocupa
     un ancho espectral menor, experimenta una ganancia efectiva mayor y tendería a
-    crecer; la pérdida adicional que introduce el modulador sobre el continuo
-    —temporalmente ensanchado— compensa ese exceso y previene la inestabilidad del
-    solitón.}
+    crecer; la pérdida adicional que introduce el modulador sobre el continuo, temporalmente ensanchado, compensa ese exceso y previene la inestabilidad del
+    solitón. Adaptada de \cite[Fig.~6.18]{Keller2022}.}
     \label{fig:saturable_gain}
 \end{figure}
 
-\paragraph{Duración mínima y factor de reducción.}
-Existe un límite a cuánto puede acortarse el solitón manteniéndolo estable frente
-al continuo: si la dispersión es demasiado baja, el continuo no se ensancha con la
-rapidez suficiente para ser absorbido por el modulador y el sistema se
-desestabiliza, llegando a generar pulsos satélite tras muchos miles de tránsitos.
-La teoría perturbativa de solitones fija ese umbral a través de la dispersión
-normalizada mínima
-%
-\begin{equation}
-    D_{n,\min} = \frac{|D|}{D_g}
-    = \frac{2}{9}\sqrt[3]{\frac{(9\phi_0/2)^2}{D_g\,M_s}},
-    \label{eq:disp_min}
-\end{equation}
-%
-a la que corresponde una duración a media altura de la intensidad
-%
-\begin{equation}
-    \tau_{\min} = 1.763\,\sqrt[3]{\frac{2\,D_g^{2}}{9\,\phi_0\,M_s}}.
-    \label{eq:tau_min}
-\end{equation}
-%
-Comparando la duración mínima solitónica~\eqref{eq:tau_min} con la del pulso
-gaussiano puramente activo~\eqref{eq:tau_gauss}, el factor de reducción que aporta
-el régimen solitónico es
-%
-\begin{equation}
-    R_{\max} = \frac{\tau_p}{\tau_{\min}}
-    = \frac{1.665}{1.763}\,\sqrt[12]{\frac{(9\phi_0/2)^2}{D_g\,M_s}}
-    = \frac{1.665}{1.763}\,\sqrt[4]{\tfrac{9}{2}\,D_{n,\min}}.
-    \label{eq:factor_reduccion}
-\end{equation}
-%
-A diferencia del caso puramente activo, la envolvente estacionaria ya no es un
-pulso gaussiano con \emph{chirp}, sino un solitón $\operatorname{sech}^2$ sin
-\emph{chirp}, que es lo que permite descender al régimen de femtosegundos.
-
-\paragraph{Balance de energía y estabilidad.}
-El solitón permanece estable mientras su pérdida efectiva $l_s$ sea inferior a la
-que sufre el continuo $l_c$. La pérdida del solitón consta de dos aportaciones,
-%
-\begin{equation}
-    l_s = \frac{D_g}{3\,\tau^2}
-        + \frac{\pi^2}{24}\,M\,\omega_m^2\,\tau^2,
-    \label{eq:perdida_soliton}
-\end{equation}
-%
-la primera debida al ancho de banda finito de la ganancia —que tiende a ensanchar
-el solitón— y la segunda a la acción residual del modulador de pérdida. El balance
-de ganancia y pérdidas se escribe entonces como $g = l + l_s$, con $l$ la pérdida
-aportada por el resto de los elementos de la cavidad. Para solitones muy cortos, el
-primer término domina y la influencia del modulador sobre el solitón resulta casi
-nula; el continuo, en cambio, sí experimenta en el modulador una pérdida intensa,
-lo que garantiza su supresión y, con ella, la estabilidad del pulso solitónico.
-Este contraste entre la escasa pérdida del solitón y la elevada del continuo es,
-en última instancia, el mecanismo que sostiene el bloqueo de modos activo en su
-régimen solitónico \cite{Haus2000,Keller2022}.
 
 
 % ============================================================
@@ -931,7 +451,7 @@ oscilador en un sistema que se automodula, de modo que la «ventana» de
 transmisión es tan breve como el pulso mismo y se estrecha a la par que este. Por
 esta razón el bloqueo de modos pasivo es la vía habitual hacia el régimen de
 femtosegundos y el mecanismo dominante en la literatura de osciladores
-ultrarrápidos, lo que a su vez motiva —por contraste— el interés de estudiar
+ultrarrápidos, lo que a su vez motiva, por contraste, el interés de estudiar
 también el régimen activo en el análisis comparativo de esta tesis.
 
 \subsection{El absorbente saturable}
@@ -946,22 +466,23 @@ pérdida es una función decreciente de $|A|^2$,
     \label{eq:absorbente_general}
 \end{equation}
 %
-donde $q_0$ es la pérdida no saturada e $I_A$ la intensidad de saturación. Frente a
+donde $q_0$ es la pérdida no saturada e $I_A$ la intensidad de saturación
+\cite[ecs.~7.20--7.22]{Keller2022}. Frente a
 un pulso, el absorbente atenúa intensamente las alas de baja intensidad y el ruido
 de fondo, pero se vuelve casi transparente en el pico: cada tránsito recorta las
 colas del pulso y refuerza su centro, produciendo un acortamiento neto. Este efecto
 se denomina \emph{automodulación de amplitud}, y es el análogo no lineal de la
 modulación activa, con una diferencia esencial: el término que introduce en la
-ecuación maestra es \emph{real}, pues modula la amplitud del campo —a diferencia
+ecuación maestra es \emph{real}, pues modula la amplitud del campo, a diferencia
 de la automodulación de fase (SPM), de carácter imaginario, que modula su fase
-(Sección~\ref{sec:propagacion})—.
+(Sección~\ref{sec:propagacion}).
 
 Para un pulso cuya intensidad de pico no satura por completo el absorbente, la
 respuesta~\eqref{eq:absorbente_general} admite la linealización
 $q(|A|^2)\approx q_0-\gamma\,|A|^2$, con $\gamma = q_0/I_A$ el coeficiente de
 automodulación de amplitud. La contribución del absorbente a la evolución del pulso
-—el operador $\Delta_{\mathrm{ML}}^{\text{pas}}A$ introducido en la
-Sección~\ref{sec:haus}, ecuación~\eqref{eq:op_absorbente}— se descompone entonces
+(el operador $\Delta_{\mathrm{ML}}^{\text{pas}}A$ introducido en la
+Sección~\ref{sec:haus}, ecuación~\eqref{eq:op_absorbente}) se descompone entonces
 en una pérdida constante $-q_0 A$, absorbible en la pérdida lineal $l$, y un
 término no lineal $+\gamma|A|^2A$ que favorece las intensidades altas:
 %
@@ -976,8 +497,8 @@ término no lineal $+\gamma|A|^2A$ que favorece las intensidades altas:
 \label{sec:absorbente_tipos}
 
 El comportamiento del absorbente depende de la relación entre su tiempo de
-relajación $\tau_A$ —el que tardan sus portadores excitados en regresar al estado
-fundamental— y la duración del pulso $\tau_p$. Se distinguen dos regímenes. En el
+relajación $\tau_A$, el que tardan sus portadores excitados en regresar al estado
+fundamental, y la duración del pulso $\tau_p$. Se distinguen dos regímenes. En el
 \emph{absorbente rápido} ($\tau_A \ll \tau_p$) la respuesta es prácticamente
 instantánea: la pérdida sigue punto a punto el perfil de intensidad
 $|A(t)|^2$ y, en consecuencia, conforma de manera simétrica ambos flancos del
@@ -987,25 +508,15 @@ lento} ($\tau_A \gg \tau_p$) el elemento se satura con el frente del pulso y se
 recupera despacio, por lo que recorta eficazmente el flanco de subida pero no el de
 bajada; el cierre de la ventana en la cola requiere entonces la ayuda de la
 saturación dinámica de la ganancia, que agota la amplificación tras el paso del
-pico. Ambos mecanismos conducen a un pulso estable, pero por caminos distintos.
+pico. Ambos mecanismos conducen a un pulso estable, pero por caminos distintos
+\cite[secs.~7.2.3 y 7.2.4]{Keller2022}.
 
-\subsection{Implementaciones físicas: SESAM y KLM}
-\label{sec:sesam_klm}
-
-Dos realizaciones dominan la práctica experimental. La primera es el \emph{espejo
-absorbente saturable de semiconductor} (SESAM), un absorbente real integrado en un
-espejo de la cavidad, cuya absorción, intensidad de saturación y tiempo de
-relajación pueden ajustarse por diseño de la estructura semiconductora. El SESAM
-proporciona un arranque fiable del bloqueo de modos (\emph{self-starting}) y ha
-hecho del régimen pasivo una tecnología robusta y reproducible
-\cite{Keller1996,Keller2003}. La segunda es el bloqueo de modos por \emph{lente de
-Kerr} (KLM), un absorbente \emph{artificial} que no descansa en ninguna absorción
-real: el autoenfocamiento por efecto Kerr hace que el haz más intenso se focalice
-más y, combinado con una apertura efectiva en la cavidad, sufra menos pérdida que
-el fondo de baja intensidad. Al basarse en el efecto Kerr, la respuesta del KLM es
-esencialmente instantánea —un absorbente rápido ideal— y es el mecanismo que ha
-permitido generar los pulsos de pocos ciclos en osciladores de Ti:zafiro
-\cite{Krausz1992,Keller2022}.
+% [REV-2026-11-23b] §3.5.3 (SESAM y KLM) condensada
+En la práctica, el absorbente lento típico es el espejo absorbente saturable de
+semiconductor (SESAM) \cite{Keller1996,Keller2003}. El bloqueo de modos por lente de
+Kerr (KLM), en cambio, se basa en el autoenfocamiento por efecto Kerr y responde de
+forma prácticamente instantánea: es la realización física más próxima al absorbente
+rápido ideal que se modela en esta tesis \cite{Krausz1992,Keller2022}.
 
 \subsection{Ecuación maestra del bloqueo de modos pasivo}
 \label{sec:haus_pasivo}
@@ -1014,6 +525,7 @@ Sustituyendo el operador del absorbente rápido~\eqref{eq:op_absorbente_rapido} 
 la ecuación maestra general de Haus (Sección~\ref{sec:haus},
 ecuación~\eqref{eq:haus_general}) y considerando, por simplicidad, el caso sin
 dispersión ni SPM netas, la condición estacionaria toma la forma
+\cite{Haus1975fast}, \cite[ecs.~6.20--6.27]{Kaertner2020}
 %
 \begin{equation}
     \Bigl[\,g - l + D_g\,\frac{\partial^2}{\partial t^2}
@@ -1036,7 +548,7 @@ pulso de secante hiperbólica sin \emph{chirp},
 cuya duración se obtiene, al sustituir~\eqref{eq:pasivo_sech}
 en~\eqref{eq:haus_pasivo} e igualar por separado los términos proporcionales a
 $\operatorname{sech}$ y a $\operatorname{sech}^3$, del balance entre la dispersión
-de ganancia —que ensancha— y la automodulación de amplitud —que estrecha—:
+de ganancia (que ensancha) y la automodulación de amplitud (que estrecha):
 %
 \begin{equation}
     \tau = \frac{1}{A_0}\sqrt{\frac{2\,D_g}{\gamma}},
@@ -1061,9 +573,14 @@ régimen de femtosegundos donde el activo se detiene en los picosegundos.
 Finalmente, al igual que en el caso activo, la incorporación de dispersión anómala
 y SPM a la ecuación~\eqref{eq:haus_pasivo} conduce a un régimen de bloqueo de modos
 solitónico, en el que la forma del pulso la fija el balance dispersión\-/no
-linealidad y el absorbente se limita a estabilizarlo y a suprimir el continuo. Ese
-solitón disipativo —común a ambos mecanismos de bloqueo— es el objeto de la
-Sección~\ref{sec:solitones}.
+linealidad y el absorbente se limita a estabilizarlo y a suprimir el continuo
+\cite[sec.~9.4.6]{Keller2022}.
+% [REV-2026-11-23b] Ginzburg–Landau (la usa el cap. 5)
+Con dispersión y SPM, la ecuación maestra con absorbente rápido tiene la forma de una
+ecuación de Ginzburg--Landau compleja generalizada \cite[ec.~6.20]{Kaertner2020}.
+A diferencia del caso activo, esta ecuación admite varios atractores para un mismo
+conjunto de parámetros \cite{GreluAkhmediev2012}, lo que anticipa la multiestabilidad
+de la Sección~\ref{sec:regimenes}.
 
 
 % ============================================================
@@ -1078,12 +595,7 @@ Sección~\ref{sec:solitones}.
 El solitón ha aparecido ya como la solución estacionaria a la que convergen tanto
 el bloqueo de modos activo (Sección~\ref{sec:ml_activo}) como el pasivo
 (Sección~\ref{sec:ml_pasivo}) cuando la cavidad presenta dispersión y no
-linealidad. Esta sección consolida ese concepto en dos pasos: primero el solitón
-\emph{conservativo} de la ecuación no lineal de Schrödinger, que fija la forma del
-pulso, y después el solitón \emph{disipativo} propio de la cavidad, que además fija
-su energía. Con ello se llega al mapa de regímenes de operación del oscilador, cuya
-multiplicidad es la raíz de la dificultad que la segunda parte del capítulo
-—dedicada a la optimización— busca resolver.
+linealidad.
 
 \subsection{El solitón fundamental de la ecuación no lineal de Schrödinger}
 \label{sec:soliton_fundamental}
@@ -1095,7 +607,8 @@ resulta del equilibrio exacto entre los dos efectos que la componen: la dispersi
 anómala, que introduce un \emph{chirp} sobre el pulso, y la automodulación de fase,
 que introduce el \emph{chirp} opuesto. Cuando ambos se compensan punto a punto, el
 pulso se propaga sin deformarse. Este pulso invariante es el \emph{solitón
-fundamental}, de perfil secante hiperbólico,
+fundamental}, de perfil secante hiperbólico \cite{HasegawaTappert1973},
+\cite[sec.~4.3]{Keller2022},
 %
 \begin{equation}
     A(z,t) = A_0\,\operatorname{sech}\!\left(\frac{t}{\tau}\right)
@@ -1104,13 +617,13 @@ fundamental}, de perfil secante hiperbólico,
 \end{equation}
 %
 que al sustituirse en la NLSE~\eqref{eq:nlse} impone una relación fija entre su
-amplitud de pico $A_0$, su duración $\tau$ y los parámetros del medio —la condición
-conocida como \emph{teorema del área} del solitón—,
+amplitud de pico $A_0$, su duración $\tau$ y los parámetros del medio (la condición
+conocida como \emph{teorema del área} del solitón),
 %
 \begin{equation}
-    \delta_0\,A_0^{2} = \frac{2\,D_0}{\tau^{2}},
+    \delta_0\,A_0^{2} = \frac{2\,|D_0|}{\tau^{2}},
     \qquad\text{equivalentemente}\qquad
-    A_0^{2}\,\tau^{2} = \frac{2\,D_0}{\delta_0},
+    A_0^{2}\,\tau^{2} = \frac{2\,|D_0|}{\delta_0},
     \label{eq:area_soliton}
 \end{equation}
 %
@@ -1118,8 +631,12 @@ con $\kappa = D_0/\tau^2$ el desplazamiento de fase por unidad de longitud. La
 ecuación~\eqref{eq:area_soliton} expresa el rasgo distintivo del solitón: cuanto
 más intenso es (mayor $A_0$), más corto se vuelve (menor $\tau$); pero la NLSE, por
 sí sola, no fija ninguno de los dos por separado. Existe, por tanto, toda una
-\emph{familia continua} de solitones —uno para cada energía— y las condiciones
-iniciales deciden a cuál de ellos tiende el sistema. Es aquí donde la cavidad
+\emph{familia continua} de solitones (uno para cada energía) y las condiciones
+iniciales deciden a cuál de ellos tiende el sistema.
+% [REV-2026-11-23b] TBP (lo usa el cap. 5 para distinguir solitones de gaussianas)
+El solitón es además un pulso sin \emph{chirp}, limitado por transformada: su producto
+tiempo-ancho de banda a media altura vale $\Delta\nu\,\tau_p=0.315$, frente a $0.441$
+para un pulso gaussiano \cite[Tabla~2.1]{Keller2022}. Es aquí donde la cavidad
 introduce una diferencia esencial.
 
 \subsection{El solitón disipativo en la cavidad}
@@ -1131,23 +648,35 @@ a través de la ganancia y de las pérdidas. La ecuación maestra de Haus
 naturaleza del pulso estacionario cambia de forma cualitativa. Mientras el solitón
 conservativo pertenece a una familia continua, el \textbf{solitón disipativo} es un
 \emph{punto fijo aislado}: el balance entre la energía que aporta la ganancia
-saturada y la que sustraen las pérdidas —lineales, del modulador o del absorbente
-saturable— selecciona una única amplitud y una única duración de entre toda la
+saturada y la que sustraen las pérdidas (lineales, del modulador o del absorbente
+saturable) selecciona una única amplitud y una única duración de entre toda la
 familia~\eqref{eq:area_soliton}. Dicho de otro modo, la forma del pulso la fija el
 equilibrio dispersión\-/no linealidad, pero su energía la fija el equilibrio
-ganancia\-/pérdida \cite{GreluAkhmediev2012}. El pulso resulta así doblemente
-estabilizado y, en consecuencia, robusto frente a perturbaciones: apartado de su
-estado de equilibrio, el sistema disipativo tiende a regresar a él, expulsando el
-exceso de energía al continuo que se atenúa en cada tránsito
-(Sección~\ref{sec:ml_activo_soliton}).
+ganancia\-/pérdida \cite{GreluAkhmediev2012} (Figura~\ref{fig:doble-balance}). El
+pulso resulta así doblemente estabilizado y, en consecuencia, robusto frente a
+perturbaciones: apartado de su estado de equilibrio, el sistema disipativo tiende
+a regresar a él, expulsando el exceso de energía al continuo que se atenúa en cada
+tránsito (Sección~\ref{sec:ml_activo_soliton}).
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.78\textwidth]{chapters/images/ch3/fig_doble_balance_v2.pdf}
+    \caption[El doble balance del solitón disipativo]{El solitón disipativo se
+    sostiene por dos equilibrios simultáneos. El equilibrio \emph{conservativo}
+    entre dispersión (GVD) y no linealidad (Kerr/SPM) fija la forma y la fase del
+    pulso; el equilibrio \emph{disipativo} entre ganancia y pérdidas (filtrado,
+    absorbente y acoplamiento de salida) fija su energía. La doble estabilización
+    convierte al pulso en un punto fijo aislado y robusto: solo existe cuando ambos
+    balances se satisfacen a la vez.}
+    \label{fig:doble-balance}
+\end{figure}
 
 Este mecanismo es común a los dos tipos de bloqueo de modos analizados: tanto el
 modulador activo como el absorbente saturable pasivo, al combinarse con dispersión
 anómala y SPM, dan lugar a un solitón disipativo; su papel se reduce a estabilizar
 el pulso y a suprimir el continuo, mientras que la forma la dicta la NLSE. La
 diferencia entre ambos regímenes es, por ello, más de eficiencia de conformado que
-de naturaleza del pulso resultante, lo que justifica tratarlos bajo un mismo marco
-—la ecuación maestra— y compararlos en igualdad de condiciones, como hará esta
+de naturaleza del pulso resultante, lo que justifica tratarlos bajo un mismo marco, la ecuación maestra, y compararlos en igualdad de condiciones, como hará esta
 tesis.
 
 \subsection{Regímenes de operación y multiestabilidad}
@@ -1155,29 +684,28 @@ tesis.
 
 La existencia de una solución solitónica estable no garantiza que el oscilador
 opere en ella. Para un mismo diseño de cavidad, distintos ajustes de los
-parámetros —bombeo, dispersión neta, profundidad de modulación, pérdidas— conducen
-a regímenes de operación cualitativamente diferentes, entre los que cabe destacar:
+parámetros (bombeo, dispersión neta, profundidad de modulación, pérdidas) conducen
+a regímenes de operación cualitativamente diferentes
+\cite{GreluAkhmediev2012}, \cite[sec.~9.7]{Keller2022}, resumidos en la
+Tabla~\ref{tab:regimenes}.
 
-\begin{itemize}
-    \item \textbf{Onda continua (CW).} Por debajo del umbral de bloqueo de modos,
-    el láser emite de forma continua o cuasi\-/continua, sin formación de pulsos.
-
-    \item \textbf{\emph{Q-switching} y \emph{Q-switched mode-locking}.} Una
-    relación desfavorable entre ganancia y pérdidas saturables desencadena
-    inestabilidades de relajación: la energía se libera en trenes de pulsos
-    modulados por una envolvente lenta, en lugar de un tren uniforme. Es el régimen
-    que un diseño estable debe evitar.
-
-    \item \textbf{Bloqueo de modos de un solo pulso.} El régimen deseado: un único
-    solitón disipativo circula por la cavidad y produce un tren de pulsos uniforme
-    a la tasa de repetición $f_{\text{rep}}=1/T_R$.
-
-    \item \textbf{Regímenes multipulso.} A energías intracavitarias altas, un solo
-    solitón deja de ser la configuración preferida y el sistema se fragmenta en
-    varios pulsos, que pueden distribuirse uniformemente (bloqueo de modos
-    armónico) o ligarse en estructuras estables (estados ligados o «moléculas de
-    solitones»).
-\end{itemize}
+% [REV-2026-11-23] lista en prosa -> tabla; última columna enlaza con el clasificador (cap. 4)
+\begin{table}[h]
+    \centering
+    \small
+    \caption{Regímenes de operación del oscilador de bloqueo de modos y su tratamiento en el clasificador del Capítulo~\ref{ch:Methodology}.}
+    \label{tab:regimenes}
+    \begin{tabular}{p{0.24\textwidth} p{0.40\textwidth} p{0.27\textwidth}}
+        \toprule
+        Régimen & Rasgo físico & Tratamiento en esta tesis \\
+        \midrule
+        Onda continua (CW) & Por debajo del umbral de bloqueo de modos; emisión continua o cuasi\-/continua, sin pulsos & Clase \emph{onda continua} \\
+        \emph{Q-switching} y \emph{Q-switched mode-locking} & Inestabilidad de relajación: el tren de pulsos queda modulado por una envolvente lenta & Se excluye con el margen de estabilidad~\eqref{eq:restriccion_qml} \\
+        Un solo pulso (deseado) & Un único solitón disipativo por ronda; tren uniforme a $f_{\text{rep}}=1/T_R$ & Clase \emph{monopulso} \\
+        Multipulso & A energías altas el pulso se fragmenta: pulsos repartidos (bloqueo armónico) o ligados («moléculas de solitones») & Clase \emph{multipulso} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
 
 El hecho decisivo es que varios de estos regímenes pueden ser
 \emph{simultáneamente} estables para un mismo punto del espacio de parámetros: el
@@ -1186,10 +714,7 @@ perillas, sino también de la historia de arranque. Esta \emph{multiestabilidad}
 unida a la naturaleza fuertemente no lineal y acoplada de los términos de la
 ecuación maestra, hace que la relación entre los parámetros de la cavidad y la
 calidad del pulso emitido sea un paisaje accidentado, con múltiples óptimos locales
-y fronteras abruptas entre regímenes. Caracterizar ese paisaje —qué variables lo
-definen y cómo medir la calidad de un pulso sobre él— es el objeto de la
-Sección~\ref{sec:espacio_parametros}, con la que se cierra la parte física del
-capítulo y se abre el problema de optimización que aborda la segunda parte.
+y fronteras abruptas entre regímenes.
 
 
 % ============================================================
@@ -1202,32 +727,26 @@ capítulo y se abre el problema de optimización que aborda la segunda parte.
 \section{Espacio de parámetros y función de mérito}
 \label{sec:espacio_parametros}
 
-Las secciones anteriores han mostrado que el pulso que emite un oscilador de
-bloqueo de modos queda determinado por un conjunto de parámetros físicos —los
-coeficientes de la ecuación maestra de Haus (Sección~\ref{sec:haus})— y que, para
-un mismo diseño de cavidad, distintos valores de esos parámetros conducen a
-regímenes de operación cualitativamente distintos
-(Sección~\ref{sec:regimenes}). Operar el láser en el régimen deseado equivale, por
+El pulso que emite un oscilador de bloqueo de modos queda determinado por los coeficientes de la ecuación maestra de Haus (Sección~\ref{sec:haus}), y para un mismo diseño de cavidad distintos valores de esos parámetros conducen a regímenes de operación cualitativamente distintos (Sección~\ref{sec:regimenes}). Operar el láser en el régimen deseado equivale, por
 tanto, a elegir un punto en un \emph{espacio de parámetros}; hacerlo de forma
-óptima —obtener el mejor pulso posible— exige plantear un problema de optimización.
-Esta sección lo formula en sus tres ingredientes: qué variables se ajustan, qué
-estructura tiene el espacio sobre el que se busca y cómo se mide la calidad de un
-pulso. Con ello se cierra la parte física del capítulo y se define exactamente el
-objetivo que optimizarán los tres métodos de la segunda parte.
+óptima, obtener el mejor pulso posible, exige plantear un problema de optimización.
+
 
 \subsection{Las variables de decisión}
 \label{sec:variables}
 
 Los parámetros que gobiernan la ecuación maestra y que resultan ajustables en la
 práctica constituyen las \emph{variables de decisión} del problema. Los más
-relevantes son la ganancia saturada $g$ —fijada por la potencia de bombeo—, la
-dispersión neta por ronda $D$ —controlada mediante pares de prismas o espejos
-\emph{chirpeados}—, el coeficiente de automodulación de fase $\delta$, las pérdidas
-lineales $l$ —dominadas por la transmisión del acoplador de salida— y los
+relevantes son la ganancia de pequeña señal $g_0$ (fijada por la potencia de bombeo,
+y de la que resulta la ganancia saturada $g$), la
+dispersión neta por ronda $D$ (controlada mediante pares de prismas o espejos
+\emph{chirpeados}), el coeficiente de automodulación de fase $\delta$, las pérdidas
+lineales $l$ (dominadas por la transmisión del acoplador de salida) y los
 parámetros del mecanismo de bloqueo de modos: la profundidad $M$ y la frecuencia
 $\omega_m$ de modulación en el régimen activo, o la pérdida no saturada $q_0$, la
 intensidad de saturación $I_A$ y el tiempo de relajación $\tau_A$ del absorbente en
-el pasivo. Agrupando las variables efectivamente ajustables en un vector de
+el pasivo (este último no interviene en el absorbente rápido ideal que se usa en esta
+tesis; Sección~\ref{sec:absorbente_tipos}). Agrupando las variables efectivamente ajustables en un vector de
 decisión,
 %
 \begin{equation}
@@ -1247,15 +766,14 @@ del problema de optimización.
 \label{sec:estructura_espacio}
 
 Aunque la dimensión $n$ del espacio~\eqref{eq:vector_decision} es moderada, su
-estructura es la que vuelve difícil el problema. Tres rasgos, todos heredados de la
-física de las secciones precedentes, lo caracterizan. En primer lugar, es
+estructura es la que vuelve difícil el problema. Tres rasgos, todos heredados de la física del oscilador, lo caracterizan. En primer lugar, es
 \emph{fuertemente acoplado}: como los términos de la ecuación maestra interactúan
 de forma no lineal, modificar un parámetro altera el valor óptimo de los demás, de
 modo que las variables no pueden ajustarse una a una de manera independiente. En
 segundo lugar, es \emph{no convexo y multiestable}: la coexistencia de regímenes
 estables para un mismo punto (Sección~\ref{sec:regimenes}) se traduce en un paisaje
 con múltiples óptimos locales, separados por fronteras abruptas entre regímenes
-—transiciones a onda continua, a \emph{Q-switching} o a operación multipulso— que
+(transiciones a onda continua, a \emph{Q-switching} o a operación multipulso) que
 introducen discontinuidades y regiones prohibidas. En tercer lugar, y de manera
 decisiva para la metodología, es un problema de \emph{caja negra}: la relación
 entre los parámetros $\mathbf{p}$ y el pulso resultante no se conoce en forma
@@ -1263,14 +781,13 @@ cerrada, sino únicamente a través de la integración numérica de la ecuación
 (el simulador de la cavidad), que no proporciona derivadas de la salida respecto de
 las variables.
 
-Estos tres rasgos —acoplamiento, multiplicidad de óptimos y ausencia de
-gradiente— descartan tanto el ajuste manual, que no escala, como los métodos de
+Estos tres rasgos (acoplamiento, multiplicidad de óptimos y ausencia de
+gradiente) descartan tanto el ajuste manual, que no escala, como los métodos de
 optimización basados en gradiente, que quedarían atrapados en el óptimo local más
 próximo o se detendrían en las fronteras de régimen. Justifican, en cambio, el
 recurso a métodos de optimización \emph{globales} y \emph{sin derivadas}, capaces
 de explorar el espacio a partir únicamente de evaluaciones de la función objetivo
-\cite{Genty2021,BruntonKutz2022}. Definir esa función objetivo es el último paso
-que resta para plantear el problema por completo.
+\cite{Genty2021,BruntonKutz2022}. 
 
 \subsection{La función de mérito}
 \label{sec:funcion_merito}
@@ -1280,7 +797,7 @@ $\mathbf{p}$ un valor que mida la calidad del pulso que produce. Esta \emph{func
 de mérito} $F(\mathbf{p})$ se construye a partir de los observables del pulso
 estacionario que devuelve el simulador: su duración $\tau_p$, su energía $E$ o
 intensidad de pico, su ancho espectral, la proximidad de su forma al límite de
-transformada y —de particular importancia en un sistema multiestable— su
+transformada y, de particular importancia en un sistema multiestable, su
 \emph{estabilidad}, entendida como la ausencia de fluctuaciones de pulso a pulso y
 la robustez frente a pequeñas perturbaciones de los parámetros. El problema de
 optimización se enuncia entonces como la búsqueda del punto que extrema el mérito
@@ -1294,38 +811,16 @@ dentro de la región admisible,
 sujeto a las restricciones que imponen los rangos físicos y el régimen de operación
 deseado.
 
+% [REV-2026-11-23] una sola función de mérito, la del cap. 4 (diagnóstico §2.3)
 La construcción concreta de $F(\mathbf{p})$ admite dos enfoques. En el enfoque
 \emph{escalar}, los distintos objetivos se combinan en un único número mediante una
-suma ponderada, penalizando además las configuraciones que caen en regímenes
-indeseados (onda continua, \emph{Q-switching} o multipulso). Un ejemplo genérico,
-orientado a obtener el pulso más corto y energético que sea estable, es
-%
-\begin{equation}
-    F(\mathbf{p}) = w_1\,\frac{1}{\tau_p}
-    + w_2\,E - w_3\,\sigma
-    - \Pi(\mathbf{p}),
-    \label{eq:merito_escalar}
-\end{equation}
-%
-donde $\sigma$ cuantifica la inestabilidad del tren de pulsos, $\Pi(\mathbf{p})$ es
-un término de penalización que anula el mérito fuera del régimen de bloqueo de
-modos de un solo pulso, y los pesos $w_i$ fijan el compromiso relativo entre
-objetivos. En el enfoque \emph{multiobjetivo}, en cambio, no se colapsan los
-objetivos en un escalar: se busca el frente de Pareto de soluciones no dominadas,
-que expone explícitamente los compromisos entre metas en conflicto —un pulso más
-corto suele ser menos energético o menos estable—. La elección entre ambos
-enfoques, así como la forma precisa de $F$ y de sus pesos, es una decisión
-metodológica que se concreta en el Capítulo~\ref{ch:Methodology}.
-
-Lo esencial para el hilo del capítulo es que la función de mérito $F(\mathbf{p})$
-definida aquí es, exactamente, el objetivo que los tres métodos de la segunda parte
-—el algoritmo genético (Sección~\ref{sec:ga}), la red neuronal acoplada al
-algoritmo genético (Sección~\ref{sec:nnga}) y la optimización por enjambre de
-partículas (Sección~\ref{sec:pso})— tratarán de maximizar, evaluándola a través del
-mismo simulador de la cavidad. La física del oscilador queda así traducida en un
-problema de optimización bien planteado —variables~\eqref{eq:vector_decision},
-espacio $\mathcal{P}$ y objetivo~\eqref{eq:problema_optimizacion}—, sobre el que la
-segunda parte de este capítulo despliega las herramientas para resolverlo.
+suma ponderada, y se penalizan las configuraciones que caen en regímenes indeseados
+(onda continua, \emph{Q-switching} o multipulso). En el enfoque \emph{multiobjetivo},
+en cambio, no se colapsan los objetivos en un escalar: se busca el frente de Pareto
+de soluciones no dominadas, que expone explícitamente los compromisos entre metas en
+conflicto (un pulso más corto suele ser menos energético o menos estable). Esta tesis
+adopta el enfoque escalar; la forma de $F$, sus pesos y la penalización se fijan en la
+Sección~\ref{sec:funcion_merito_op}.
 
 
 % ============================================================
@@ -1337,34 +832,23 @@ segunda parte de este capítulo despliega las herramientas para resolverlo.
 \section{El problema de optimización: formulación y panorama}
 \label{sec:opt_formulacion}
 
-La primera parte de este capítulo tradujo la física del oscilador en un problema de
-optimización bien planteado: hallar el vector de parámetros
-$\mathbf{p}^{\star}\in\mathcal{P}$ que maximiza la función de mérito
-$F(\mathbf{p})$ (Sección~\ref{sec:espacio_parametros},
-ecuación~\eqref{eq:problema_optimizacion}). Esta segunda parte presenta las
-herramientas para resolverlo. Antes de describir cada método por separado conviene
-fijar el marco común que comparten y las razones por las que se han seleccionado
-precisamente estos tres.
+El problema a resolver ya está planteado: hallar el vector de parámetros $\mathbf{p}^{\star}\in\mathcal{P}$ que maximiza la función de mérito $F(\mathbf{p})$ (Sección~\ref{sec:espacio_parametros}, ecuación~\eqref{eq:problema_optimizacion}). 
 
-La estructura del problema —expuesta en la Sección~\ref{sec:estructura_espacio}—
-condiciona la clase de método admisible. Como la aplicación
-$\mathbf{p}\mapsto F(\mathbf{p})$ solo es accesible a través de la integración
-numérica de la ecuación maestra, no se dispone de una expresión analítica ni del
-gradiente $\nabla F$; y como el paisaje es no convexo y multiestable, cualquier
-estrategia puramente local quedaría atrapada en el óptimo más cercano. El problema
-pertenece, por tanto, a la clase de la \emph{optimización global sin derivadas},
-para la que se han desarrollado las técnicas \emph{metaheurísticas}: procedimientos
-que exploran el espacio guiándose únicamente por los valores de la función objetivo,
-sin exigirle regularidad alguna \cite{BruntonKutz2022}. Todos comparten un mismo
+% [REV-2026-11-23b] §3.8: se quita la repetición de §3.7.2
+Por los rasgos expuestos en la Sección~\ref{sec:estructura_espacio}, el problema
+pertenece a la clase de la \emph{optimización global sin derivadas}, para la que se
+han desarrollado las técnicas \emph{metaheurísticas}: procedimientos que exploran el
+espacio guiándose únicamente por los valores de la función objetivo
+\cite{BruntonKutz2022}. Todos comparten un mismo
 vocabulario. Una \emph{solución candidata} es un punto $\mathbf{p}\in\mathcal{P}$;
 \emph{evaluar} esa solución significa ejecutar una simulación completa de la cavidad
 para obtener $F(\mathbf{p})$, que es con diferencia la operación más costosa del
 proceso. En consecuencia, el desempeño de un método no se mide tanto por su tiempo
 de cómputo como por el \emph{número de evaluaciones} que necesita para converger:
 el presupuesto de simulaciones es el recurso escaso. Y todo método debe equilibrar
-la \emph{exploración} —muestrear regiones nuevas del espacio para no perder óptimos
-distantes— con la \emph{explotación} —refinar las mejores soluciones ya
-encontradas—, un compromiso cuya gestión distingue a unas familias de otras.
+la \emph{exploración} (muestrear regiones nuevas del espacio para no perder óptimos
+distantes) con la \emph{explotación} (refinar las mejores soluciones ya
+encontradas), un compromiso cuya gestión distingue a unas familias de otras.
 
 Sobre este marco común, la tesis compara tres estrategias que representan enfoques
 conceptualmente distintos de la búsqueda global. La primera, el \textbf{algoritmo
@@ -1380,9 +864,9 @@ simulaciones. La tercera, la \textbf{optimización por enjambre de partículas} 
 Sección~\ref{sec:pso}), representa la \emph{inteligencia de enjambre}: una población
 de partículas que se desplazan por el espacio compartiendo información sobre las
 mejores posiciones halladas. Que ninguna de las tres sea universalmente superior a
-las demás —cada una destaca en problemas de estructura distinta— es precisamente lo
+las demás, cada una destaca en problemas de estructura distinta, es precisamente lo
 que motiva el estudio comparativo sistemático que persigue esta tesis
-\cite{Genty2021}. Las secciones siguientes desarrollan los fundamentos de cada una.
+\cite{Genty2021}.
 
 
 % ============================================================
@@ -1401,13 +885,13 @@ extendido en la autooptimización de láseres ultrarrápidos
 largo de sucesivas generaciones, un conjunto de soluciones candidatas hacia
 regiones de mérito creciente.
 
-\subsection{La metáfora evolutiva}
+% [2026-11-23] subsección «La metáfora evolutiva» fusionada con la introducción de §3.9
 \label{sec:ga_metafora}
 
 El GA opera sobre una \emph{población} de soluciones candidatas en lugar de sobre un
 único punto. Cada \emph{individuo} de la población es un vector de parámetros
-$\mathbf{p}$ (Sección~\ref{sec:variables}) —el análogo de un cromosoma, cuyos
-\emph{genes} son los parámetros de la cavidad— y su \emph{aptitud} (\emph{fitness})
+$\mathbf{p}$ (Sección~\ref{sec:variables}), el análogo de un cromosoma, cuyos
+\emph{genes} son los parámetros de la cavidad, y su \emph{aptitud} (\emph{fitness})
 es el valor de la función de mérito $F(\mathbf{p})$ que devuelve el simulador. Al
 mantener simultáneamente muchas soluciones repartidas por el espacio, el método
 muestrea en paralelo distintas cuencas de atracción, lo que le confiere su carácter
@@ -1436,7 +920,10 @@ mejores soluciones halladas.
     %
     con $N$ el tamaño de la población; variantes como la selección por torneo
     persiguen el mismo fin de forma más robusta frente a diferencias extremas de
-    aptitud. Es el operador que dirige la \emph{explotación}.
+    aptitud y, a diferencia de~\eqref{eq:ga_seleccion}, siguen definidas cuando la
+    aptitud es negativa, como ocurre con un mérito penalizado.
+    Es el operador que dirige la \emph{explotación}.
+    % [REV-2026-11-23] frase anterior añadida (diagnóstico §2.2)
 
     \item \textbf{Cruce.} Combina los genes de dos progenitores para engendrar nueva
     descendencia, de modo que un hijo hereda parámetros de ambos. En codificación
@@ -1446,7 +933,7 @@ mejores soluciones halladas.
     explora el interior de la región que ocupan los buenos individuos.
 
     \item \textbf{Mutación.} Perturba aleatoriamente algunos genes de la
-    descendencia —por ejemplo, sumando un incremento gaussiano a un parámetro—, con
+    descendencia (por ejemplo, sumando un incremento gaussiano a un parámetro), con
     baja probabilidad. Introduce diversidad genética nueva, impide la convergencia
     prematura a un óptimo local y sostiene la \emph{exploración} del espacio.
 \end{itemize}
@@ -1470,8 +957,7 @@ diversidad necesaria para no estancarse.
 
 La principal limitación del GA en este contexto no es su capacidad de búsqueda, sino
 su \emph{coste}: cada individuo de cada generación exige una simulación completa de
-la cavidad para evaluar su aptitud, de modo que el número total de evaluaciones
-—producto del tamaño de la población por el número de generaciones— puede ascender
+la cavidad para evaluar su aptitud, de modo que el número total de evaluaciones, producto del tamaño de la población por el número de generaciones, puede ascender
 a miles. Puesto que, como se estableció en la Sección~\ref{sec:opt_formulacion}, la
 simulación es la operación dominante del proceso, este coste es precisamente el que
 motiva la segunda estrategia: sustituir la mayoría de las llamadas al simulador por
@@ -1493,61 +979,39 @@ algoritmo genético (Sección~\ref{sec:ga}): su calidad de búsqueda es adecuada
 cada una de las miles de evaluaciones que requiere exige una simulación completa de
 la cavidad. La idea de la estrategia NN+GA es reemplazar la mayor parte de esas
 simulaciones por las predicciones de una red neuronal que ha aprendido a imitar al
-simulador —un \emph{modelo sustituto} (\emph{surrogate})— mucho más barato de
+simulador, un \emph{modelo sustituto} (\emph{surrogate}), mucho más barato de
 evaluar \cite{Baumeister2018,Genty2021}. El algoritmo genético conserva así su
 maquinaria de búsqueda, pero la alimenta con una función de aptitud aproximada y
 casi gratuita.
 
-\subsection{El perceptrón multicapa}
-\label{sec:mlp}
+\subsection{El perceptrón multicapa y su entrenamiento}
+\label{sec:mlp}\label{sec:entrenamiento}
 
-El modelo sustituto se construye con un \emph{perceptrón multicapa}, la arquitectura
-de red neuronal más elemental. Su unidad de cómputo es la \emph{neurona}, que recibe
-un vector de entradas $\mathbf{x}$, forma una combinación lineal con sus pesos
-$\mathbf{w}$ y un sesgo $b$, y aplica una función de activación no lineal $\sigma$:
-%
-\begin{equation}
-    a = \sigma\!\left(\mathbf{w}\cdot\mathbf{x} + b\right).
-    \label{eq:neurona}
-\end{equation}
-%
-Las neuronas se organizan en capas: una \emph{capa de entrada} que recibe el vector
-de parámetros de la cavidad $\mathbf{p}$, una o varias \emph{capas ocultas} que
-transforman sucesivamente la información, y una \emph{capa de salida} que entrega la
-predicción —el valor de la función de mérito $F(\mathbf{p})$, o bien los observables
-del pulso a partir de los cuales se calcula—. La no linealidad de la activación
-$\sigma$ —una función sigmoide, tangente hiperbólica o unidad lineal rectificada
-(ReLU)— es esencial: sin ella la red colapsaría a una simple transformación lineal.
-Con suficientes neuronas ocultas, una red de este tipo puede aproximar la relación
-$\mathbf{p}\mapsto F(\mathbf{p})$ con la precisión que se desee, propiedad que
-justifica su uso como sustituto del simulador.
+% [REV-2026-11-23b] §3.10.1 y §3.10.2 condensadas en dos párrafos (relevancia_cap3.md)
+% FALTA CITA (pase 1): Hornik1989 para la aproximación universal; Rumelhart1986 para la retropropagación
+El modelo sustituto se construye con un \emph{perceptrón multicapa}: capas de neuronas
+en las que cada una aplica una función de activación no lineal a una combinación
+lineal de sus entradas. La capa de entrada recibe el vector de parámetros
+$\mathbf{p}$ y la de salida entrega la predicción, que puede ser el propio mérito $F$ o
+los observables del pulso a partir de los cuales se calcula. Con suficientes neuronas
+ocultas, una red de este tipo puede aproximar la relación entre parámetros y salida
+con la precisión que se desee, propiedad que justifica su uso como sustituto del
+simulador.
 
-\subsection{Entrenamiento: aprendizaje del mapeo}
-\label{sec:entrenamiento}
-
-Para que la red aproxime al simulador es necesario ajustar sus pesos y sesgos
-—colectivamente, sus parámetros $\boldsymbol{\theta}$— mediante \emph{aprendizaje
-supervisado}. Se genera primero un conjunto de datos ejecutando el simulador sobre
-un muestreo del espacio de parámetros, obteniendo pares
-$\{(\mathbf{p}^{(k)}, F(\mathbf{p}^{(k)}))\}$. El entrenamiento busca los parámetros
-$\boldsymbol{\theta}$ que minimizan una función de pérdida que mide la discrepancia
-entre la predicción de la red $\hat{F}_{\boldsymbol{\theta}}$ y el valor real, por
-ejemplo el error cuadrático medio,
-%
+Los pesos y sesgos de la red, $\boldsymbol{\theta}$, se ajustan por aprendizaje
+supervisado sobre pares $\{(\mathbf{p}^{(k)}, \mathbf{y}^{(k)})\}$ obtenidos con el
+simulador, donde $\mathbf{y}$ es la salida que la red debe aprender, minimizando una
+función de pérdida como el error cuadrático medio,
 \begin{equation}
     \mathcal{L}(\boldsymbol{\theta})
     = \frac{1}{K}\sum_{k=1}^{K}
-    \bigl[\,\hat{F}_{\boldsymbol{\theta}}(\mathbf{p}^{(k)})
-    - F(\mathbf{p}^{(k)})\,\bigr]^2 .
+    \bigl\|\,\hat{\mathbf{y}}_{\boldsymbol{\theta}}(\mathbf{p}^{(k)})
+    - \mathbf{y}^{(k)}\,\bigr\|^2 .
     \label{eq:perdida_mse}
 \end{equation}
-%
-La minimización se realiza por descenso de gradiente, calculando
-$\nabla_{\boldsymbol{\theta}}\mathcal{L}$ de forma eficiente mediante el algoritmo de
-\emph{retropropagación}, que propaga el error desde la capa de salida hacia atrás a
-través de la red. El conjunto de datos se divide en subconjuntos de entrenamiento y
-validación, de modo que la capacidad de \emph{generalización} —el desempeño sobre
-puntos no vistos— pueda vigilarse y evitarse el sobreajuste.
+por descenso de gradiente con retropropagación del error. Una parte de los datos se
+reserva para validación, de modo que pueda vigilarse la generalización a puntos no
+vistos y evitarse el sobreajuste.
 
 \subsection{El modelo sustituto y el acoplamiento NN+GA}
 \label{sec:surrogate_acoplamiento}
@@ -1565,22 +1029,20 @@ se dispare.
 El acoplamiento introduce, sin embargo, un riesgo característico: si la red comete
 errores en regiones poco representadas del espacio, el algoritmo genético puede
 converger hacia soluciones que parecen excelentes para el sustituto pero mediocres
-para el simulador real —el optimizador «explota» los errores del modelo—. Para
+para el simulador real (el optimizador «explota» los errores del modelo). Para
 contenerlo, el esquema incorpora una \emph{verificación periódica}: las mejores
 soluciones que propone el GA sobre el sustituto se reevalúan con el simulador
-auténtico, y los nuevos pares $(\mathbf{p}, F(\mathbf{p}))$ así obtenidos se añaden
+auténtico, y los nuevos pares $(\mathbf{p}, \mathbf{y})$ así obtenidos se añaden
 al conjunto de entrenamiento para reajustar la red. Este bucle de refinamiento
-—búsqueda barata sobre el sustituto, verificación selectiva con el simulador,
-reentrenamiento— concentra el escaso presupuesto de simulaciones en las regiones
+(búsqueda barata sobre el sustituto, verificación selectiva con el simulador,
+reentrenamiento) concentra el escaso presupuesto de simulaciones en las regiones
 que de verdad importan, las de mayor mérito.
 
 El objetivo declarado de la estrategia NN+GA es, por tanto, alcanzar soluciones de
 calidad comparable a las del algoritmo genético puro con una fracción de las
 simulaciones. Si ese ahorro se materializa sin sacrificar la calidad del pulso, y
 bajo qué condiciones, es una de las preguntas empíricas que el estudio comparativo
-de esta tesis busca responder (Capítulo~\ref{ch:Methodology}). La tercera estrategia
-aborda el mismo problema desde una filosofía de búsqueda distinta, la inteligencia
-de enjambre, y es el objeto de la sección siguiente.
+de esta tesis busca responder (Capítulo~\ref{ch:Methodology}).
 
 
 % ============================================================
@@ -1606,7 +1068,7 @@ láseres de modos bloqueados está bien documentado
 
 El enjambre está formado por un conjunto de \emph{partículas}, cada una de las
 cuales representa una solución candidata mediante su \emph{posición}
-$\mathbf{x}_i$ en el espacio de parámetros —el análogo del vector $\mathbf{p}$— y se
+$\mathbf{x}_i$ en el espacio de parámetros, el análogo del vector $\mathbf{p}$, y se
 desplaza por él con una \emph{velocidad} $\mathbf{v}_i$. A diferencia de los
 individuos del algoritmo genético, que se reemplazan generación tras generación,
 las partículas persisten y se mueven, guiadas por dos fuentes de memoria. Cada
@@ -1645,17 +1107,10 @@ entre exploración y explotación: valores altos dilatan la búsqueda global, va
 bajos aceleran la convergencia local, por lo que a menudo se reduce de forma
 progresiva a lo largo de las iteraciones.
 
-\subsection{Topología, convergencia y contraste con el algoritmo genético}
+\subsection{Contraste con el algoritmo genético}
 \label{sec:pso_topologia}
 
-El comportamiento del enjambre depende también de su \emph{topología}, es decir, de
-qué partículas comparten su mejor posición con cuáles. En la topología global todas
-consultan un único $\mathbf{g}^{\text{best}}$, lo que acelera la convergencia pero
-aumenta el riesgo de estancamiento prematuro en un óptimo local; en las topologías
-locales cada partícula solo se comunica con un vecindario, lo que preserva la
-diversidad a costa de una convergencia más lenta. El proceso se detiene, como en las
-demás metaheurísticas, al agotar el presupuesto de evaluaciones o cuando el mejor
-global deja de mejorar.
+% [2026-11-23] párrafo de topología y parada eliminado: lo trata el cap. 4 (§4.5)
 
 El contraste con el algoritmo genético es instructivo y es una de las razones para
 incluir ambos en el estudio. El GA genera nuevas soluciones recombinando y mutando
@@ -1665,50 +1120,8 @@ mejores posiciones conocidas. Esta transmisión directa de información suele
 conferir al PSO una convergencia inicial rápida y una implementación con menos
 operadores que ajustar, aunque a cambio puede ser más propenso a concentrarse
 prematuramente en torno a un óptimo local si la diversidad no se preserva. Que estas
-diferencias se traduzcan en ventajas medibles —en calidad del pulso, número de
-evaluaciones o robustez— sobre la dinámica de \emph{mode-locking} activo y pasivo es
+diferencias se traduzcan en ventajas medibles (en calidad del pulso, número de
+evaluaciones o robustez) sobre la dinámica de \emph{mode-locking} activo y pasivo es
 justamente la comparación que esta tesis se propone dilucidar.
 
-
-% ============================================================
-%  CAPITULO 3 -- MARCO TEORICO
-%  Seccion 3.12  ---  Sintesis del marco teorico (cierre)
-% ============================================================
-
-\section{Síntesis del marco teórico}
-\label{sec:sintesis_marco}
-
-Este capítulo ha recorrido, en un único arco, el camino que va de la física del
-pulso al control inteligente de la cavidad. La primera parte estableció que la
-envolvente de un pulso ultracorto evoluciona bajo el juego de la dispersión y la no
-linealidad de Kerr, sintetizado en la ecuación no lineal de Schrödinger
-(Sección~\ref{sec:propagacion}); que la cavidad moldea esa envolvente ronda tras
-ronda mediante ganancia, pérdidas y modulación, y que ese promediado por tránsito se
-condensa en la ecuación maestra de Haus (Sección~\ref{sec:haus}), el formalismo
-central del marco de modelado adoptado. A partir de ella se dedujeron los dos
-mecanismos de bloqueo de modos —activo y pasivo (Secciones~\ref{sec:ml_activo}
-y~\ref{sec:ml_pasivo})— y el objeto común que ambos producen, el solitón disipativo,
-así como el mapa de regímenes de operación y la multiestabilidad que de él resulta
-(Sección~\ref{sec:solitones}).
-
-Esa multiestabilidad fue la que motivó la bisagra del capítulo: la traducción de la
-física del oscilador en un problema de optimización bien planteado
-(Sección~\ref{sec:espacio_parametros}), definido por un vector de parámetros de
-decisión, un espacio de búsqueda no convexo y de caja negra, y una función de mérito
-que cuantifica la calidad del pulso. Sobre ese problema, la segunda parte desplegó
-las tres estrategias que la tesis compara: el algoritmo genético como línea base
-evolutiva (Sección~\ref{sec:ga}), la red neuronal acoplada al algoritmo genético
-como vía para abaratar la búsqueda mediante un modelo sustituto
-(Sección~\ref{sec:nnga}) y la optimización por enjambre de partículas como
-alternativa de inteligencia de enjambre (Sección~\ref{sec:pso}). Las tres persiguen
-maximizar la misma función de mérito evaluada por el mismo simulador, lo que las
-hace directamente comparables.
-
-Con las herramientas físicas y computacionales así dispuestas, queda planteado el
-terreno sobre el que se construye el resto del trabajo. El
-Capítulo~\ref{ch:Methodology} las pone a operar de forma concreta y reproducible:
-describe el modelo numérico de la cavidad, fija la función de mérito y los rangos de
-los parámetros, y detalla la implementación de cada uno de los tres métodos y el
-diseño del experimento comparativo con el que se responderá a la pregunta de
-investigación.
-
+% [2026-11-23] Sección «Síntesis del marco teórico» eliminada (andamiaje, obs. 3).

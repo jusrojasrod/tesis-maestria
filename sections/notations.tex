@@ -11,16 +11,23 @@
 
 \section*{Notaciones}
 
-A lo largo del texto se adopta el sistema de unidades $\hbar = 1$, de modo que
-energía y frecuencia se expresan en las mismas unidades. % <-- AJUSTA si no aplica a tu caso.
-Los operadores se denotan con un acento circunflejo ($\hat{a}$, $\hat{\sigma}$),
-y su valor esperado se escribe $\langle \hat{a} \rangle$. Se emplea la notación
-habitual de la teoría de conjuntos: $\mathbb{R}$ para los números reales y
-$\mathbb{C}$ para los complejos. Los vectores y matrices se escriben en negrita
-($\mathbf{x}$, $\mathbf{W}$), y la transpuesta se indica con el superíndice
-$^{\mathsf{T}}$.
-% AÑADE aquí cualquier otra convención propia de tu trabajo
-% (parámetros del láser, hiperparámetros del modelo de aprendizaje, etc.).
+El tratamiento es \emph{clásico}: la dinámica del campo intracavitario se describe
+mediante la ecuación maestra de Haus para la envolvente compleja lentamente variable
+$A(T,t)$, sin recurrir a operadores cuánticos. Se distinguen dos escalas temporales:
+el \emph{tiempo lento} $T$, que numera las vueltas de cavidad, y el \emph{tiempo
+rápido} $t$, que resuelve el perfil del pulso dentro de una vuelta. Las magnitudes
+físicas se expresan en unidades del Sistema Internacional y sus submúltiplos
+habituales en óptica ultrarrápida: los tiempos en picosegundos (ps) o femtosegundos
+(fs), las energías de pulso en nanojulios (nJ), las potencias en vatios (W) y la
+dispersión de la velocidad de grupo en ps$^2$, con la convención de signos de Keller y Kärtner (dispersión anómala para $D<0$); las pérdidas, la modulación y la
+ganancia de señal pequeña son adimensionales.
+
+Se emplea la notación habitual de la teoría de conjuntos: $\mathbb{R}$ para los
+números reales y $\mathbb{C}$ para los complejos. Los vectores y matrices se escriben
+en negrita ($\mathbf{p}$, $\mathbf{W}$) y la transpuesta se indica con el superíndice
+$^{\mathsf{T}}$. En particular, $\mathbf{p}$ denota el vector de parámetros de
+decisión que optimizan los algoritmos, y $F(\mathbf{p})$ la función de mérito escalar
+que evalúan (Sección~\ref{sec:funcion_merito_op}).
 
 \section*{Lista de acrónimos}
 

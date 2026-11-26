@@ -1,3 +1,34 @@
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract} % Añade "Abstract" a la Tabla de Contenido
-This is where English abstract will go.
+
+Producing the pulse an application requires from an ultrafast laser amounts to fixing the
+parameter configuration of its cavity, a black-box, non-convex and multistable optimization
+problem for which traditional tuning methods fall short. The literature has responded with
+nature-inspired algorithms and machine-learning techniques, but leaves two gaps: it has
+concentrated almost entirely on the passive mode-locking regime, leaving the active one
+underexplored, and it is organized as a collection of isolated case studies, without
+comparisons that hold the laser, the parameter space and the objective function fixed while
+varying only the algorithm. This thesis addresses both gaps through a controlled comparative
+study of three gradient-free strategies —a genetic algorithm (GA), a hybrid with a neural
+surrogate (NN+GA), and particle swarm optimization (PSO)— on a Haus master-equation simulator
+validated against analytical solutions, across the active and passive regimes, under a single
+merit function and common metrics of quality, cost and robustness.
+
+Over a matrix of sixty independent runs with non-parametric statistical testing, the three
+strategies reach feasible solutions, but the preferable method depends on the regime. In the active regime, PSO significantly dominates in quality, dispersion,
+convergence speed and optimum robustness, associated with stronger soliton shortening; in the passive regime, PSO and GA are statistically
+tied. The neural surrogate matches the GA in the active regime using $5{.}7$ times fewer
+simulator evaluations and sacrifices quality in the passive one, although a paired control
+shows that, at that budget, its contribution cannot be distinguished from that of its own
+initial sample. A single factor —the shape of each regime's optimization landscape,
+regular in the active case and multistable in the passive one— accounts for all three
+findings, and local robustness emerges as a comparison dimension that discriminates between
+methods when quality alone does not. The work, carried out in simulation, contributes a
+reproducible framework and evidence that the active regime is, for this family of methods, the
+more tractable one; experimental validation and the extension to deep reinforcement learning
+are left as future work.
+
+\vspace{1em}
+\noindent\textbf{Keywords:} ultrafast lasers, mode-locking, gradient-free optimization,
+genetic algorithm, particle swarm optimization, neural surrogate models, Haus master
+equation, machine learning.
